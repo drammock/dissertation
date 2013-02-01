@@ -1,4 +1,4 @@
-diss
+dissertation
 ====
 
-my dissertation
+my dissertation (in progress).
