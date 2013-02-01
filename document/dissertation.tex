@@ -1,0 +1,85 @@
+% !TEX TS-program = xelatex
+% !TEX encoding = UTF-8
+\documentclass[12pt,oneside]{report}
+\usepackage[letterpaper, margin=1in]{geometry} % smaller margins
+\usepackage[parfill]{parskip} % begin paragraphs with empty line, not an indent
+\usepackage[compact]{titlesec}
+%\usepackage{minted} %\usemintedstyle{default}
+%\usepackage{fancyhdr} \pagestyle{fancy} \fancyhf{} %\lhead[]{} \chead[]{} \rhead[]{} \lfoot[]{} \cfoot[]{\fancyplain{}{\osf \thepage}} \rfoot[]{}  %\cmd[oddpage]{evenpage}
+%\usepackage[sort&compress, numbers, super]{natbib}
+\usepackage{natbib}
+\usepackage{graphicx, color, url, fontspec, ragged2e, setspace, paralist, float, tabularx, siunitx, array, booktabs, multicol, multirow, titling}  % \setuldepth{x}
+\usepackage[hidelinks]{hyperref}
+\hypersetup{
+    pdftitle={Prosody, familiarity and intelligibility in speech perception},
+    pdfauthor={Daniel R. McCloy},
+    pdfsubject={Linguistics},
+    pdfkeywords={phonetics, speech perception, prosody, intelligibility, familiarity},
+	pdfproducer={xelatex + bibtex on Linux},
+    bookmarksnumbered=true,
+    bookmarksopen=true,
+    bookmarksopenlevel=1,
+    colorlinks=false,
+    pdfstartview=Fit,
+    pdfpagemode=UseOutlines
+}
+
+\setmainfont[Numbers={Lining}]{Linux Libertine O} \setmonofont{M+ 1m medium} %\setmonofont{Linux Libertine Mono O}
+\newenvironment{itm}{% just like itemize, but with bullets flush left with surrounding text
+	\setlength{\leftmargini}{0.5em}%
+	\setlength{\leftmarginii}{1em}%
+	\setlength{\leftmarginiii}{1.5em}%
+	\begin{itemize}}{\end{itemize}%
+}
+\renewcommand{\labelitemi}{•} \renewcommand{\labelitemii}{◦} \renewcommand{\labelitemiii}{—} % redefine default bullets
+\renewcommand{\url}{\begingroup \def\UrlLeft{}\def\UrlRight{}\urlstyle{same}\Url}
+\newcommand{\snr}{{\scshape snr}}
+\newcommand{\rms}{{\scshape rms}}
+% formatting for section & subsection headings and table captions
+\titleformat{\chapter}{\LARGE\bfseries}{Chapter \thechapter.}{1em}{}
+\titlespacing*{\chapter}{0pt}{0pt}{0ex plus .2ex}
+\titlespacing*{\section}{0pt}{0pt}{0ex plus .2ex}
+\titlespacing*{\subsection}{0pt}{0pt}{0ex plus .2ex}
+\titlespacing*{\subsubsection}{0pt}{0pt}{0ex plus .2ex}
+
+% format various headings to match the style of section headings % SHOULD ADD HANDLING OF APPENDICES TOO
+\renewcommand{\contentsname}{\bfseries\LARGE{Table of Contents}}
+%\renewcommand{\listfigurename}{\bfseries\large\uppercase{list of figures}}%\renewcommand{\listtablename}{\bfseries\large\uppercase{list of tables}}%\renewcommand{\notesname}{\bfseries\large\uppercase{notes}}%\renewcommand{\refname}{\bfseries\large\uppercase{references}}
+\renewcommand{\abstractname}{
+	\normalfont
+	\begin{centering}
+	University of Washington\\ \vskip 3em%
+	\textbf{Abstract}\\ \vskip 3em%
+	\thetitle \\ \vskip 3em%
+	\theauthor \vskip 3em%
+	Chair of the Supervisory Committee:\\Professor Richard A. Wright\\Department of Linguistics \vskip 3em%
+	\end{centering}
+}
+
+% % % VARIOUS USEFUL UNICODE POINTS FOR COPY/PASTE % % %
+% ×±≠ — – ‣•◦◆◇■◼◾▪□◻◽▫▶▸▷▹¹²³⁴⁵⁶⁷⁸⁹⁰⁺⁻⁼⁽⁾ⁱⁿ₀₁₂₃₄₅₆₇₈₉₊₋₌₍₎ₐₑₒₓₔ ←↑→↓↔↕↚↛⇋⇌⇐⇑⇒⇓⇔⇕⇍⇏⇎⇠⇡⇢⇣⇦⇧⇨⇩⟵⟶⟷⟸⟹⟺  ∀ ∃ ∄ ∅ ∈ ∉ ⟦ ⟧ ⊂ ⊃ ⊆ ⊇ ⟨ ⟩ ⟪ ⟫ ≝ ∿ ≃ ≄ ≈ ≉ ≤ ≥ ≪ ≫ ≺ ≻ ⊀ ⊁ ≼ ≽ 𝒫
+
+\title{Prosody, familiarity and intelligibility in speech perception}
+\author{Daniel~Robert~McCloy}
+\date{2013}
+\begin{document}
+\RaggedRight
+
+\include{00_frontmatter}
+
+\begin{spacing}{2}
+\include{01_introduction}
+\include{02_background}
+\include{03_questions}
+\include{04_methods}
+\include{05_results}
+\include{06_discussion}
+\end{spacing}
+
+% % % BIBLIOGRAPHY  % % %
+\newpage
+\bibliography{dissertation}
+%\bibliographystyle{naturemag} %
+\bibliographystyle{apa-good}   
+%\bibliographystyle{apalike}   %\bibliographystyle{plain}
+\end{document}
