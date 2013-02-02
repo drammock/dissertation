@@ -1,9 +1,9 @@
 # # # # # # # # # # # # # # # # # # # # # # # #
 # PRAAT SCRIPT "AUTO NEUTRALIZE PROSODY"
-# This script automates the neutralization of prosody across several talkers, by finding the average duration of each word (based on TextGrid annotations) and the average pitch and loudness, and resynthesizes each sound file to have the same prosody.  Works best when the same sentence is read by the different talkers, and at minimum requires that the sentences have the same number of durational units (words, syllables, etc... the same number of intervals in the specified TextGrid tier).  This script borrows heavily from the script "cloneProsody" by YOON Kyuchul: 
+# This script automates the neutralization of prosody across several talkers, by finding the average duration of each word (based on TextGrid annotations) and the average pitch and loudness, and resynthesizes each sound file to have the same prosody.  Works best when the same sentence is read by the different talkers, and at minimum requires that the sentences have the same number of durational units (words, syllables, etc... i.e., the same number of intervals in the specified TextGrid tier).  This script borrows heavily from the script "cloneProsody" by YOON Kyuchul: 
 # Yoon, K. (2007). Imposing native speakers’ prosody on non-native speakers’ utterances: The technique of cloning prosody. 현대영미어문학회 (The Journal of Modern British & American Language & Literature), 25(4), 197–215.
 #
-# To work well, you will need HAND-CORRECTED pitch information about each file (PointProcess and PitchTier files)
+# To work well, you will need ACCURATE, HAND-CORRECTED pitch information about each file (PointProcess and PitchTier files)
 #
 # FORM INSTRUCTIONS
 # 
@@ -101,6 +101,7 @@ for curFile from startingFileNum to fileCount
 
 # # # # # # # # # # # # # # # # # # #
 # # # # # # # # # # # # # # # # # # #
+# SCRIPT UNFINISHED, PROGRESS MARKER #
 		select Manipulation 'curName$'
 # # # # # # # # # # # # # # # # # # #
 # # # # # # # # # # # # # # # # # # #
