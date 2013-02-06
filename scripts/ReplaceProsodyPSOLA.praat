@@ -1,15 +1,11 @@
 # # # # # # # # # # # # # # # # # # # # # # # #
 # PRAAT SCRIPT "REPLACE PROSODY WITH PSOLA"
-# This script semi-automates preparations for the replacement of prosody from one talker to another.  In particular, it opens all the sounds in a given folder (possibly matching against a textfile specifying a subset) and opens them as manipulation objects
-
-, by finding the average duration of each word (based on TextGrid annotations) and the average pitch and loudness, and resynthesizes each sound file to have the same prosody.  Works best when the same sentence is read by the different talkers, and at minimum requires that the sentences have the same number of durational units (words, syllables, etc... i.e., the same number of intervals in the specified TextGrid tier).  This script borrows heavily from the script "cloneProsody" by YOON Kyuchul: 
-# Yoon, K. (2007). Imposing native speakers’ prosody on non-native speakers’ utterances: The technique of cloning prosody. 현대영미어문학회 (The Journal of Modern British & American Language & Literature), 25(4), 197–215.
-#
-# To work well, you will need ACCURATE, HAND-CORRECTED pitch information about each file (PointProcess and PitchTier files)
+# This script semi-automates preparations for the replacement of prosody from one talker to another.  In particular, it takes as arguments two manipulation objects (with embedded sound files) and corresponding textgrid files, maps the prosody from the second onto the first, and outputs a new manipulation object and sound file.  Works best for the same sentence read by different talkers, and at minimum requires that the textgrids have the same number of durational units (at least in the tier specified).  To work well, you will need ACCURATE, HAND-CORRECTED pitch information in the manipulation objects (both in the pulses and pitch tiers).  This script borrows heavily from the script "cloneProsody" by YOON Kyuchul: 
+# Yoon, K. (2007). Imposing native speakers’ prosody on non-native speakers’ utterances: The technique of cloning prosody. 현대영미어문학회 [The Journal of Modern British & American Language & Literature], 25(4), 197–215.
 #
 # FORM INSTRUCTIONS
 # 
-# VERSION 0.1 (2012 08 16)
+# VERSION 0.1 (2013 02 05)
 #
 # CHANGELOG
 #
@@ -20,28 +16,29 @@
 
 # COLLECT ALL THE USER INPUT
 form Neutralize Prosody: Select directories & starting parameters
-	sentence Sound_directory /home/dan/Desktop/dissertation/stimuli/sounds/
-	sentence TextGrid_directory /home/dan/Desktop/dissertation/stimuli/textgrids/
-	sentence PointProcess_directory /home/dan/Desktop/dissertation/stimuli/pulse/ 
-	sentence PitchTier_directory /home/dan/Desktop/dissertation/stimuli/pitch/
-	sentence Subset_list /home/dan/Desktop/dissertation/stimuli/CorrectedSentenceNumbers.txt
-	sentence logFile /home/dan/Desktop/dissertation/stimuli/NeutralizeProsody.log
-	sentence Sound_extension .wav
-	integer textgrid_tier 1
-	integer startingFileNum 1
+	sentence Segmental_donor /home/dan/Desktop/tmpManip/xxx
+	sentence Seg_donor_textgrid /home/dan/Desktop/tmpTG/xxx
+	integer Seg_donor_tier 1
+	sentence Prosodic_donor /home/dan/Desktop/tmpManip/yyy
+	sentence Pros_donor_textgrid /home/dan/Desktop/tmpTG/yyy
+	integer Pros_donor_tier 1
+#	sentence Subset_list /home/dan/Desktop/dissertation/stimuli/CorrectedSentenceNumbers.txt
+	sentence output_directory /home/dan/Desktop/tmpOutput
+	sentence logFile /home/dan/Desktop/ReplaceProsody.log
+#	boolean swap 0
 endform
 
 # BE FORGIVING IF THE USER FORGOT TRAILING PATH SLASHES OR LEADING FILE EXTENSION DOTS
-call cleanPath 'sound_directory$'
-snDir$ = "'cleanPath.out$'"
-call cleanPath 'textGrid_directory$'
-tgDir$ = "'cleanPath.out$'"
-call cleanPath 'pointProcess_directory$'
-ppDir$ = "'cleanPath.out$'"
-call cleanPath 'pitchTier_directory$'
-ptDir$ = "'cleanPath.out$'"
-call cleanExtn 'sound_extension$'
-soundExt$ = "'cleanExtn.out$'"
+# call cleanPath 'sound_directory$'
+# snDir$ = "'cleanPath.out$'"
+# call cleanPath 'textGrid_directory$'
+# tgDir$ = "'cleanPath.out$'"
+# call cleanPath 'pointProcess_directory$'
+# ppDir$ = "'cleanPath.out$'"
+# call cleanPath 'pitchTier_directory$'
+# ptDir$ = "'cleanPath.out$'"
+# call cleanExtn 'sound_extension$'
+# soundExt$ = "'cleanExtn.out$'"
 
 # INITIATE THE OUTPUT FILE
 if fileReadable (logFile$)
