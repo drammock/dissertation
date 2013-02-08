@@ -17,10 +17,10 @@
 # COLLECT ALL THE USER INPUT
 form Neutralize Prosody: Select directories & starting parameters
 	sentence Segmental_donor /home/dan/Desktop/tmpManip1/
-	sentence Seg_donor_textgrid /home/dan/Desktop/tmpTG/
+	sentence Seg_donor_textgrid /home/dan/Desktop/newTG/
 	integer Seg_donor_tier 1
 	sentence Prosodic_donor /home/dan/Desktop/tmpManip2/
-	sentence Pros_donor_textgrid /home/dan/Desktop/tmpTG/
+	sentence Pros_donor_textgrid /home/dan/Desktop/newTG/
 	integer Pros_donor_tier 1
 # 	sentence Subset_list /home/dan/Desktop/dissertation/stimuli/CorrectedSentenceNumbers.txt
 	sentence output_directory /home/dan/Desktop/tmpOutput
@@ -43,19 +43,22 @@ outDir$ = "'cleanPath.out$'"
 # soundExt$ = "'cleanExtn.out$'"
 
 # INITIATE THE OUTPUT FILE
-if fileReadable (logFile$)
-	beginPause ("The log file already exists!")
-		comment ("The log file already exists!")
-		comment ("You can overwrite the existing file, or append new data to the end of it.")
-	overwrite_setting = endPause ("Append", "Overwrite", 1)
-	if overwrite_setting = 2
-		filedelete 'logFile$'
-		call initializeOutfile
-	endif
-else
-	# THERE IS NOTHING TO OVERWRITE, SO CREATE THE HEADER ROW FOR THE NEW OUTPUT FILE
-	call initializeOutfile
-endif
+# if fileReadable (logFile$)
+# 	beginPause ("The log file already exists!")
+# 		comment ("The log file already exists!")
+# 		comment ("You can overwrite the existing file, or append new data to the end of it.")
+# 	overwrite_setting = endPause ("Append", "Overwrite", 1)
+# 	if overwrite_setting = 2
+# 		filedelete 'logFile$'
+# 		call initializeOutfile
+# 	endif
+# else
+# 	# THERE IS NOTHING TO OVERWRITE, SO CREATE THE HEADER ROW FOR THE NEW OUTPUT FILE
+# 	call initializeOutfile
+# endif
+
+# INITIALIZE SOME GLOBAL VALUES
+offset = 0.00000000001 ; used in the duration tier to prevent points from coinciding
 
 # MAKE A LIST OF SEGEMENTAL DONOR FILES AND PROSODIC DONOR FILES
 Create Strings as file list... segFiles 'segMan$'*.Manipulation
@@ -92,8 +95,8 @@ for curFileNum to segCount
 		curProsFileObj$ = selected$ ("Manipulation", 1)
 
 		# READ IN THE TEXTGRIDS
-		Read from file... 'segTG$''curSegFileObj'.TextGrid
-		Read from file... 'segTG$''curProsFileObj'.TextGrid
+		Read from file... 'segTG$''curSegFileObj$'.TextGrid
+		Read from file... 'segTG$''curProsFileObj$'.TextGrid
 
 		# MAKE SURE THEY HAVE THE SAME NUMBER OF INTERVALS
 		select TextGrid 'curSegFileObj$'
@@ -105,34 +108,44 @@ for curFileNum to segCount
 			# EXTRACT PITCH TIERS
 			select Manipulation 'curSegFileObj$'
 			Extract pitch tier
+			segPitchMean = Get mean (curve)... 0 0
 			segPitchPts = Get number of points
 			Down to TableOfReal... Hertz
 			Rename... segPitchTable
+			Insert column (index)... 3
+
 			select Manipulation 'curProsFileObj$'
 			Extract pitch tier
+			prosPitchMean = Get mean (curve)... 0 0
 			prosPitchPts = Get number of points
 			Down to TableOfReal... Hertz
 			Rename... prosPitchTable
+			Insert column (index)... 3
 
-			# EXTRACT INTENSITY TIERS
+			pitchDiff = prosPitchMean - segPitchMean
+
+			# EXTRACT INTENSITY TIERS AND SOME INTENSITY INFO TO BE USED LATER
 			select Manipulation 'curSegFileObj$'
 			Extract original sound
 			segRMS = Get intensity (dB)
 			To Intensity... 60 0 yes
+			segMax = Get maximum... 0 0 Parabolic
 			Down to IntensityTier
 # 			segIntensPts = Get number of points
 			Down to TableOfReal
 			Rename... segIntensTable
+			Insert column (index)... 3
 
 			select Manipulation 'curProsFileObj$'
 			Extract original sound
-# 			prosRMS = Get intensity (dB)
+			prosRMS = Get intensity (dB)
 			To Intensity... 60 0 yes
-# 			prosMax = Get maximum... 0 0 Parabolic
+			prosMax = Get maximum... 0 0 Parabolic
 			Down to IntensityTier
 # 			prosIntensPts = Get number of points
 			Down to TableOfReal
 			Rename... prosIntensTable
+			Insert column (index)... 3
 
 			# EXTRACT (EMPTY) DURATION TIERS
 			select Manipulation 'curSegFileObj$'
@@ -140,71 +153,69 @@ for curFileNum to segCount
 			select Manipulation 'curProsFileObj$'
 			Extract duration tier
 
-			# GET DURATION RATIO OF EACH INTERVAL AND ADD POINTS TO DURATION TIERS
+			# STEP THROUGH THE INTERVALS IN THE TEXTGRID TIERS...
 			for intNum to segInt
 				# GET DURATION OF TARGET INTERVAL
 				select TextGrid 'curSegFileObj$'
 				segIntStart = Get start point... seg_donor_tier intNum
 				segIntEnd = Get end point... seg_donor_tier intNum
 				segIntDur = segIntEnd - segIntStart
-				segIntStartPt = segIntStartPt + 0.00000000001
 
 				# GET DURATION OF PROSODIC DONOR INTERVAL
 				select TextGrid 'curProsFileObj$'
 				prosIntStart = Get start point... pros_donor_tier intNum
 				prosIntEnd = Get end point... pros_donor_tier intNum
 				prosIntDur = prosIntEnd - prosIntStart
-				prosIntStartPt = prosIntStartPt + 0.00000000001
 
-				# CALCULATE RATIOS
+				# CALCULATE DURATION RATIOS
 				prosSegRatio = prosIntDur / segIntDur
 				segProsRatio = segIntDur / prosIntDur
 
 				# CREATE DURATION TIER POINTS FOR CURRENT INTERVAL IN TARGET OBJECT
 				select DurationTier 'curSegFileObj$'
-				Add point... segIntStartPt prosSegRatio
+				Add point... segIntStart+offset prosSegRatio
 				Add point... segIntEnd prosSegRatio
 
 				# DO THE SAME FOR THE PROSODY DONOR MANIPULATION OBJECT...
 				# ...IN CASE WE WANT A FULL SWAP, OR JUST REPLACE PITCH W/O DURATION, ETC
 				select DurationTier 'curProsFileObj$'
-				Add point... prosIntStartPt segProsRatio
+				Add point... prosIntStart+offset segProsRatio
 				Add point... prosIntEnd segProsRatio
 
 				# WARP TIME DOMAIN OF PITCH TIER VALUES
 				select TableOfReal segPitchTable
-				Insert column (index)... 3
-				Formula... if col = 3 and self[row,1] > segIntStart and self[row,1] < segIntEnd then self[row,1] * prosSegRatio else self fi
+				Formula... if col = 3 and self[row,1] > segIntStart and self[row,1] <= segIntEnd then prosIntStart + (self[row,1] - segIntStart) * prosSegRatio else self fi
+
 				select TableOfReal prosPitchTable
-				Insert column (index)... 3
-				Formula... if col = 3 and self[row,1] > prosIntStart and self[row,1] < prosIntEnd then self[row,1] * segProsRatio else self fi
+				Formula... if col = 3 and self[row,1] > prosIntStart and self[row,1] <= prosIntEnd then segIntStart + (self[row,1] - prosIntStart) * segProsRatio else self fi
 
 				# WARP TIME DOMAIN OF INTENSITY TIER VALUES
 				select TableOfReal segIntensTable
-				Insert column (index)... 3
-				Formula... if col = 3 and self[row,1] > segIntStart and self[row,1] < segIntEnd then self[row,1] * prosSegRatio else self fi
+				Formula... if col = 3 and self[row,1] > segIntStart and self[row,1] <= segIntEnd then prosIntStart + (self[row,1] - segIntStart) * prosSegRatio else self fi
+
 				select TableOfReal prosIntensTable
-				Insert column (index)... 3
-				Formula... if col = 3 and self[row,1] > prosIntStart and self[row,1] < prosIntEnd then self[row,1] * segProsRatio else self fi
+				Formula... if col = 3 and self[row,1] > prosIntStart and self[row,1] <= prosIntEnd then segIntStart + (self[row,1] - prosIntStart) * segProsRatio else self fi
 			endfor
 
 			# CREATE NEW PITCH AND INTENSITY TIERS WITH WARPED TIME DOMAINS
 			select Sound 'curSegFileObj$'
 			segDur = Get total duration
-			Create pitch tier... prosPitchWarped 0 segDur
-			Create intensity tier... prosIntensWarped 0 segDur
+			minus Sound 'curSegFileObj$'
+			Create PitchTier... prosPitchWarped 0 'segDur'
+			Create IntensityTier... prosIntensWarped 0 'segDur'
 			select TableOfReal prosPitchTable
 			prosPitchRows = Get number of rows
-			for row in prosPitchRows
+			for row to prosPitchRows
 				select TableOfReal prosPitchTable
 				t = Get value... row 3
 				v = Get value... row 2
 				select PitchTier prosPitchWarped
 				Add point... t v
 			endfor
+			Shift frequencies... 0 'segDur' -'pitchDiff' Hertz
 			select TableOfReal prosIntensTable
 			prosIntensRows = Get number of rows
-			for row in prosIntensRows
+			for row to prosIntensRows
 				select TableOfReal prosIntensTable
 				t = Get value... row 3
 				v = Get value... row 2
@@ -213,8 +224,8 @@ for curFileNum to segCount
 			endfor
 # 			select Sound 'curProsFileObj$'
 # 			prosDur = Get total duration
-# 			Create pitch tier... segPitchWarped 0 prosDur
-# 			Create intensity tier... segIntensWarped 0 prosDur
+# 			Create pitch tier... segPitchWarped 0 'prosDur'
+# 			Create intensity tier... segIntensWarped 0 'prosDur'
 # 			select TableOfReal segPitchTable
 # 			segPitchRows = Get number of rows
 # 			for row in segPitchRows
@@ -224,6 +235,7 @@ for curFileNum to segCount
 # 				select PitchTier segPitchWarped
 # 				Add point... t v
 # 			endfor
+# 			Shift frequencies... 0 'prosDur' 'pitchDiff' Hertz
 # 			select TableOfReal segIntensTable
 # 			segIntensRows = Get number of rows
 # 			for row in segIntensRows
@@ -235,55 +247,106 @@ for curFileNum to segCount
 # 			endfor
 
 			# MULTIPLY TARGET SOUND BY ITS INTENSITY INVERSE, THEN BY THE TARGET INTENSITY
+			intens = 1
 			select Intensity 'curSegFileObj$'
-			segMax = Get maximum... 0 0 Parabolic
 			Formula... 'segMax' - self
 			Down to IntensityTier
 			Rename... segIntensityInverse
 			select Sound 'curSegFileObj$'
 			plus IntensityTier segIntensityInverse
-			Multiply... no
+			Multiply... yes
 			Rename... segSoundInverse
 			plus IntensityTier prosIntensWarped
-			Multiply... no
+			Multiply... yes
 			Rename... segSoundProsIntens
+			Scale intensity... prosRMS
+
+			revIntens = 0
 # 			select Intensity 'curProsFileObj$'
-# 			prosMax = Get maximum... 0 0 Parabolic
 # 			Formula... 'prosMax' - self
 # 			Down to IntensityTier
 # 			Rename... prosIntensityInverse
 # 			select Sound 'curProsFileObj$'
 # 			plus IntensityTier prosIntensityInverse
-# 			Multiply... no
+# 			Multiply... yes
 # 			Rename... prosSoundInverse
 # 			plus IntensityTier segIntensWarped
-# 			Multiply... no
+# 			Multiply... yes
 # 			Rename... prosSoundSegIntens
+# 			Scale intensity... 'segRMS'
 
 			# ASSEMBLE FINAL MANIPULATION OBJECTS
-			select Manipulation 'curSegFileObj$'
-			plus Sound segSoundProsIntens
-			Replace original sound
-
+			if intens = 1
+				select Manipulation 'curSegFileObj$'
+				plus Sound segSoundProsIntens
+				Replace original sound
+			endif
 			select Manipulation 'curSegFileObj$'
 			plus PitchTier prosPitchWarped
 			Replace pitch tier
-
 			select Manipulation 'curSegFileObj$'
 			plus DurationTier 'curSegFileObj$'
 			Replace duration tier
-
 			select Manipulation 'curSegFileObj$'
+			Save as binary file... 'outDir$''curSegFileObj$'_'curProsFileObj$'.Manipulation
 			Get resynthesis (overlap-add)
-# 			Rename... "'curSegFileObj$'_'curProsFileObj$'"
+			Rename... 'curSegFileObj$'_'curProsFileObj$'
 			Save as WAV file... 'outDir$''curSegFileObj$'_'curProsFileObj$'.wav
 
+			if revIntens = 1
+				select Manipulation 'curProsFileObj$'
+				plus Sound prosSoundSegIntens
+				Replace original sound
+			endif
+# 			select Manipulation 'curProsFileObj$'
+# 			plus PitchTier segPitchWarped
+# 			Replace pitch tier
+# 			select Manipulation 'curProsFileObj$'
+# 			plus DurationTier 'curProsFileObj$'
+# 			Replace duration tier
+# 			select Manipulation 'curProsFileObj$'
+# 			Save as binary file... 'outDir$''curProsFileObj$'_'curSegFileObj$'.Manipulation
+# 			Get resynthesis (overlap-add)
+# 			Rename... 'curProsFileObj$'_'curSegFileObj$'
+# 			Save as WAV file... 'outDir$''curProsFileObj$'_'curSegFileObj$'.wav
+
 			# CLEAN UP
-			Remove
 			select Manipulation 'curSegFileObj$'
+			plus Manipulation 'curProsFileObj$'
+			plus TextGrid 'curSegFileObj$'
+			plus TextGrid 'curProsFileObj$'
+			plus Intensity 'curSegFileObj$'
+			plus Intensity 'curProsFileObj$'
+			plus PitchTier 'curSegFileObj$'
+			plus PitchTier 'curProsFileObj$'
+			if intens = 1
+				plus Sound segSoundInverse
+				plus Sound segSoundProsIntens
+				plus IntensityTier segIntensityInverse
+			endif
+			if revIntens = 1
+				plus Sound prosSoundInverse
+				plus Sound prosSoundSegIntens
+				plus IntensityTier prosIntensityInverse
+			endif
+# 			plus PitchTier segPitchWarped
+			plus PitchTier prosPitchWarped
+			plus IntensityTier 'curSegFileObj$'
+			plus IntensityTier 'curProsFileObj$'
+# 			plus IntensityTier segIntensWarped
+			plus IntensityTier prosIntensWarped
+			plus DurationTier 'curSegFileObj$'
+			plus DurationTier 'curProsFileObj$'
+			plus Sound 'curSegFileObj$'
+			plus Sound 'curProsFileObj$'
+			plus Sound 'curSegFileObj$'_'curProsFileObj$'
+# 			plus Sound 'curProsFileObj$'_'curSegFileObj$'
+			plus TableOfReal segPitchTable
+			plus TableOfReal segIntensTable
 			plus TableOfReal prosPitchTable
+			plus TableOfReal prosIntensTable
 
-
+			Remove
 
 
 
@@ -303,7 +366,7 @@ for curFileNum to segCount
 #    resultline$ = "'jumpCost''tab$''notes$''newline$'"
 #    fileappend "'logFile$'" 'resultline$'
 
-  else; curSegSent$ <> curProsSent$
+#   else; curSegSent$ <> curProsSent$
     # write to the log file the fact that the sentence numbers mismatch? or just fail?
   endif
 endfor
@@ -333,7 +396,7 @@ procedure cleanExtn .in$
   endif
 endproc
 
-procedure initializeOutfile
-  headerline$ = "totalDuration'tab$'wordDurations'newline$'"
-  fileappend "'logFile$'" 'headerline$'
-endproc
+# procedure initializeOutfile
+#   headerline$ = "totalDuration'tab$'wordDurations'newline$'"
+#   fileappend "'logFile$'" 'headerline$'
+# endproc
