@@ -23,6 +23,7 @@
     pdfstartview=Fit,
     pdfpagemode=UseOutlines
 }
+\usepackage{doi}
 
 \setmainfont[Numbers={Lining}]{Linux Libertine O} \setmonofont{M+ 1m medium} %\setmonofont{Linux Libertine Mono O}
 \newenvironment{itm}{% just like itemize, but with bullets flush left with surrounding text
@@ -31,10 +32,13 @@
 	\setlength{\leftmarginiii}{1.5em}%
 	\begin{itemize}}{\end{itemize}%
 }
+%\renewcommand{\labelitemi}{❇} \renewcommand{\labelitemii}{❈} \renewcommand{\labelitemiii}{•} % redefine default bullets
 \renewcommand{\labelitemi}{•} \renewcommand{\labelitemii}{◦} \renewcommand{\labelitemiii}{—} % redefine default bullets
 \renewcommand{\url}{\begingroup \def\UrlLeft{}\def\UrlRight{}\urlstyle{same}\Url}
-\newcommand{\snr}{{\scshape snr}}
-\newcommand{\rms}{{\scshape rms}}
+\newcommand{\term}[1]{“#1”}
+%\newcommand{\term}[1]{\itshape{#1}}
+%\newcommand{\snr}{{\scshape snr}}
+%\newcommand{\rms}{{\scshape rms}}
 % formatting for section & subsection headings and table captions
 \titleformat{\chapter}{\LARGE\bfseries}{Chapter \thechapter.}{1em}{}
 \titlespacing*{\chapter}{0pt}{0pt}{0ex plus .2ex}
@@ -57,7 +61,7 @@
 }
 
 % % % VARIOUS USEFUL UNICODE POINTS FOR COPY/PASTE % % %
-% ×±≠ — – ‣•◦◆◇■◼◾▪□◻◽▫▶▸▷▹¹²³⁴⁵⁶⁷⁸⁹⁰⁺⁻⁼⁽⁾ⁱⁿ₀₁₂₃₄₅₆₇₈₉₊₋₌₍₎ₐₑₒₓₔ ←↑→↓↔↕↚↛⇋⇌⇐⇑⇒⇓⇔⇕⇍⇏⇎⇠⇡⇢⇣⇦⇧⇨⇩⟵⟶⟷⟸⟹⟺  ∀ ∃ ∄ ∅ ∈ ∉ ⟦ ⟧ ⊂ ⊃ ⊆ ⊇ ⟨ ⟩ ⟪ ⟫ ≝ ∿ ≃ ≄ ≈ ≉ ≤ ≥ ≪ ≫ ≺ ≻ ⊀ ⊁ ≼ ≽ 𝒫
+% ×±≠ — – ‣•◦◆◇■◼◾▪□◻◽▫▶▸▷▹¹²³⁴⁵⁶⁷⁸⁹⁰⁺⁻⁼⁽⁾ⁱⁿ₀₁₂₃₄₅₆₇₈₉₊₋₌₍₎ₐₑₒₓₔ ←↑→↓↔↕↚↛⇋⇌⇐⇑⇒⇓⇔⇕⇍⇏⇎⇠⇡⇢⇣⇦⇧⇨⇩⟵⟶⟷⟸⟹⟺  ∀ ∃ ∄ ∅ ∈ ∉ ⟦ ⟧ ⊂ ⊃ ⊆ ⊇ ⟨ ⟩ ⟪ ⟫ ≝ ∿ ≃ ≄ ≈ ≉ ≤ ≥ ≪ ≫ ≺ ≻ ⊀ ⊁ ≼ ≽ 𝒫  ❇ ❈
 
 \title{Prosody, familiarity and intelligibility in speech perception}
 \author{Daniel~Robert~McCloy}
@@ -79,7 +83,6 @@
 % % % BIBLIOGRAPHY  % % %
 \newpage
 \bibliography{dissertation}
-%\bibliographystyle{naturemag} %
-\bibliographystyle{apa-good}   
-%\bibliographystyle{apalike}   %\bibliographystyle{plain}
+%\bibliographystyle{naturemag}
+\bibliographystyle{apa-good}
 \end{document}
