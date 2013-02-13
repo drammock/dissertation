@@ -32,9 +32,10 @@
 	\setlength{\leftmarginiii}{1.5em}%
 	\begin{itemize}}{\end{itemize}%
 }
-%\renewcommand{\labelitemi}{❇} \renewcommand{\labelitemii}{❈} \renewcommand{\labelitemiii}{•} % redefine default bullets
+%\renewcommand{\labelitemi}{❇} \renewcommand{\labelitemii}{❈} \renewcommand{\labelitemiii}{•} % redefine default bullets. Few faces have the "sparkle" codepoints mapped (DejaVu is one that does)
 \renewcommand{\labelitemi}{•} \renewcommand{\labelitemii}{◦} \renewcommand{\labelitemiii}{—} % redefine default bullets
 \renewcommand{\url}{\begingroup \def\UrlLeft{}\def\UrlRight{}\urlstyle{same}\Url}
+\newcommand{\latin}[1]{\textit{#1}}
 \newcommand{\term}[1]{“#1”}
 %\newcommand{\term}[1]{\itshape{#1}}
 %\newcommand{\snr}{{\scshape snr}}
