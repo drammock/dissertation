@@ -5,13 +5,15 @@ form Create syllable tier using intensity
 #	sentence Subset_list /home/dan/Desktop/dissertation/stimuli/CorrectedSentenceNumbers.txt
 #	sentence Talker_list /home/dan/Desktop/dissertation/stimuli/talkers.txt
 	sentence Sound_extension .wav
+	sentence logFile /home/dan/Desktop/dissertation/stimuli/intensyl.log
 	integer textgrid_tier 1
 	comment Set window length:
 	real Zoom_duration 0
-	comment You can pick up where you left off if you like:
-	integer startingFileNum 61
 	boolean prepopulateMinima 1
 	boolean prepopulateMaxima 0
+	comment You can pick up where you left off if you like:
+	integer startingFileNum 31
+#	integer startingFileNum 61 (old)
 endform
 
 # BE FORGIVING IF THE USER FORGOT TRAILING PATH SLASHES OR LEADING FILE EXTENSION DOTS
@@ -23,8 +25,22 @@ call cleanPath 'textGrid_output_directory$'
 tgOutDir$ = "'cleanPath.out$'"
 call cleanExtn 'sound_extension$'
 snExt$ = "'cleanExtn.out$'"
-# call cleanExtn 'textGrid_extension$'
-# tgExt$ = "'cleanExtn.out$'"
+
+
+# INITIATE THE OUTPUT FILE
+if fileReadable (logFile$)
+	beginPause ("The log file already exists!")
+		comment ("The log file already exists!")
+		comment ("You can overwrite the existing file, or append new data to the end of it.")
+	overwrite_setting = endPause ("Append", "Overwrite", 1)
+	if overwrite_setting = 2
+		filedelete 'logFile$'
+		call initializeOutfile
+	endif
+else
+	# THERE IS NOTHING TO OVERWRITE, SO CREATE THE HEADER ROW FOR THE NEW OUTPUT FILE
+	call initializeOutfile
+endif
 
 
 # MAKE A LIST OF ALL SOUND FILES IN THE DIRECTORY
@@ -40,16 +56,31 @@ fileCount = Get number of strings
 # Read Table from tab-separated file... 'talker_list$'
 # talkList$ = selected$("Table", 1)
 
-# BOOLEAN FOR SETTING SETTINGS
-firstFile = 1
+# SOME INITIAL SETTINGS
+firstFile = 1 ; THIS IS A BOOLEAN FOR SETTING EDITOR WINDOW SETTINGS
+curSent$ = ""
+curName$ = ""
+persistentName$ = ""
 
 # LOOP THROUGH THE LIST OF FILES...
 for curFile from startingFileNum to fileCount
 
-# 	# SEE IF IT'S A SENTENCE WE'RE INTERESTED IN
+	# GET THE NEXT FILE
+	notes$ = ""
 	select Strings soundFiles
 	soundfile$ = Get string... curFile
-# # 	curSent$ = mid$(soundfile$,7,5)
+	prvSent$ = curSent$
+	curSent$ = left$(soundfile$,5)
+# 	curSent$ = mid$(soundfile$,7,5)
+
+	# IF WE'VE STARTED A NEW SENTENCE, CLEAR OLD ONE
+	if prvSent$ <> curSent$ and prvSent$ <> ""
+		select Sound 'persistentName$'
+		plus TextGrid 'persistentName$'
+		plus Intensity 'persistentName$'
+		Remove
+	endif
+
 # # 	select Table 'sentList$'
 # # 	rowNum = Search column... sent 'curSent$'
 # # 	if rowNum<>0
@@ -58,10 +89,25 @@ for curFile from startingFileNum to fileCount
 # 	rowNum = Search column... talker 'curTalk$'
 # 	if rowNum<>0
 
-		# READ IN THE SOUND, CREATE TEXTGRID
+		# READ IN THE SOUND
 		Read from file... 'snDir$''soundfile$'
 		totalDur = Get total duration
+		prvName$ = curName$
 		curName$ = selected$ ("Sound", 1)
+
+		# CLEAR INTERMEDIATE FILES (KEEPING CURRENT & PERSISTENT ONLY)
+		if prvSent$ <> curSent$
+			persistentName$ = curName$
+		endif
+		if prvName$ <> persistentName$ and prvName$ <> ""
+			select Sound 'prvName$'
+			plus TextGrid 'prvName$'
+			plus Intensity 'prvName$'
+			Remove
+		endif
+
+		# CREATE TEXTGRID
+		select Sound 'curName$'
 		To Intensity... 80 0 yes
 		timeStep = Get time step
 		numFrames = Get number of frames
@@ -95,7 +141,7 @@ for curFile from startingFileNum to fileCount
 			endfor
 		endif
 
-		#OPEN THE PAIR OF FILES IN THE EDITOR AND ZOOM IN
+		# OPEN THE FILES IN THE EDITOR AND ZOOM IN
 		echo 'curFile'
 		select Sound 'curName$'
 		plus TextGrid 'curName$'
@@ -119,10 +165,10 @@ for curFile from startingFileNum to fileCount
 			# SHOW A U.I. FOR FINDING LOCAL INTENSITY MAXIMA AND MINIMA
 			repeat
 				beginPause ("Correct boundaries")
-					comment ("Delete boundaries as necessary.")
-					comment ("Put cursor near peak/trough before using FindMin/FindMax buttons.")
-					comment ("When modifications are complete, click Save.")
-				clicked = endPause ("FindMin", "FindMax", "Save", 1)
+					comment ("Add/del bounds. Put cursor at extremum before")
+					comment ("using FindMin/FindMax. When done, click Save.")
+					sentence ("Notes", notes$)
+				clicked = endPause ("FindMin", "FindMax", "Save", 3)
 				pt = Get cursor
 				if clicked < 3
 					endeditor
@@ -151,13 +197,14 @@ for curFile from startingFileNum to fileCount
 			endif
 		endeditor
 
-		# REMOVE THE OBJECTS FOR THAT FILE AND GO ON TO THE NEXT ONE
-		select Sound 'curName$'
-		plus TextGrid 'curName$'
-		plus Intensity 'curName$'
-		Remove
+		# WRITE TO FILE
+		resultline$ = "'curFile''tab$''soundfile$''tab$''notes$''newline$'"
+		fileappend "'logFile$'" 'resultline$'
+
+		# GO ON TO NEXT FILE...
 		select Strings soundFiles
 # 	endif
+
 endfor
 
 # REMOVE THE STRINGS LIST
@@ -183,4 +230,9 @@ procedure cleanExtn .in$
 	else
 		.out$ = "'.in$'"
 	endif
+endproc
+
+procedure initializeOutfile
+	headerline$ = "number'tab$'filename'tab$'notes'newline$'"
+	fileappend "'logFile$'" 'headerline$'
 endproc
