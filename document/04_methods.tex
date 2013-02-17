@@ -17,7 +17,9 @@ Stimuli for the experiments described here were a subset of the IEEE â€œHarvardâ
 \end{itm}
 
 
-\section{stimulus design}
+\section{stimulus design\label{sec:StimDesign}}
+Why PSOLA?  Brief comparison of different methods for manipulating duration.  Malah1979 ("linearly combining adjacent intervals of speech to avoid major discontinuities in the waveform"), MoulinesCharpentier1990 (PSOLA).  Relate to the studies that used them: PichenyEtAl1989 (Malah method), UchanskiEtAl1996 (segment-by-segment time scaling), LiuZeng2006 (adding silences, "uniform scaling" = PSOLA?).  Cf KrauseBraida2002, KrauseBraida2004.
+
 \begin{itm}
 	\item{duration}
 	\begin{itm}
@@ -39,6 +41,9 @@ Stimuli for the experiments described here were a subset of the IEEE â€œHarvardâ
 	\item{intensity}
 	\begin{itm}
 		\item{auto-extract intensity tier}
+		\item{multiply target signal by its conjugate intensity contour}
+		\item{dynamic time warp donor intensity contour to match target duration pattern}
+		\item{multiply target signal by intensity contour of prosodic source}
 	\end{itm}
 	\item{PSOLA resynthesis}
 	\begin{itm}

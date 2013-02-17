@@ -12,7 +12,7 @@ form Create syllable tier using intensity
 	boolean prepopulateMinima 1
 	boolean prepopulateMaxima 0
 	comment You can pick up where you left off if you like:
-	integer startingFileNum 31
+	integer startingFileNum 49
 #	integer startingFileNum 61 (old)
 endform
 
@@ -165,7 +165,7 @@ for curFile from startingFileNum to fileCount
 			# SHOW A U.I. FOR FINDING LOCAL INTENSITY MAXIMA AND MINIMA
 			repeat
 				beginPause ("Correct boundaries")
-					comment ("Add/del bounds. Put cursor at extremum before")
+					comment ("Add/del boundaries. Put cursor near extremum before")
 					comment ("using FindMin/FindMax. When done, click Save.")
 					sentence ("Notes", notes$)
 				clicked = endPause ("FindMin", "FindMax", "Save", 3)
