@@ -15,7 +15,6 @@
     pdfauthor={Daniel R. McCloy},
     pdfsubject={Linguistics},
     pdfkeywords={phonetics, speech perception, prosody, intelligibility, familiarity},
-%	pdfproducer={xelatex + bibtex on Linux},
     bookmarksnumbered=true,
     bookmarksopen=true,
     bookmarksopenlevel=1,
@@ -35,11 +34,9 @@
 %\renewcommand{\labelitemi}{❇} \renewcommand{\labelitemii}{❈} \renewcommand{\labelitemiii}{•} % redefine default bullets. Few faces have the "sparkle" codepoints mapped (DejaVu is one that does)
 \renewcommand{\labelitemi}{•} \renewcommand{\labelitemii}{◦} \renewcommand{\labelitemiii}{—} % redefine default bullets
 \renewcommand{\url}{\begingroup \def\UrlLeft{}\def\UrlRight{}\urlstyle{same}\Url}
-\newcommand{\latin}[1]{\textit{#1}}
-\newcommand{\term}[1]{“#1”}
-%\newcommand{\term}[1]{\itshape{#1}}
-%\newcommand{\snr}{{\scshape snr}}
-%\newcommand{\rms}{{\scshape rms}}
+\newcommand{\term}[1]{“#1”} % first occurrence of technical terms
+\newcommand{\lat}[1]{\textit{#1}} % foreign words
+\newcommand{\ac}[1]{\textsc{#1}} % acronyms % \newcommand{\ac}[1]{\MakeUppercase{#1}}
 % formatting for section & subsection headings and table captions
 \titleformat{\chapter}{\LARGE\bfseries}{Chapter \thechapter.}{1em}{}
 \titlespacing*{\chapter}{0pt}{0pt}{0ex plus .2ex}
