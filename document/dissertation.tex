@@ -38,11 +38,11 @@
 \newcommand{\lat}[1]{\textit{#1}} % foreign words
 \newcommand{\ac}[1]{\textsc{#1}} % acronyms % \newcommand{\ac}[1]{\MakeUppercase{#1}}
 % formatting for section & subsection headings and table captions
-\titleformat{\chapter}{\LARGE\bfseries}{Chapter \thechapter.}{1em}{}
-\titlespacing*{\chapter}{0pt}{0pt}{0ex plus .2ex}
-\titlespacing*{\section}{0pt}{0pt}{0ex plus .2ex}
-\titlespacing*{\subsection}{0pt}{0pt}{0ex plus .2ex}
-\titlespacing*{\subsubsection}{0pt}{0pt}{0ex plus .2ex}
+\titleformat{\chapter}{\LARGE\bfseries}{Chapter \thechapter.}{0.8em}{}
+\titlespacing*{\chapter}{0pt}{-50pt}{*0} % -50pt is a hack to undo the default (which for \chapter won't be undone by just using *0)
+\titlespacing*{\section}{0pt}{*0}{*0}
+\titlespacing*{\subsection}{0pt}{*0}{*0}
+\titlespacing*{\subsubsection}{0pt}{*0}{*0}
 
 % format various headings to match the style of section headings % SHOULD ADD HANDLING OF APPENDICES TOO
 \renewcommand{\contentsname}{\bfseries\LARGE{Table of Contents}}
