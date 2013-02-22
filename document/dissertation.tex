@@ -2,14 +2,14 @@
 % !TEX encoding = UTF-8
 \documentclass[12pt,oneside]{report}
 \usepackage[letterpaper, margin=1in]{geometry} % smaller margins
+\usepackage[nottoc,chapter]{tocbibind} % adds entries for the list of figs, list of tables, and bib to the TOC
+\usepackage[titletoc]{appendix} % adds "Appendix" before the appendix letter in TOC
 \usepackage[parfill]{parskip} % begin paragraphs with empty line, not an indent
 \usepackage[compact]{titlesec}
 %\usepackage{minted} %\usemintedstyle{default}
 %\usepackage{fancyhdr} \pagestyle{fancy} \fancyhf{} %\lhead[]{} \chead[]{} \rhead[]{} \lfoot[]{} \cfoot[]{\fancyplain{}{\osf \thepage}} \rfoot[]{}  %\cmd[oddpage]{evenpage}
-%\usepackage[sort&compress, numbers, super]{natbib}
-\usepackage{natbib}
-\usepackage{graphicx, color, url, fontspec, ragged2e, setspace, paralist, float, tabularx, siunitx, array, booktabs, multicol, multirow, titling}  % \setuldepth{x}
-\usepackage[hidelinks]{hyperref}
+\usepackage{natbib, graphicx, color, url, fontspec, ragged2e, setspace, paralist, float, array, longtable, tabu, booktabs, multicol, multirow, titling}  % \setuldepth{x} tabularx, siunitx, 
+\usepackage[hidelinks,pdfpagelabels,xetex]{hyperref}
 \hypersetup{
     pdftitle={Prosody, familiarity and intelligibility in speech perception},
     pdfauthor={Daniel R. McCloy},
@@ -20,7 +20,8 @@
     bookmarksopenlevel=1,
     colorlinks=false,
     pdfstartview=Fit,
-    pdfpagemode=UseOutlines
+    pdfpagemode=UseOutlines,
+    unicode=true,
 }
 \usepackage{doi}
 
@@ -31,31 +32,39 @@
 	\setlength{\leftmarginiii}{1.5em}%
 	\begin{itemize}}{\end{itemize}%
 }
-%\renewcommand{\labelitemi}{❇} \renewcommand{\labelitemii}{❈} \renewcommand{\labelitemiii}{•} % redefine default bullets. Few faces have the "sparkle" codepoints mapped (DejaVu is one that does)
 \renewcommand{\labelitemi}{•} \renewcommand{\labelitemii}{◦} \renewcommand{\labelitemiii}{—} % redefine default bullets
 \renewcommand{\url}{\begingroup \def\UrlLeft{}\def\UrlRight{}\urlstyle{same}\Url}
 \newcommand{\term}[1]{“#1”} % first occurrence of technical terms
 \newcommand{\lat}[1]{\textit{#1}} % foreign words
-\newcommand{\ac}[1]{\textsc{#1}} % acronyms % \newcommand{\ac}[1]{\MakeUppercase{#1}}
+\newcommand{\ac}[1]{\textsc{#1}} % acronyms
+% \newcommand{\ac}[1]{\MakeUppercase{#1}}
+
 % formatting for section & subsection headings and table captions
-\titleformat{\chapter}{\LARGE\bfseries}{Chapter \thechapter.}{0.8em}{}
+\titleformat{\chapter}{\LARGE\bfseries\doublespacing}{Chapter \thechapter.}{0.6em}{}
 \titlespacing*{\chapter}{0pt}{-50pt}{*0} % -50pt is a hack to undo the default (which for \chapter won't be undone by just using *0)
 \titlespacing*{\section}{0pt}{*0}{*0}
 \titlespacing*{\subsection}{0pt}{*0}{*0}
 \titlespacing*{\subsubsection}{0pt}{*0}{*0}
+%\titleformat*{\bibliography}{\LARGE\bfseries}{Bibliography}{0em}{\begin{spacing}{2}}[\end{spacing}]
 
-% format various headings to match the style of section headings % SHOULD ADD HANDLING OF APPENDICES TOO
+% table caption related tweaks
+\setlength{\LTcapwidth}{\textwidth} % longtables only
+\setlength{\extrarowsep}{0.1em}
+%\setlength{\abovetopsep}{0ex}
+
+% hack the section heading names
 \renewcommand{\contentsname}{\bfseries\LARGE{Table of Contents}}
-%\renewcommand{\listfigurename}{\bfseries\large\uppercase{list of figures}}%\renewcommand{\listtablename}{\bfseries\large\uppercase{list of tables}}%\renewcommand{\notesname}{\bfseries\large\uppercase{notes}}%\renewcommand{\refname}{\bfseries\large\uppercase{references}}
 \renewcommand{\abstractname}{
 	\normalfont
+	\begin{spacing}{1}
 	\begin{centering}
-	University of Washington\\ \vskip 3em%
-	\textbf{Abstract}\\ \vskip 3em%
-	\thetitle \\ \vskip 3em%
-	\theauthor \vskip 3em%
-	Chair of the Supervisory Committee:\\Professor Richard A. Wright\\Department of Linguistics \vskip 3em%
+	University of Washington\\ \vskip 2em%
+	\textbf{Abstract}\\ \vskip 2em%
+	\thetitle \\ \vskip 2em%
+	\theauthor \vskip 2em%
+	Chair of the Supervisory Committee:\\Professor Richard A. Wright\\Department of Linguistics \vskip 2em%
 	\end{centering}
+	\end{spacing}
 }
 
 % % % VARIOUS USEFUL UNICODE POINTS FOR COPY/PASTE % % %
@@ -66,21 +75,29 @@
 \date{2013}
 \begin{document}
 \RaggedRight
-
-\include{00_frontmatter}
-
 \begin{spacing}{2}
-\include{01_introduction}
-\include{02_background}
-\include{03_questions}
-\include{04_methods}
-\include{05_results}
-\include{06_discussion}
+
+%\frontmatter
+\pagenumbering{roman}
+\input{00_frontmatter}
+
+%\mainmatter
+\input{01_introduction}
+\input{02_background}
+\input{03_questions}
+\input{04_methods}
+\input{05_results}
+\input{06_discussion}
 \end{spacing}
 
-% % % BIBLIOGRAPHY  % % %
-\newpage
-\bibliography{dissertation}
-%\bibliographystyle{naturemag}
+% BIBLIOGRAPHY (SINGLE SPACED)
 \bibliographystyle{apa-good}
+\bibliography{dissertation}
+
+%\appendix
+\titleformat{\chapter}{\LARGE\bfseries\doublespacing}{Appendix \thechapter.}{0.6em}{}
+\begin{appendices}
+\input{apx_HarvardSents}
+\input{apx_PraatScripts}
+\end{appendices}
 \end{document}
