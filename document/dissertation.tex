@@ -6,7 +6,6 @@
 \usepackage[titletoc]{appendix} % adds "Appendix" before the appendix letter in TOC
 \usepackage[parfill]{parskip} % begin paragraphs with empty line, not an indent
 \usepackage[compact]{titlesec}
-%\usepackage{minted} %\usemintedstyle{default}
 %\usepackage{fancyhdr} \pagestyle{fancy} \fancyhf{} %\lhead[]{} \chead[]{} \rhead[]{} \lfoot[]{} \cfoot[]{\fancyplain{}{\osf \thepage}} \rfoot[]{}  %\cmd[oddpage]{evenpage}
 \usepackage{natbib, graphicx, color, url, fontspec, ragged2e, setspace, paralist, float, array, longtable, tabu, booktabs, multicol, multirow, titling}  % \setuldepth{x} tabularx, siunitx, 
 \usepackage[hidelinks,pdfpagelabels,xetex]{hyperref}
@@ -25,6 +24,20 @@
 }
 \usepackage{doi}
 
+% setup handling of code
+\usepackage[chapter]{minted} 
+\usemintedstyle{default}
+\renewcommand\listingscaption{Script}
+\renewcommand\listoflistingscaption{List of Scripts}
+%FROM THE tocbibind DOCUMENTATION (implementation based on listings package, not minted... should look at listings source code to know how to translate this)
+%\renewcommand{\lstlistoflistings}{\begingroup
+%	\tocfile{\lstlistingname}{lol}
+%\endgroup}
+%FROM THE DEFINITION OF \listoflistings (in the minted documentation)
+%\providecommand\listoflistings{\listof{listing}{\listoflistingscaption}}
+
+
+% fonts & formatting
 \setmainfont[Numbers={Lining}]{Linux Libertine O} \setmonofont{M+ 1m medium} %\setmonofont{Linux Libertine Mono O}
 \newenvironment{itm}{% just like itemize, but with bullets flush left with surrounding text
 	\setlength{\leftmargini}{0.5em}%
@@ -45,12 +58,10 @@
 \titlespacing*{\section}{0pt}{*0}{*0}
 \titlespacing*{\subsection}{0pt}{*0}{*0}
 \titlespacing*{\subsubsection}{0pt}{*0}{*0}
-%\titleformat*{\bibliography}{\LARGE\bfseries}{Bibliography}{0em}{\begin{spacing}{2}}[\end{spacing}]
 
 % table caption related tweaks
 \setlength{\LTcapwidth}{\textwidth} % longtables only
 \setlength{\extrarowsep}{0.1em}
-%\setlength{\abovetopsep}{0ex}
 
 % hack the section heading names
 \renewcommand{\contentsname}{\bfseries\LARGE{Table of Contents}}
