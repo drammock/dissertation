@@ -25,14 +25,16 @@
 \usepackage{doi}
 
 % setup handling of code
+\usepackage{caption}
+\newenvironment{code}{\captionsetup{type=listing}}{}
 \usepackage[chapter]{minted} 
 \usemintedstyle{default}
 \renewcommand\listingscaption{Script}
 \renewcommand\listoflistingscaption{List of Scripts}
 %FROM THE tocbibind DOCUMENTATION (implementation based on listings package, not minted... should look at listings source code to know how to translate this)
-%\renewcommand{\lstlistoflistings}{\begingroup
-%	\tocfile{\lstlistingname}{lol}
-%\endgroup}
+\renewcommand{\listoflistings}{\begingroup
+	\tocfile{\listoflistingscaption}{lol}
+\endgroup}
 %FROM THE DEFINITION OF \listoflistings (in the minted documentation)
 %\providecommand\listoflistings{\listof{listing}{\listoflistingscaption}}
 

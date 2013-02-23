@@ -1,20 +1,28 @@
 \chapter{Praat scripts\label{apx:PraatScripts}}
 
 \section{Syllabification by intensity}
-This script does xxx.
+This script takes a directory of sound files and, for each file, creates a new TextGrid and prepopulates an interval tier with boundaries at each local minimum of the sound file’s intensity contour.  It then presents the user with a TextGrid editor for the opportunity to adjust boundaries, add new ones, delete spurious ones, and add notes if desired.  The file name, notes (if any) and a sequential number are written to a log file.  Users can stop the script at any time, and resume work on the same directory of sound files by entering a “starting file number” when re-initiating the script.
 
-%\begin{listing}[H]
-	% [samepage, fontsize=\small, formatcom=\bfseries]
+\begin{code}
+	% [samepage, fontsize=\small, formatcom=\bfseries, tabsize=4]
 	\inputminted[fontsize=\small, tabsize=2]{r}{../scripts/syllByIntens_dissVersion.praat}
-%	\caption[Syllabification by intensity]{Praat script for semi-automated syllabification by intensity\label{lst:sylInt}}
-%\end{listing}
+	\caption[Syllabification by intensity]{Praat script for semi-automated syllabification by intensity\label{lst:SylInt}}
+\end{code}
 
 \section{Semi-auto pulse correction}
 This script does xxx.
 
-Insert script here.
+\begin{code}
+	Insert script here.
+%	\inputminted[fontsize=\small, tabsize=2]{r}{../scripts/syllByIntens_dissVersion.praat}
+	\caption[Semi-auto pulse correction]{Praat script for semi-automated correction of glottal pulses within a manipulation object.\label{lst:PulseCor}}
+\end{code}
 
 \section{\ac{psola} prosody replacement}
 This script does xxx.
 
-Insert script here.
+\begin{code}
+	Insert script here.
+%	\inputminted[fontsize=\small, tabsize=2]{r}{../scripts/syllByIntens_dissVersion.praat}
+	\caption[Semi-auto pulse correction]{Praat script for semi-automated correction of glottal pulses within a manipulation object.\label{lst:ProsPSOLA}}
+\end{code}
