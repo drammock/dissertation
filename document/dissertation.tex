@@ -22,7 +22,8 @@
     pdfpagemode=UseOutlines,
     unicode=true,
 }
-\usepackage{doi}
+%\usepackage{doi}
+%\renewcommand{\doitext}{} % this is inserted (as \textsc) by the custom BST function.
 
 % setup handling of code
 \usepackage{caption}
@@ -37,7 +38,11 @@
 	\listof{listing}{\listoflistingscaption}%
 }
 
-% fonts & formatting
+% comments
+\newcommand{\comment}[1]{{\textcolor{red}{(#1)}}}
+
+% fonts, formatting & unicode escapes
+\newcommand{\fo}{f₀}
 \setmainfont[Numbers={Lining}]{Linux Libertine O} \setmonofont{M+ 1m medium} %\setmonofont{Linux Libertine Mono O}
 \newenvironment{itm}{% just like itemize, but with bullets flush left with surrounding text
 	\setlength{\leftmargini}{0.5em}%
@@ -102,7 +107,7 @@
 \end{spacing}
 
 % BIBLIOGRAPHY (SINGLE SPACED)
-\bibliographystyle{apa-good}
+\bibliographystyle{apa-custom}
 \bibliography{dissertation}
 
 %\appendix
