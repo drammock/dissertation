@@ -38,11 +38,19 @@
 	\listof{listing}{\listoflistingscaption}%
 }
 
-% comments
+% comments, common abbreviations, etc
 \newcommand{\comment}[1]{{\textcolor{red}{(#1)}}}
+\newcommand{\term}[1]{“#1”} % first occurrence of technical terms
+\newcommand{\ac}[1]{\textsc{#1}} % acronyms
+% \newcommand{\ac}[1]{\MakeUppercase{#1}}
+\newcommand{\lat}[1]{\textit{#1}} % foreign words and abbreviations
+\newcommand{\fo}{ƒ₀}
+\newcommand{\eg}{\lat{e.g.,}}
+\newcommand{\ie}{\lat{i.e.,}}
+\newcommand{\viz}{\lat{viz.}}
+\newcommand{\etseq}{\lat{et seq.}}
 
-% fonts, formatting & unicode escapes
-\newcommand{\fo}{f₀}
+% fonts & formatting
 \setmainfont[Numbers={Lining}]{Linux Libertine O} \setmonofont{M+ 1m medium} %\setmonofont{Linux Libertine Mono O}
 \newenvironment{itm}{% just like itemize, but with bullets flush left with surrounding text
 	\setlength{\leftmargini}{0.5em}%
@@ -52,10 +60,6 @@
 }
 \renewcommand{\labelitemi}{•} \renewcommand{\labelitemii}{◦} \renewcommand{\labelitemiii}{—} % redefine default bullets
 \renewcommand{\url}{\begingroup \def\UrlLeft{}\def\UrlRight{}\urlstyle{same}\Url}
-\newcommand{\term}[1]{“#1”} % first occurrence of technical terms
-\newcommand{\lat}[1]{\textit{#1}} % foreign words
-\newcommand{\ac}[1]{\textsc{#1}} % acronyms
-% \newcommand{\ac}[1]{\MakeUppercase{#1}}
 
 % formatting for section & subsection headings and table captions
 \titleformat{\chapter}{\LARGE\bfseries\doublespacing}{Chapter \thechapter.}{0.6em}{}
