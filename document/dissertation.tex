@@ -2,12 +2,12 @@
 % !TEX encoding = UTF-8
 \documentclass[12pt,oneside]{report}
 \usepackage[letterpaper, margin=1in]{geometry} % smaller margins
-\usepackage[nottoc,chapter]{tocbibind} % adds entries for the list of figs, list of tables, and bib to the TOC
+\usepackage[nottoc,notlof,notlot,chapter]{tocbibind} % adds entries for the list of figs, list of tables, and bib to the TOC
 \usepackage[titletoc]{appendix} % adds "Appendix" before the appendix letter in TOC
 \usepackage[parfill]{parskip} % begin paragraphs with empty line, not an indent
 \usepackage[compact]{titlesec}
 %\usepackage{fancyhdr} \pagestyle{fancy} \fancyhf{} %\lhead[]{} \chead[]{} \rhead[]{} \lfoot[]{} \cfoot[]{\fancyplain{}{\osf \thepage}} \rfoot[]{}  %\cmd[oddpage]{evenpage}
-\usepackage{natbib, graphicx, color, url, fontspec, ragged2e, setspace, paralist, float, array, longtable, tabu, booktabs, multicol, multirow, titling}  % \setuldepth{x} tabularx, siunitx, 
+\usepackage{natbib, graphicx, color, url, fontspec, ragged2e, setspace, paralist, float, array, longtable, tabu, booktabs, multicol, multirow, titling, etoolbox}  % \setuldepth{x} tabularx, siunitx, 
 \usepackage[hidelinks,pdfpagelabels,xetex]{hyperref}
 \hypersetup{
     pdftitle={Prosody, familiarity and intelligibility in speech perception},
@@ -22,10 +22,17 @@
     pdfpagemode=UseOutlines,
     unicode=true,
 }
-%\usepackage{doi}
-%\renewcommand{\doitext}{} % this is inserted (as \textsc) by the custom BST function.
 
-% setup handling of code
+% prevent bibitems from splitting across pages (requires etoolbox package)
+\makeatletter
+\AtBeginEnvironment{thebibliography}{%
+	\interlinepenalty10000}
+%	\clubpenalty10000
+%	\@clubpenalty \clubpenalty
+%	\widowpenalty10000}
+\makeatother
+
+% setup handling of code listings
 \usepackage{caption}
 \newenvironment{code}{\captionsetup{type=listing}\bigskip\noindent}{\bigskip}
 \usepackage[chapter]{minted} 
@@ -34,15 +41,29 @@
 \renewcommand\listoflistingscaption{List of Scripts}
 \renewcommand{\listoflistings}{%
 	\cleardoublepage
-	\addcontentsline{toc}{chapter}{\listoflistingscaption}%
+	\addcontentsline{toc}{section}{\listoflistingscaption}%
 	\listof{listing}{\listoflistingscaption}%
 }
 
+% TOC stuff: hack the other lists to appear in the TOC as sections (even though they're formatted as chapters in the document)
+\renewcommand{\contentsname}{\bfseries\LARGE{Table of Contents}}
+\renewcommand{\listoftables}{%
+	\cleardoublepage
+	\addcontentsline{toc}{section}{\listtablename}%
+	\listof{table}{\listtablename}%
+}
+\renewcommand{\listoffigures}{%
+	\cleardoublepage
+	\addcontentsline{toc}{section}{\listfigurename}%
+	\listof{figure}{\listfigurename}%
+}
+
+
 % comments, common abbreviations, etc
 \newcommand{\comment}[1]{{\textcolor{red}{(#1)}}}
+\newcommand{\exclude}[1]{}
 \newcommand{\term}[1]{“#1”} % first occurrence of technical terms
-\newcommand{\ac}[1]{\textsc{#1}} % acronyms
-% \newcommand{\ac}[1]{\MakeUppercase{#1}}
+\newcommand{\ac}[1]{\textsc{#1}} % acronyms % \newcommand{\ac}[1]{\MakeUppercase{#1}}
 \newcommand{\lat}[1]{\textit{#1}} % foreign words and abbreviations
 \newcommand{\fo}{ƒ₀}
 \newcommand{\eg}{\lat{e.g.,}}
@@ -53,14 +74,16 @@
 
 % fonts & formatting
 \setmainfont[Numbers={Lining}]{Linux Libertine O} \setmonofont{M+ 1m medium} %\setmonofont{Linux Libertine Mono O}
+\renewcommand{\url}{\begingroup \def\UrlLeft{}\def\UrlRight{}\urlstyle{same}\Url} % set URLs in whatever font surrounding text uses
+
+% itemized lists
+\renewcommand{\labelitemi}{•} \renewcommand{\labelitemii}{◦} \renewcommand{\labelitemiii}{—} % redefine default bullets
 \newenvironment{itm}{% just like itemize, but with bullets flush left with surrounding text
 	\setlength{\leftmargini}{0.5em}%
 	\setlength{\leftmarginii}{1em}%
 	\setlength{\leftmarginiii}{1.5em}%
 	\begin{itemize}}{\end{itemize}%
 }
-\renewcommand{\labelitemi}{•} \renewcommand{\labelitemii}{◦} \renewcommand{\labelitemiii}{—} % redefine default bullets
-\renewcommand{\url}{\begingroup \def\UrlLeft{}\def\UrlRight{}\urlstyle{same}\Url}
 
 % formatting for section & subsection headings and table captions
 \titleformat{\chapter}{\LARGE\bfseries\doublespacing}{Chapter \thechapter.}{0.6em}{}
@@ -73,8 +96,7 @@
 \setlength{\LTcapwidth}{\textwidth} % longtables only
 \setlength{\extrarowsep}{0.1em}
 
-% hack the section heading names
-\renewcommand{\contentsname}{\bfseries\LARGE{Table of Contents}}
+% hack the abstract name
 \renewcommand{\abstractname}{
 	\normalfont
 	\begin{spacing}{1}
@@ -88,9 +110,6 @@
 	\end{spacing}
 }
 
-% % % VARIOUS USEFUL UNICODE POINTS FOR COPY/PASTE % % %
-% ×±≠ — – ‣•◦◆◇■◼◾▪□◻◽▫▶▸▷▹¹²³⁴⁵⁶⁷⁸⁹⁰⁺⁻⁼⁽⁾ⁱⁿ₀₁₂₃₄₅₆₇₈₉₊₋₌₍₎ₐₑₒₓₔ ←↑→↓↔↕↚↛⇋⇌⇐⇑⇒⇓⇔⇕⇍⇏⇎⇠⇡⇢⇣⇦⇧⇨⇩⟵⟶⟷⟸⟹⟺  ∀ ∃ ∄ ∅ ∈ ∉ ⟦ ⟧ ⊂ ⊃ ⊆ ⊇ ⟨ ⟩ ⟪ ⟫ ≝ ∿ ≃ ≄ ≈ ≉ ≤ ≥ ≪ ≫ ≺ ≻ ⊀ ⊁ ≼ ≽ 𝒫  ❇ ❈
-
 \title{Prosody, familiarity and intelligibility in speech perception}
 \author{Daniel~Robert~McCloy}
 \date{2013}
@@ -98,11 +117,26 @@
 \RaggedRight
 \begin{spacing}{2}
 
-%\frontmatter
+\exclude{
+% TITLE PAGE & ABSTRACT
+\input{00a_tit_abs}
+% FRONTMATTER
 \pagenumbering{roman}
-\input{00_frontmatter}
-
-%\mainmatter
+\tableofcontents
+\listoffigures
+\listoftables
+\listoflistings
+% ACKNOWLEDGMENTS & DEDICATION
+\cleardoublepage
+\addcontentsline{toc}{section}{Acknowledgments}
+\input{00b_ackn}
+\cleardoublepage
+\addcontentsline{toc}{section}{Dedication}
+\input{00c_ded}
+\cleardoublepage
+}
+% MAIN CONTENT
+%\pagenumbering{arabic}
 \input{01_introduction}
 \input{02_background}
 \input{03_questions}

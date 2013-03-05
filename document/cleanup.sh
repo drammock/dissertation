@@ -1,0 +1,11 @@
+#! /bin/bash
+rm *.aux
+rm dissertation.log
+rm dissertation.lof
+rm dissertation.lol
+rm dissertation.lot
+rm dissertation.toc
+rm dissertation.blg
+rm dissertation.bbl
+rm dissertation.out
+rm dissertation.pyg
