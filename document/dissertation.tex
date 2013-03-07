@@ -24,13 +24,7 @@
 }
 
 % prevent bibitems from splitting across pages (requires etoolbox package)
-\makeatletter
-\AtBeginEnvironment{thebibliography}{%
-	\interlinepenalty10000}
-%	\clubpenalty10000
-%	\@clubpenalty \clubpenalty
-%	\widowpenalty10000}
-\makeatother
+\AtBeginEnvironment{thebibliography}{\interlinepenalty10000}
 
 % setup handling of code listings
 \usepackage{caption}
@@ -60,6 +54,7 @@
 
 
 % comments, common abbreviations, etc
+\definecolor{ltgray}{gray}{0.7}
 \newcommand{\comment}[1]{{\textcolor{red}{(#1)}}}
 \newcommand{\exclude}[1]{}
 \newcommand{\term}[1]{“#1”} % first occurrence of technical terms

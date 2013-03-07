@@ -12,17 +12,20 @@ Following is a table of acronyms and abbreviations used in this thesis.  I have 
 \begin{table}
 	\caption[Abbreviations and acronyms]{Abbreviations and acronyms used in the thesis \label{tab:Abbr}}
 	\centering
-	\begin{tabu} to \textwidth [c]{X[c] X[5]}
+	\begin{tabu} to \textwidth [c]{X[c m] X[5 m]}
 		\toprule
+		\everyrow{\midrule}
 		\rowfont[c]{\bfseries} Abbreviation & Explanation\\
-		\midrule
-		\ac{crm} & Coordinate response measure (a corpus of parallel sentences of the form “Ready ⟨\textsc{callsign}⟩ go to ⟨\textsc{color}⟩ ⟨\textsc{digit}⟩ now”).  In a typical competing speech usage, the listener is told to attend to the speech stream containing a particular callsign, and repeat the color and digit from that stream.  See \citet{BoliaEtAl2000} for details.\\
-		\fo & Fundamental frequency (of speech)\\
-		F2×F1 & The acoustic space defined by the center frequencies of the first and second formants of sonorant speech sounds (usually vowels)\\
+		\taburulecolor{ltgray}
+		\ac{crm} & Coordinate response measure (a corpus of parallel sentences of the form “Ready ⟨\textsc{callsign}⟩ go to ⟨\textsc{color}⟩ ⟨\textsc{digit}⟩ now”).  In a typical competing speech usage, the listener is told to attend to the speech stream containing a particular callsign, and to repeat the color and digit from that stream.  See \citet{BoliaEtAl2000} for details.\\
+		\fo & Fundamental frequency (of speech).  Often represented as F₀ or F0, the form \fo{} is preferred because it graphically emphasizes the fact that the fundamental frequency is not a formant (which are typically represented as F1, F2, etc.).\\
+		F2×F1 & The acoustic space defined by the center frequencies of the first and second formants of sonorant speech sounds (usually vowels).\\
 		L1, L2, etc. & First (native) language, second language, etc.\\
-		\ac{rms} & Root mean square (a method of measuring sound power)\\
-		\ac{snr} & Signal-to-noise ratio ()\\
-		\ac{srt} & Speech reception threshold ()\\
+		\ac{rms} & Root mean square (a method of measuring sound power: insert formula here).\\
+		\ac{snr} & Signal-to-noise ratio (insert formula here).\\
+		\everyrow{}
+		\ac{srt} & Speech reception threshold (insert explanation here).\\
+		\taburulecolor{black}
 		\bottomrule
 	\end{tabu}
 \end{table}
