@@ -68,6 +68,7 @@
 \newcommand{\intal}{\lat{inter alia}}
 \newcommand{\aka}{\textsc{aka}}
 \newcommand{\vs}{\lat{vs.}}
+\newcommand{\slsh}{/‌} % contains a zero-width non joiner after the slash, to allow line breaking
 
 % fonts & formatting
 \setmainfont[Numbers={Lining}]{Linux Libertine O} \setmonofont{M+ 1m medium} %\setmonofont{Linux Libertine Mono O}
@@ -136,10 +137,12 @@
 %\pagenumbering{arabic}
 \input{01_introduction}
 \input{02_background}
+\exclude{
 \input{03_questions}
 \input{04_methods}
 \input{05_results}
 \input{06_discussion}
+}
 \end{spacing}
 
 % BIBLIOGRAPHY (SINGLE SPACED)
@@ -147,9 +150,11 @@
 \bibliography{dissertation}
 
 %\appendix
+\exclude{
 \titleformat{\chapter}{\LARGE\bfseries\doublespacing}{Appendix \thechapter.}{0.6em}{}
 \begin{appendices}
 \input{apx_HarvardSents}
 \input{apx_PraatScripts}
 \end{appendices}
+}
 \end{document}
