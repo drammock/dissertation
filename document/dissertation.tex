@@ -7,8 +7,10 @@
 \usepackage[parfill]{parskip} % begin paragraphs with empty line, not an indent
 \usepackage[compact]{titlesec}
 %\usepackage{fancyhdr} \pagestyle{fancy} \fancyhf{} %\lhead[]{} \chead[]{} \rhead[]{} \lfoot[]{} \cfoot[]{\fancyplain{}{\osf \thepage}} \rfoot[]{}  %\cmd[oddpage]{evenpage}
-\usepackage{natbib, graphicx, color, url, fontspec, ragged2e, setspace, paralist, float, array, longtable, tabu, booktabs, multicol, multirow, titling, etoolbox}  % \setuldepth{x} tabularx, siunitx, 
-\usepackage[hidelinks,pdfpagelabels,xetex]{hyperref}
+\usepackage{natbib, graphicx, xcolor, url, fontspec, ragged2e, setspace, paralist, float, array, longtable, tabu, booktabs, multicol, multirow, titling, etoolbox}  % \setuldepth{x} siunitx 
+\usepackage[pdfpagelabels,xetex]{hyperref} % another nice package option is hidelinks
+\definecolor{ltgray}{gray}{0.7}
+\definecolor{urlGreen}{rgb}{0.1,0.5,0.1}
 \hypersetup{
     pdftitle={Prosody, familiarity and intelligibility in speech perception},
     pdfauthor={Daniel R. McCloy},
@@ -17,7 +19,14 @@
     bookmarksnumbered=true,
     bookmarksopen=true,
     bookmarksopenlevel=1,
-    colorlinks=false,
+    colorlinks=true,
+%    anchorcolor
+    citecolor=black,
+    filecolor=black,
+    linkcolor=black,
+    menucolor=black,
+%    runcolor
+    urlcolor=urlGreen,
     pdfstartview=Fit,
     pdfpagemode=UseOutlines,
     unicode=true,
@@ -52,9 +61,7 @@
 	\listof{figure}{\listfigurename}%
 }
 
-
 % comments, common abbreviations, etc
-\definecolor{ltgray}{gray}{0.7}
 \newcommand{\comment}[1]{{\textcolor{red}{(#1)}}}
 \newcommand{\exclude}[1]{}
 \newcommand{\term}[1]{“#1”} % first occurrence of technical terms
@@ -71,7 +78,7 @@
 \newcommand{\slsh}{/‌} % contains a zero-width non joiner after the slash, to allow line breaking
 
 % fonts & formatting
-\setmainfont[Numbers={Lining}]{Linux Libertine O} \setmonofont{M+ 1m medium} %\setmonofont{Linux Libertine Mono O}
+\setmainfont[Numbers={Lining}]{Linux Libertine O} \setmonofont{M+ 1m regular} %\setmonofont{Linux Libertine Mono O}
 \renewcommand{\url}{\begingroup \def\UrlLeft{}\def\UrlRight{}\urlstyle{same}\Url} % set URLs in whatever font surrounding text uses
 
 % itemized lists
@@ -116,32 +123,32 @@
 \begin{spacing}{2}
 
 \exclude{
-% TITLE PAGE & ABSTRACT
-\input{00a_tit_abs}
-% FRONTMATTER
-\pagenumbering{roman}
-\tableofcontents
-\listoffigures
-\listoftables
-\listoflistings
-% ACKNOWLEDGMENTS & DEDICATION
-\cleardoublepage
-\addcontentsline{toc}{section}{Acknowledgments}
-\input{00b_ackn}
-\cleardoublepage
-\addcontentsline{toc}{section}{Dedication}
-\input{00c_ded}
-\cleardoublepage
+	% TITLE PAGE & ABSTRACT
+	\input{00a_tit_abs}
+	% FRONTMATTER
+	\pagenumbering{roman}
+	\tableofcontents
+	\listoffigures
+	\listoftables
+	\listoflistings
+	% ACKNOWLEDGMENTS & DEDICATION
+	\cleardoublepage
+	\addcontentsline{toc}{section}{Acknowledgments}
+	\input{00b_ackn}
+	\cleardoublepage
+	\addcontentsline{toc}{section}{Dedication}
+	\input{00c_ded}
+	\cleardoublepage
 }
 % MAIN CONTENT
-%\pagenumbering{arabic}
+\pagenumbering{arabic}
 \input{01_introduction}
 \input{02_background}
 \exclude{
-\input{03_questions}
-\input{04_methods}
-\input{05_results}
-\input{06_discussion}
+	\input{03_questions}
+	\input{04_methods}
+	\input{05_results}
+	\input{06_discussion}
 }
 \end{spacing}
 
@@ -151,10 +158,10 @@
 
 %\appendix
 \exclude{
-\titleformat{\chapter}{\LARGE\bfseries\doublespacing}{Appendix \thechapter.}{0.6em}{}
-\begin{appendices}
-\input{apx_HarvardSents}
-\input{apx_PraatScripts}
-\end{appendices}
+	\titleformat{\chapter}{\LARGE\bfseries\doublespacing}{Appendix \thechapter.}{0.6em}{}
+	\begin{appendices}
+	\input{apx_HarvardSents}
+	\input{apx_PraatScripts}
+	\end{appendices}
 }
 \end{document}

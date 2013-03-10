@@ -356,7 +356,7 @@ FUNCTION {bibinfo.warn}
 FUNCTION {write.url}
 { url empty$
     { skip$ }
-    { "\newline\urlprefix\url{" url * "}" * write$ newline$ }
+    { "\newline\urlprefix\href{" url * "}{" * url * "}" * write$ newline$ }
   if$
 }
 
@@ -501,7 +501,7 @@ FUNCTION {format.doi}
     { "" }
 %    { new.block "\doi{" doi * "}" * }
 %    { new.block "\textsc{doi}: \doi{" doi * "}" * }
-    { new.block "\href{http://dx.doi.org/" doi * "}{\textsc{doi}: " * doi * "}" * }
+    { new.block "\textsc{doi}:\thinspace\href{http://dx.doi.org/" doi * "}{" * doi * "}" * }
   if$
 }
 
@@ -955,8 +955,8 @@ FUNCTION {book}
   crossref missing$
     { format.bvolume output
       new.block
-      format.number.series output
-      new.sentence
+#      format.number.series output
+#      new.sentence
       format.publisher.address output
     }
     {
@@ -1483,7 +1483,7 @@ FUNCTION {begin.bib}
   write$ newline$
   "  \def\url#1{{\tt #1}}\fi"
   write$ newline$
-  "\expandafter\ifx\csname urlprefix\endcsname\relax\def\urlprefix{URL }\fi"
+  "\expandafter\ifx\csname urlprefix\endcsname\relax\def\urlprefix{\textsc{url}:\thinspace}\fi"
   write$ newline$
 }
 EXECUTE {begin.bib}
