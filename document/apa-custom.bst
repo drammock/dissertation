@@ -236,10 +236,12 @@ FUNCTION {bbl.in}
 { "in" }
 
 FUNCTION {bbl.pages}
-{ "pp." }
+{""}
+%{ "pp." }
 
 FUNCTION {bbl.page}
-{ "p." }
+{""}
+%{ "p." }
 
 FUNCTION {bbl.chapter}
 { "chap." }
@@ -356,7 +358,8 @@ FUNCTION {bibinfo.warn}
 FUNCTION {write.url}
 { url empty$
     { skip$ }
-    { "\newline\urlprefix\href{" url * "}{" * url * "}" * write$ newline$ }
+%    { "\newline\urlprefix\href{" url * "}{" * url * "}" * write$ newline$ }
+    { "\urlprefix\href{" url * "}{" * url * "}" * write$ newline$ }
   if$
 }
 
@@ -759,7 +762,7 @@ FUNCTION {format.pages}
       tie.or.space.prefix
       "pages" bibinfo.check
       * *
-     "(" swap$ * ")" *
+%     "(" swap$ * ")" *
     }
   if$
 }
@@ -1062,18 +1065,20 @@ FUNCTION {inproceedings}
   date.block
   format.title "title" output.check
   new.block
+  howpublished "howpublished" bibinfo.check output
+  new.block
   crossref missing$
     { format.in.ed.booktitle "booktitle" output.check
       format.bvolume output
       format.number.series output
       format.pages output
       new.sentence
-      publisher empty$
-        { format.organization.address output }
-        { organization "organization" bibinfo.check output
-          format.publisher.address output
-        }
-      if$
+%      publisher empty$
+%        { format.organization.address output }
+%        { organization "organization" bibinfo.check output
+%          format.publisher.address output
+%        }
+%      if$
     }
     { format.incoll.inproc.crossref output.nonnull
       format.pages output
@@ -1083,7 +1088,10 @@ FUNCTION {inproceedings}
   new.block
   format.note output
   fin.entry
-  write.url
+  doi missing$
+    { write.url }
+    {}
+  if$
 }
 FUNCTION {conference} { inproceedings }
 FUNCTION {manual}
