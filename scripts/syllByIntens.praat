@@ -12,7 +12,7 @@ form Create syllable tier using intensity
 	boolean prepopulateMinima 1
 	boolean prepopulateMaxima 0
 	comment You can pick up where you left off if you like:
-	integer startingFileNum 187
+	integer startingFileNum 247
 endform
 
 # BE FORGIVING IF THE USER FORGOT TRAILING PATH SLASHES OR LEADING FILE EXTENSION DOTS
