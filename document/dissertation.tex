@@ -7,6 +7,7 @@
 \usepackage[parfill]{parskip} % begin paragraphs with empty line, not an indent
 % \setlength{\parindent}{5pt}
 \usepackage[compact]{titlesec}
+%\usepackage[inline]{enumitem} % using paralist instead
 %\usepackage{fancyhdr} \pagestyle{fancy} \fancyhf{} %\lhead[]{} \chead[]{} \rhead[]{} \lfoot[]{} \cfoot[]{\fancyplain{}{\osf \thepage}} \rfoot[]{}  %\cmd[oddpage]{evenpage}
 \usepackage{natbib, graphicx, xcolor, url, fontspec, ragged2e, setspace, paralist, float, array, longtable, tabu, booktabs, multicol, multirow, titling, etoolbox}  % \setuldepth{x} siunitx 
 \usepackage[pdfpagelabels,xetex]{hyperref} % another nice package option is hidelinks
@@ -36,6 +37,10 @@
 % prevent bibitems from splitting across pages (requires etoolbox package)
 \AtBeginEnvironment{thebibliography}{\interlinepenalty10000}
 
+% avoid in-text citations that say "American National Standards Institute"
+\defcitealias{ansi1994}{ANSI, 1994}
+\defcitealias{ansi2004}{ANSI, 2004}
+
 % setup handling of code listings
 \usepackage{caption}
 \newenvironment{code}{\captionsetup{type=listing}\bigskip\noindent}{\bigskip}
@@ -63,7 +68,7 @@
 }
 
 % comments, common abbreviations, etc
-\newcommand{\comment}[1]{{\textcolor{red}{(#1)}}}
+\newcommand{\comment}[1]{{\textcolor{red}{#1}}}
 \newcommand{\exclude}[1]{}
 \newcommand{\term}[1]{“#1”} % first occurrence of technical terms
 \newcommand{\ac}[1]{\textsc{#1}} % acronyms % \newcommand{\ac}[1]{\MakeUppercase{#1}}
@@ -125,7 +130,7 @@
 \RaggedRight
 \begin{spacing}{2}
 
-\exclude{
+%\exclude{
 	% TITLE PAGE & ABSTRACT
 	\input{00a_tit_abs}
 	% FRONTMATTER
@@ -142,17 +147,17 @@
 	\addcontentsline{toc}{section}{Dedication}
 	\input{00c_ded}
 	\cleardoublepage
-}
+%}
 % MAIN CONTENT
 \pagenumbering{arabic}
 \input{01_introduction}
 \input{02_background}
-\exclude{
+%\exclude{
 	\input{03_questions}
 	\input{04_methods}
 	\input{05_results}
 	\input{06_discussion}
-}
+%}
 \end{spacing}
 
 % BIBLIOGRAPHY (SINGLE SPACED)
@@ -160,11 +165,11 @@
 \bibliography{dissertation}
 
 %\appendix
-\exclude{
+%\exclude{
 	\titleformat{\chapter}{\LARGE\bfseries\doublespacing}{Appendix \thechapter.}{0.6em}{}
 	\begin{appendices}
 	\input{apx_HarvardSents}
 	\input{apx_PraatScripts}
 	\end{appendices}
-}
+%}
 \end{document}

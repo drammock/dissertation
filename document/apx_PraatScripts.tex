@@ -5,17 +5,27 @@ This script takes a directory of sound files and, for each file, creates a new T
 
 \begin{code}
 	% [samepage, fontsize=\small, formatcom=\bfseries, tabsize=4]
-	\inputminted[fontsize=\small, tabsize=2]{r}{../scripts/syllByIntens_dissVersion.praat}
+	\inputminted[fontsize=\footnotesize, tabsize=2]{r}{../scripts/CreateSyllableTierFromIntensity_DissVersion.praat}
 	\caption[Syllabification by intensity]{Praat script for semi-automated syllabification by intensity\label{lst:SylInt}}
 \end{code}
 \newpage
 
 \section{Semi-auto pulse correction}
-This script does xxx.
+This script faciliates semi-automatic creation of manipulation objects from \texttt{.wav} files.  It takes a directory of sound files and, for each file, displays the pitch contour over a narrowband spectrogram, and prompts the user to either:
+\begin{inparaenum}
+	\item accept the pitch settings, 
+	\item adjust the pitch floor/ceiling and redraw, or
+	\item mark the file as unmeasurable,
+\end{inparaenum}
+before continuing on to the next file.  An \texttt{advancedInterface} option is available for users who want full control over all pitch parameters during the process.  Filename, duration, and pitch settings are saved to a tab-delimited log file.  The option \texttt{outputType} allows users to 
+\begin{inparaenum}
+\item continue to next file after finalizing pitch settings,
+\item silently create and save manipulation objects using final pitch settings before continuing, or
+\item create manipulation objects and open them for hand-correction before continuing to the next file.
+\end{inparaenum}  
 
 \begin{code}
-	Insert script here.
-%	\inputminted[fontsize=\small, tabsize=2]{r}{../scripts/ XXX _dissVersion.praat}
+	\inputminted[fontsize=\footnotesize, tabsize=2]{r}{../scripts/SoundToManipulation_DissVersion.praat}
 	\caption[Semi-auto pulse correction]{Praat script for semi-automated correction of glottal pulses within a manipulation object.\label{lst:PulseCor}}
 \end{code}
 \newpage
@@ -25,6 +35,6 @@ This script does xxx.
 
 \begin{code}
 	Insert script here.
-%	\inputminted[fontsize=\small, tabsize=2]{r}{../scripts/ XXX _dissVersion.praat}
+%	\inputminted[fontsize=\small, tabsize=4]{r}{../scripts/ XXX _dissVersion.praat}
 	\caption[Semi-auto pulse correction]{Praat script for semi-automated correction of glottal pulses within a manipulation object.\label{lst:ProsPSOLA}}
 \end{code}
