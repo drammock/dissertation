@@ -1,12 +1,12 @@
 \chapter{Praat scripts\label{apx:PraatScripts}}
 
-\section{Syllabification by intensity}
+\section{Syllabific segmentation by intensity}
 This script takes a directory of sound files and, for each file, creates a new TextGrid and prepopulates an interval tier with boundaries at each local minimum of the sound file’s intensity contour.  It then presents the user with a TextGrid editor for the opportunity to adjust boundaries, add new ones, delete spurious ones, and add notes if desired.  The file name, notes (if any) and a sequential number are written to a log file.  Users can stop the script at any time, and resume work on the same directory of sound files by entering a “starting file number” when re-initiating the script.
 
 \begin{code}
 	% [samepage, fontsize=\small, formatcom=\bfseries, tabsize=4]
 	\inputminted[fontsize=\footnotesize, tabsize=2]{r}{../scripts/CreateSyllableTierFromIntensity_DissVersion.praat}
-	\caption[Syllabification by intensity]{Praat script for semi-automated syllabification by intensity\label{lst:SylInt}}
+	\caption[Syllabic segmentation by intensity]{Praat script for semi-automated syllable-level segmentation by intensity\label{lst:SylInt}}
 \end{code}
 \newpage
 
@@ -19,9 +19,9 @@ This script faciliates semi-automatic creation of manipulation objects from \tex
 \end{inparaenum}
 before continuing on to the next file.  An \texttt{advancedInterface} option is available for users who want full control over all pitch parameters during the process.  Filename, duration, and pitch settings are saved to a tab-delimited log file.  The option \texttt{outputType} allows users to 
 \begin{inparaenum}
-\item continue to next file after finalizing pitch settings,
-\item silently create and save manipulation objects using final pitch settings before continuing, or
-\item create manipulation objects and open them for hand-correction before continuing to the next file.
+	\item continue to next file after finalizing pitch settings,
+	\item silently create and save manipulation objects using final pitch settings before continuing, or
+	\item create manipulation objects and open them for hand-correction before continuing to the next file.
 \end{inparaenum}  
 
 \begin{code}
@@ -30,11 +30,10 @@ before continuing on to the next file.  An \texttt{advancedInterface} option is 
 \end{code}
 \newpage
 
-\section{\ac{psola} prosody replacement}
-This script does xxx.
+\section{Prosody replacement with \psola}
+This script takes as input two manipulation objects and two {TextGrids} and maps the pitch, duration, and intensity patterns from one manipulation object onto the other.  The manipulation objects must have the waveform embedded, but may be either text or binary.
 
 \begin{code}
-	Insert script here.
-%	\inputminted[fontsize=\small, tabsize=4]{r}{../scripts/ XXX _dissVersion.praat}
-	\caption[Semi-auto pulse correction]{Praat script for semi-automated correction of glottal pulses within a manipulation object.\label{lst:ProsPSOLA}}
+	\inputminted[fontsize=\footnotesize, tabsize=2]{r}{../scripts/ReplaceProsodyPSOLA_DissVersion.praat}
+	\caption[Prosody replacement with \psola]{Praat script for prosodic replacement using \psola.\label{lst:ProsPSOLA}}
 \end{code}
