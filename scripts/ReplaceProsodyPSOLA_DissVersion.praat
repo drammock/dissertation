@@ -1,19 +1,3 @@
-# # # # # # # # # # # # # # # # # # # # # # # #
-# PRAAT SCRIPT "REPLACE PROSODY WITH PSOLA"
-# This script automates the replacement of prosody from one talker to another.  In particular, it takes as arguments two folders of manipulation objects (with embedded sound files) and folders of corresponding textgrid files, maps the prosody from the second set onto the first, and outputs a new manipulation object and sound file.  Works best for the same sentence read by different talkers, and at minimum requires that the textgrids have the same number of durational units (at least in the tier specified).  To work well, you will need ACCURATE, HAND-CORRECTED pitch information in the manipulation objects (both the pulses and pitch tiers).  This script borrows heavily from the script "cloneProsody" by YOON Kyuchul:
-# Yoon, K. (2007). Imposing native speakers’ prosody on non-native speakers’ utterances: The technique of cloning prosody. 현대영미어문학회 [The Journal of Modern British & American Language & Literature], 25(4), 197–215.
-#
-# FORM INSTRUCTIONS
-#
-# VERSION 0.1 (2013 02 05)
-#
-# CHANGELOG
-#
-# AUTHOR: DANIEL MCCLOY: (drmccloy@uw.edu)
-# LICENSED UNDER THE GNU GENERAL PUBLIC LICENSE v3.0: http://www.gnu.org/licenses/gpl.html
-# DEVELOPMENT OF THIS SCRIPT WAS FUNDED BY THE NATIONAL INSTITUTES OF HEALTH, GRANT # R01DC006014 TO PAMELA SOUZA
-# # # # # # # # # # # # # # # # # # # # # # # #
-
 # COLLECT ALL THE USER INPUT
 form Neutralize Prosody: Select directories & starting parameters
 	sentence Segmental_donor ../stimuli/manipulationObjects/NWM02_01-07.Manipulation
@@ -34,32 +18,9 @@ endform
 call cleanPath 'output_directory$'
 outDir$ = "'cleanPath.out$'"
 
-# INITIATE THE LOG FILE
-# if fileReadable (logFile$)
-# 	beginPause ("The log file already exists!")
-# 		comment ("The log file already exists!")
-# 		comment ("You can overwrite the existing file, or append new data to the end of it.")
-# 	overwrite_setting = endPause ("Append", "Overwrite", 1)
-# 	if overwrite_setting = 2
-# 		filedelete 'logFile$'
-# 		call initializeOutfile
-# 	endif
-# else
-# 	# THERE IS NOTHING TO OVERWRITE, SO CREATE THE HEADER ROW FOR THE NEW OUTPUT FILE
-# 	call initializeOutfile
-# endif
-
 # INITIALIZE SOME GLOBAL VALUES
-offset = 0.00000000001 ; used in the duration tier to prevent points from coinciding
-
-
-# SLICE OFF THE BASENAMES OF THE DONOR FILES
-# (HACK - SPECIFIC TO MY FILE NAMING CONVENTION)
-tmp$ = right$(segmental_donor$,24)
-segDonorFilename$ = left$(tmp$,11)
-tmp$ = right$(prosodic_donor$,24)
-proDonorFilename$ = left$(tmp$,11)
-
+# used in the duration tier to prevent points from coinciding
+offset = 0.00000000001
 
 # READ IN ALL THE FILES
 segManip = Read from file... 'segmental_donor$'
@@ -93,7 +54,6 @@ Insert column (index)... 3
 
 pitchDiff = segPitchMean - proPitchMean
 
-
 # EXTRACT INTENSITY TIERS AND SOME INTENSITY INFO TO BE USED LATER
 select segManip
 segSound = Extract original sound
@@ -113,13 +73,11 @@ proIntensityTier = Down to IntensityTier
 proIntensityTable = Down to TableOfReal
 Insert column (index)... 3
 
-
 # EXTRACT (EMPTY) DURATION TIERS
 select segManip
 segDurationTier = Extract duration tier
 select proManip
 proDurationTier = Extract duration tier
-
 
 # STEP THROUGH EACH INTERVAL IN THE TEXTGRIDS
 for intNum to segInt
@@ -138,7 +96,6 @@ for intNum to segInt
 	proSegRatio = proIntDur / segIntDur
 	segProRatio = segIntDur / proIntDur
 
-
 	# CREATE DURATION TIER POINTS FOR CURRENT INTERVAL IN TARGET OBJECT
 	select segDurationTier
 	Add point... segIntStart+offset proSegRatio
@@ -148,7 +105,6 @@ for intNum to segInt
 	select proDurationTier
 	Add point... proIntStart+offset segProRatio
 	Add point... proIntEnd segProRatio
-
 
 	# WARP TIME DOMAIN OF PITCH AND INTENSITY VALUES AND STORE IN (PREVIOUSLY EMPTY) COLUMN 3 OF THE TABLES.
 	select segPitchTable
@@ -162,7 +118,6 @@ for intNum to segInt
 
 # DONE STEPPING THROUGH EACH INTERVAL OF THE TEXTGRIDS
 endfor
-
 
 # CREATE NEW PITCH AND INTENSITY TIERS WITH WARPED TIME DOMAINS
 select segSound
@@ -191,7 +146,6 @@ for r to proIntensityRows
 	Add point... t v
 endfor
 
-
 # MULTIPLY TARGET SOUND BY ITS INTENSITY INVERSE, THEN BY THE TARGET INTENSITY
 select segIntensity
 Formula... 'segIntensityMax' - self
@@ -206,7 +160,6 @@ plus segProIntensityWarped
 segSoundProIntensity = Multiply... yes
 Scale intensity... proIntensityRMS
 
-
 # ASSEMBLE FINAL MANIPULATION OBJECT
 select segManip
 plus segSoundProIntensity
@@ -220,12 +173,10 @@ select segManip
 plus segDurationTier
 Replace duration tier
 
-finalBasename$ = left$(segDonorFilename$,6) + proDonorFilename$
 select segManip
-Save as binary file... 'outDir$''finalBasename$'.Manipulation
+Save as binary file... 'outDir$''segDonorFilename$'_'proDonorFilename$'.Manipulation
 segProResynth = Get resynthesis (overlap-add)
-Save as WAV file... 'outDir$''finalBasename$'.wav
-
+Save as WAV file... 'outDir$''segDonorFilename$'_'proDonorFilename$'.wav
 
 # CLEAN UP
 select segManip
@@ -254,14 +205,7 @@ plus proIntensity
 plus proIntensityTier
 plus proIntensityTable
 plus proDurationTier
-# plus proSegPitchWarped
-# plus proSegIntensityWarped
-# plus proIntensityInverse
-# plus proSoundInverse
-# plus proSoundProIntensity
-# plus proSegResynth
 Remove
-
 
 # FUNCTIONS (A.K.A. PROCEDURES) THAT WERE CALLED EARLIER
 procedure cleanPath .in$

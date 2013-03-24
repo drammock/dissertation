@@ -1,0 +1,16 @@
+Order of script usage for dissertation resynthesis:
+
+CreateSyllableTierFromIntensity.praat
+% use intensity contour to prepopulate new TextGrid tier with boundaries at intensity local minima, then hand-correct (mostly by removing spurious boundaries, but some more difficult hand correction is sometimes needed)
+
+SoundToManipulation.praat
+% semi-auto pitch settings tool, create manipulation object, and show manipulation object for pulse correction, all in one script.
+
+ReplaceProsodyPSOLA.praat
+% takes 2 manipulation objects and 2 textgrids as input.  Called via python script BatchResynth.py
+
+BatchResynth.py
+% batch runner for ReplaceProsodyPSOLA.praat, takes a tab-delimited file with basenames of segmental donor and prosodic donor files.
+
+BatchResynthRunner.sh
+% a single call to BatchResynth.py with the long folder path arguments pre-specified.

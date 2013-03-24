@@ -60,12 +60,12 @@ for curFile from startingFileNum to fileCount
 		Read from file... 'tgSrcDir$''curName$'.TextGrid
 		echo 'curFile'
 
-		#OPEN THE PAIR OF FILES IN THE EDITOR AND ZOOM IN
+		# OPEN THE PAIR OF FILES IN THE EDITOR AND ZOOM IN
 		select TextGrid 'curName$'
 		Duplicate tier... 2 1 syll
 		numIntervals = Get number of intervals... 1
 		for curInterval from 1 to numIntervals
-			Set interval text... 1 curInterval 
+			Set interval text... 1 curInterval
 		endfor
 		plus Sound 'curName$'
 		View & Edit
@@ -79,7 +79,7 @@ for curFile from startingFileNum to fileCount
 			#SHOW A U.I. WITH A SAVE BUTTON FOR THE TEXT GRID
 			beginPause ("Modify text grid")
 				comment ("When modifications are complete, click save")
-			clicked = endPause ("Save", 1)	
+			clicked = endPause ("Save", 1)
 			if clicked = 1
 				Save TextGrid as text file... 'tgOutDir$''curName$'.TextGrid
 			endif
