@@ -1,15 +1,15 @@
 \chapter{Praat scripts\label{apx:PraatScripts}}
 
+% SEGMENTATION
 \section{Syllabific segmentation by intensity}
 This script takes a directory of sound files and, for each file, creates a new TextGrid and prepopulates an interval tier with boundaries at each local minimum of the sound file’s intensity contour.  It then presents the user with a TextGrid editor for the opportunity to adjust boundaries, add new ones, delete spurious ones, and add notes if desired.  The file name, notes (if any) and a sequential number are written to a log file.  Users can stop the script at any time, and resume work on the same directory of sound files by entering a “starting file number” when re-initiating the script.
-
 \begin{code}
-	% [samepage, fontsize=\small, formatcom=\bfseries, tabsize=4]
 	\inputminted[fontsize=\footnotesize, tabsize=2]{r}{../scripts/CreateSyllableTierFromIntensity_DissVersion.praat}
 	\caption[Syllabic segmentation by intensity]{Praat script for semi-automated syllable-level segmentation by intensity\label{lst:SylInt}}
 \end{code}
 \newpage
 
+% PITCH SETTINGS AND PULSE CORRECTION
 \section{Semi-auto pulse correction}
 This script faciliates semi-automatic creation of manipulation objects from \texttt{.wav} files.  It takes a directory of sound files and, for each file, displays the pitch contour over a narrowband spectrogram, and prompts the user to either:
 \begin{inparaenum}
@@ -23,17 +23,45 @@ before continuing on to the next file.  An \texttt{advancedInterface} option is 
 	\item silently create and save manipulation objects using final pitch settings before continuing, or
 	\item create manipulation objects and open them for hand-correction before continuing to the next file.
 \end{inparaenum}  
-
 \begin{code}
 	\inputminted[fontsize=\footnotesize, tabsize=2]{r}{../scripts/SoundToManipulation_DissVersion.praat}
 	\caption[Semi-auto pulse correction]{Praat script for semi-automated correction of glottal pulses within a manipulation object.\label{lst:PulseCor}}
 \end{code}
 \newpage
 
+% PSOLA
 \section{Prosody replacement with \psola}
 This script takes as input two manipulation objects and two {TextGrids} and maps the pitch, duration, and intensity patterns from one manipulation object onto the other.  The manipulation objects must have the waveform embedded, but may be either text or binary.
-
 \begin{code}
 	\inputminted[fontsize=\footnotesize, tabsize=2]{r}{../scripts/ReplaceProsodyPSOLA_DissVersion.praat}
 	\caption[Prosody replacement with \psola]{Praat script for prosodic replacement using \psola.\label{lst:ProsPSOLA}}
 \end{code}
+
+% CREATE LTAS NOISE
+\section[Create speech-shaped noise]{Spectrally shape noise to match the long-term average spectrum of stimuli}
+This script takes a directory of sound files, calculates the long-term average spectrum (\ac{ltas}) for each, and finds the average of the 
+and, for each file, creates a new TextGrid and prepopulates an interval tier with boundaries at each local minimum of the sound file’s intensity contour.  It then presents the user with a TextGrid editor for the opportunity to adjust boundaries, add new ones, delete spurious ones, and add notes if desired.  The file name, notes (if any) and a sequential number are written to a log file.  Users can stop the script at any time, and resume work on the same directory of sound files by entering a “starting file number” when re-initiating the script.
+\begin{code}
+	\inputminted[fontsize=\footnotesize, tabsize=2]{r}{../scripts/CreateSyllableTierFromIntensity_DissVersion.praat}
+	\caption[Syllabic segmentation by intensity]{Praat script for semi-automated syllable-level segmentation by intensity\label{lst:SylInt}}
+\end{code}
+\newpage
+
+% ADD NOISE
+\section{Mix signal and noise}
+This script takes a directory of sound files and, for each file, creates a new TextGrid and prepopulates an interval tier with boundaries at each local minimum of the sound file’s intensity contour.  It then presents the user with a TextGrid editor for the opportunity to adjust boundaries, add new ones, delete spurious ones, and add notes if desired.  The file name, notes (if any) and a sequential number are written to a log file.  Users can stop the script at any time, and resume work on the same directory of sound files by entering a “starting file number” when re-initiating the script.
+\begin{code}
+	\inputminted[fontsize=\footnotesize, tabsize=2]{r}{../scripts/CreateSyllableTierFromIntensity_DissVersion.praat}
+	\caption[Syllabic segmentation by intensity]{Praat script for semi-automated syllable-level segmentation by intensity\label{lst:SylInt}}
+\end{code}
+\newpage
+
+% ADD NOISE
+\section{Mix signal and noise}
+This script takes a directory of sound files and, for each file, creates a new TextGrid and prepopulates an interval tier with boundaries at each local minimum of the sound file’s intensity contour.  It then presents the user with a TextGrid editor for the opportunity to adjust boundaries, add new ones, delete spurious ones, and add notes if desired.  The file name, notes (if any) and a sequential number are written to a log file.  Users can stop the script at any time, and resume work on the same directory of sound files by entering a “starting file number” when re-initiating the script.
+\begin{code}
+	\inputminted[fontsize=\footnotesize, tabsize=2]{r}{../scripts/CreateSyllableTierFromIntensity_DissVersion.praat}
+	\caption[Syllabic segmentation by intensity]{Praat script for semi-automated syllable-level segmentation by intensity\label{lst:SylInt}}
+\end{code}
+\newpage
+

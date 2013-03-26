@@ -1,30 +1,26 @@
-# PRAAT SCRIPT "CALCULATE LTAS OF CORPUS"
-# This Praat script takes a directory of stimulus files and creates a Gaussian noise file that is spectrally shaped to match the long-term average spectrum of the stimuli, matches the duration of the longest stimulus (plus any noise padding specified in the arguments to the script), and scaled to match the average intensity of the stimuli.  Two methods of spectral averaging are provided: either (1) calculating the LTAS of each file and averaging them, or (2) concatenating the stimuli and breaking into equal-sized chunks and averaging the LTAS's of the chunks.  The methods are expected to differ substantially only when the stimuli vary dramatically in length (in which case method 1, by treating all LTAS's as equal, effectively weights the final spectrum in favor of shorter files).  The script also saves the LTAS object into the output directory (along with the noise file).
-# This script is loosely based on the script "ltasnoise.praat" by Theo Veenker, Lisette van Delft, and Hugo Quené (see Quené & Van Delft (2010). Speech Commun, 52, 911-918. doi:10.1016/j.specom.2010.03.005)
-
 form Calculate LTAS of corpus
-	sentence input_folder /home/dan/Documents/academics/research/dissertation/stimuli/dissTalkers/
-	sentence output_folder /home/dan/Documents/academics/research/dissertation/stimuli/noise/
+	sentence InputFolder ~/Desktop/SoundFiles/
+	sentence OutputFolder ~/Desktop/NoiseFiles/
 	positive ltasBandwidth_(Hz) 100
-	positive noisePadding 0.05
+	positive noisePadding_(seconds) 0.05
 	optionmenu method: 2
 		option by file
 		option by chunk
-	positive Chunk_duration 30
+	positive Chunk_duration_(seconds) 30
 	comment Chunk duration is ignored if method is "by file".
 endform
 
-Create Strings as file list... stimuli 'input_folder$'*.wav
+Create Strings as file list... stimuli 'inputFolder$'*.wav
 n = Get number of strings
 intensityRunningTotal = 0
 longestFileDuration = 0
-echo 'n' WAV files in directory 'input_folder$'
+echo 'n' WAV files in directory 'inputFolder$'
 
 # OPEN ALL SOUND FILES
 for i from 1 to n
 	select Strings stimuli
 	curFile$ = Get string... 'i'
-	tempSound = Read from file... 'input_folder$''curFile$'
+	tempSound = Read from file... 'inputFolder$''curFile$'
 	# KEEP TRACK OF INTENSITIES SO WE CAN SCALE NOISE APPROPRIATELY
 	intens = Get intensity (dB)
 	intensityRunningTotal = intensityRunningTotal + intens
@@ -44,7 +40,7 @@ for i from 1 to n
 	else
 		# RE-OPEN EACH FILE AS LONGSOUND, TO BE CONCATENATED AND CHUNKED LATER
 		Remove
-		snd_'i' = Open long sound file... 'input_folder$''curFile$'
+		snd_'i' = Open long sound file... 'inputFolder$''curFile$'
 	endif
 endfor
 
@@ -56,7 +52,7 @@ if method = 1
 		plus ltas_'i'
 	endfor
 	finalLTAS = Average
-	Save as binary file... 'output_folder$'CorpusFilewise.Ltas
+	Save as binary file... 'outputFolder$'CorpusFilewise.Ltas
 	select ltas_1
 	for i from 2 to n
 		plus ltas_'i'
@@ -70,11 +66,11 @@ else
 	for i from 2 to n
 		plus snd_'i'
 	endfor
-	Save as WAV file... 'output_folder$'ConcatenatedCorpus.wav
+	Save as WAV file... 'outputFolder$'ConcatenatedCorpus.wav
 	Remove
 	# SPLIT INTO EQUAL-LENGTH CHUNKS
 	printline Chunking corpus...
-	corpus = Open long sound file... 'output_folder$'ConcatenatedCorpus.wav
+	corpus = Open long sound file... 'outputFolder$'ConcatenatedCorpus.wav
 	corpusDur = Get total duration
 	chunkCount = ceiling(corpusDur/chunk_duration)
 	# CREATE LTAS FOR EACH CHUNK
@@ -93,14 +89,14 @@ else
 		plus ltas_'i'
 	endfor
 	finalLTAS = Average
-	Save as binary file... 'output_folder$'CorpusChunkwise.Ltas
+	Save as binary file... 'outputFolder$'CorpusChunkwise.Ltas
 	# CLEAN UP INTERIM FILES
 	select corpus
 	for i from 1 to chunkCount
 		plus ltas_'i'
 	endfor
 	Remove
-	filedelete 'output_folder$'ConcatenatedCorpus.wav
+	filedelete 'outputFolder$'ConcatenatedCorpus.wav
 endif
 
 # CREATE WHITE NOISE SPECTRUM
@@ -112,7 +108,7 @@ ltasNoise = To Sound
 # SCALE TO AVERAGE INTENSITY OF INPUT FILES
 meanIntensity = intensityRunningTotal / n
 Scale intensity... meanIntensity
-Save as WAV file... 'output_folder$'SpeechShapedNoise.wav
+Save as WAV file... 'outputFolder$'SpeechShapedNoise.wav
 # CLEAN UP
 select whiteNoise
 plus noiseSpect

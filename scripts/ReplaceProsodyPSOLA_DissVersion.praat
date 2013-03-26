@@ -1,21 +1,16 @@
 # COLLECT ALL THE USER INPUT
 form Neutralize Prosody: Select directories & starting parameters
-	sentence Segmental_donor ../stimuli/manipulationObjects/NWM02_01-07.Manipulation
-	sentence Seg_donor_textgrid ../stimuli/textgrids_intensity_renamed/NWM02_01-07.TextGrid
+	sentence Segmental_donor ~/Desktop/ManipulationObjects/NWM02_01-07.Manipulation
+	sentence Seg_donor_textgrid ~/Desktop/TextGrids/NWM02_01-07.TextGrid
 	integer Seg_donor_tier 1
-	sentence Prosodic_donor ../stimuli/manipulationObjects/NWM07_01-07.Manipulation
-	sentence Pro_donor_textgrid ../stimuli/textgrids_intensity_renamed/NWM07_01-07.TextGrid
+	sentence Prosodic_donor ~/Desktop/ManipulationObjects/NWM07_01-07.Manipulation
+	sentence Pro_donor_textgrid ~/Desktop/TextGrids/NWM07_01-07.TextGrid
 	integer Pro_donor_tier 1
-	sentence output_directory ../stimuli/resynthesizedFiles/
-#	sentence logFile ~/Desktop/ReplaceProsodyPSOLA.log
-#	boolean Replace_pitch 1
-#	boolean Replace_duration 1
-#	boolean Replace_intensity 1
-#	boolean swap 0
+	sentence OutputFolder ~/Desktop/ResynthesizedFiles/
 endform
 
 # BE FORGIVING IF THE USER FORGOT TRAILING PATH SLASHES OR LEADING FILE EXTENSION DOTS
-call cleanPath 'output_directory$'
+call cleanPath 'outputFolder$'
 outDir$ = "'cleanPath.out$'"
 
 # INITIALIZE SOME GLOBAL VALUES

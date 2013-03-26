@@ -1,8 +1,8 @@
 form Mix speech with noise
-	sentence Stimuli_folder /home/dan/Documents/academics/research/dissertation/stimuli/dissTalkers/
-	sentence Noise_file /home/dan/Documents/academics/research/dissertation/stimuli/ltasNoise.wav
-	sentence Output_folder /home/dan/Documents/academics/research/dissertation/stimuli/stimuliWithNoise/zeroSNR/
-	real Desired_SNR 0
+	sentence InputFolder ~/Desktop/SoundFiles/
+	sentence NoiseFile ~/Desktop/NoiseFiles/SpeechShapedNoise.wav
+	sentence OutputFolder ~/Desktop/StimuliWithNoise/
+	real Desired_SNR_(dB) 0
 	optionmenu finalIntensity: 1
 		option match final intensity to stimulus intensity
 		option maximize (scale peaks to plus/minus 1)
@@ -10,16 +10,16 @@ form Mix speech with noise
 endform
 
 # NOISE
-noise = Read from file... 'noise_file$'
+noise = Read from file... 'noiseFile$'
 noiseDur = Get total duration
 noiseRMS = Get root-mean-square... 0 0
 # noiseInten = Get intensity (dB)
 
 # STIMULI
-Create Strings as file list... stimuli 'stimuli_folder$'*.wav
+Create Strings as file list... stimuli 'inputFolder$'*.wav
 n = Get number of strings
 
-echo 'n' WAV files in folder 'stimuli_folder$'
+echo 'n' WAV files in folder 'inputFolder$'
 
 for i from 1 to n
 	printline Processing file 'i' of 'n'
@@ -27,7 +27,7 @@ for i from 1 to n
 	# READ IN EACH STIMULUS
 	select Strings stimuli
 	curFile$ = Get string... 'i'
-	curSound = Read from file... 'stimuli_folder$''curFile$'
+	curSound = Read from file... 'inputFolder$''curFile$'
 	curDur = Get total duration
 	curRMS = Get root-mean-square... 0 0
 	curInten = Get intensity (dB)
@@ -49,7 +49,7 @@ for i from 1 to n
 
 	# MIX SIGNAL AND NOISE AT SPECIFIED SNR
 	select curSound
-	Formula...  self[col] + 'noiseAdjustCoef'*Sound_ltasNoise[col]
+	Formula...  self[col] + noiseAdjustCoef * object[noise,col]
 
 
 	# SCALE RESULT IF NECESSARY
@@ -64,7 +64,7 @@ for i from 1 to n
 
 	# WRITE OUT FINAL FILE
 	select curSound
-	Save as WAV file... 'output_folder$''curFile$'
+	Save as WAV file... 'outputFolder$''curFile$'
 	Remove
 
 endfor
