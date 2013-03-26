@@ -9,8 +9,6 @@ form Mix speech with noise
 		option just add noise to signal (don't scale result)
 endform
 
-echo SNR 'desired_SNR'
-
 # NOISE
 noise = Read from file... 'noise_file$'
 noiseDur = Get total duration
@@ -21,7 +19,11 @@ noiseRMS = Get root-mean-square... 0 0
 Create Strings as file list... stimuli 'stimuli_folder$'*.wav
 n = Get number of strings
 
+echo 'n' WAV files in folder 'stimuli_folder$'
+
 for i from 1 to n
+	printline Processing file 'i' of 'n'
+
 	# READ IN EACH STIMULUS
 	select Strings stimuli
 	curFile$ = Get string... 'i'
