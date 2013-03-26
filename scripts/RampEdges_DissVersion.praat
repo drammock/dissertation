@@ -1,18 +1,18 @@
 form Ramp edges of sound files
-	sentence Input_folder /home/dan/Documents/academics/research/dissertation/stimuli/stimuliWithNoise/zeroSNR/
-	sentence Output_folder /home/dan/Documents/academics/research/dissertation/stimuli/stimuliWithNoise/rampedZeroSNR/
+	sentence InputFolder ~/Desktop/StimuliWithNoise/
+	sentence OutputFolder ~/Desktop/StimuliWithNoise/Ramped/
 	real Ramp_duration 0.05
 endform
 
-Create Strings as file list... stimuli 'input_folder$'*.wav
+Create Strings as file list... stimuli 'inputFolder$'*.wav
 n = Get number of strings
-echo 'n' WAV files in directory 'input_folder$'
+echo 'n' WAV files in directory 'inputFolder$'
 
 for i from 1 to n
 	# READ IN EACH STIMULUS
 	select Strings stimuli
 	curFile$ = Get string... 'i'
-	curSound = Read from file... 'input_folder$''curFile$'
+	curSound = Read from file... 'inputFolder$''curFile$'
 	printline Processing file 'i' of 'n'
 	curDur = Get total duration
 	offset = curDur - ramp_duration
@@ -23,7 +23,7 @@ for i from 1 to n
 
 	# WRITE OUT FINAL FILE
 	select curSound
-	Save as WAV file... 'output_folder$''curFile$'
+	Save as WAV file... 'outputFolder$''curFile$'
 	Remove
 
 endfor
