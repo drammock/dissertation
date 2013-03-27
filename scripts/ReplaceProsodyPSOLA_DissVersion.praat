@@ -1,4 +1,3 @@
-# COLLECT ALL THE USER INPUT
 form Neutralize Prosody: Select directories & starting parameters
 	sentence Segmental_donor ~/Desktop/ManipulationObjects/NWM02_01-07.Manipulation
 	sentence Seg_donor_textgrid ~/Desktop/TextGrids/NWM02_01-07.TextGrid

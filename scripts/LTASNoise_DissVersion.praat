@@ -2,7 +2,7 @@ form Calculate LTAS of corpus
 	sentence InputFolder ~/Desktop/SoundFiles/
 	sentence OutputFolder ~/Desktop/NoiseFiles/
 	positive ltasBandwidth_(Hz) 100
-	positive noisePadding_(seconds) 0.05
+	positive noisePad_(seconds) 0.05
 	optionmenu method: 2
 		option by file
 		option by chunk
@@ -13,7 +13,7 @@ endform
 Create Strings as file list... stimuli 'inputFolder$'*.wav
 n = Get number of strings
 intensityRunningTotal = 0
-longestFileDuration = 0
+longestFile = 0
 echo 'n' WAV files in directory 'inputFolder$'
 
 # OPEN ALL SOUND FILES
@@ -21,14 +21,17 @@ for i from 1 to n
 	select Strings stimuli
 	curFile$ = Get string... 'i'
 	tempSound = Read from file... 'inputFolder$''curFile$'
+
 	# KEEP TRACK OF INTENSITIES SO WE CAN SCALE NOISE APPROPRIATELY
 	intens = Get intensity (dB)
 	intensityRunningTotal = intensityRunningTotal + intens
+
 	# KEEP TRACK OF DURATIONS SO THE NOISE IS LONG ENOUGH FOR THE LONGEST STIMULUS
 	tempDur = Get total duration
-	if longestFileDuration < tempDur
-		longestFileDuration = tempDur
+	if longestFile < tempDur
+		longestFile = tempDur
 	endif
+
 	if method = 1
 		if i = 1
 			printline Creating LTAS objects...
@@ -59,7 +62,6 @@ if method = 1
 	endfor
 	Remove
 else
-	# Calculate LTAS in equal-length chunks instead of by file (otherwise it would effectively weight the shorter files and deweight the longer files). Note that this is a bad idea if your files don't begin and end in silence, and is unnecessary (and slower) if all your files are the same duration.
 	# CONCATENATE
 	printline Concatenating corpus...
 	select snd_1
@@ -68,11 +70,13 @@ else
 	endfor
 	Save as WAV file... 'outputFolder$'ConcatenatedCorpus.wav
 	Remove
+
 	# SPLIT INTO EQUAL-LENGTH CHUNKS
 	printline Chunking corpus...
 	corpus = Open long sound file... 'outputFolder$'ConcatenatedCorpus.wav
 	corpusDur = Get total duration
 	chunkCount = ceiling(corpusDur/chunk_duration)
+
 	# CREATE LTAS FOR EACH CHUNK
 	printline Creating LTAS objects...
 	for i from 1 to chunkCount
@@ -82,6 +86,7 @@ else
 		select tempSound
 		Remove
 	endfor
+
 	# CREATE FINAL LTAS
 	printline Averaging LTAS objects...
 	select ltas_1
@@ -90,6 +95,7 @@ else
 	endfor
 	finalLTAS = Average
 	Save as binary file... 'outputFolder$'CorpusChunkwise.Ltas
+
 	# CLEAN UP INTERIM FILES
 	select corpus
 	for i from 1 to chunkCount
@@ -101,20 +107,21 @@ endif
 
 # CREATE WHITE NOISE SPECTRUM
 printline Creating speech-shaped noise...
-whiteNoise = Create Sound from formula... noise 1 0 longestFileDuration+2*noisePadding 44100 randomGauss(0,0.1)
+noise = Create Sound from formula... noise 1 0 longestFile+2*noisePad 44100 randomGauss(0,0.1)
 noiseSpect = To Spectrum... no
 Formula... self*10^(Ltas_averaged(x)/20)
 ltasNoise = To Sound
+
 # SCALE TO AVERAGE INTENSITY OF INPUT FILES
 meanIntensity = intensityRunningTotal / n
 Scale intensity... meanIntensity
 Save as WAV file... 'outputFolder$'SpeechShapedNoise.wav
+
 # CLEAN UP
-select whiteNoise
+select noise
 plus noiseSpect
 plus Strings stimuli
 plus finalLTAS
 plus ltasNoise
 Remove
-
 printline Done!

@@ -1,7 +1,14 @@
 \chapter{Praat scripts\label{apx:PraatScripts}}
+% SCRIPT ORDER
+% syllabic segmentation
+% pitch settings/pulse correction
+% psola
+% create LTAS noise
+% mix noise
+% ramp edges
 
 % SEGMENTATION
-\section{Syllabific segmentation by intensity}
+\section{Syllabic segmentation by intensity}
 This script takes a directory of sound files and, for each file, creates a new TextGrid and prepopulates an interval tier with boundaries at each local minimum of the sound file’s intensity contour.  It then presents the user with a TextGrid editor for the opportunity to adjust boundaries, add new ones, delete spurious ones, and add notes if desired.  The file name, notes (if any) and a sequential number are written to a log file.  Users can stop the script at any time, and resume work on the same directory of sound files by entering a “starting file number” when re-initiating the script.
 \begin{code}
 	\inputminted[fontsize=\footnotesize, tabsize=2]{r}{../scripts/CreateSyllableTierFromIntensity_DissVersion.praat}
@@ -36,32 +43,37 @@ This script takes as input two manipulation objects and two {TextGrids} and maps
 	\inputminted[fontsize=\footnotesize, tabsize=2]{r}{../scripts/ReplaceProsodyPSOLA_DissVersion.praat}
 	\caption[Prosody replacement with \psola]{Praat script for prosodic replacement using \psola.\label{lst:ProsPSOLA}}
 \end{code}
+\newpage
 
 % CREATE LTAS NOISE
-\section[Create speech-shaped noise]{Spectrally shape noise to match the long-term average spectrum of stimuli}
-This script takes a directory of sound files, calculates the long-term average spectrum (\ac{ltas}) for each, and finds the average of the 
-and, for each file, creates a new TextGrid and prepopulates an interval tier with boundaries at each local minimum of the sound file’s intensity contour.  It then presents the user with a TextGrid editor for the opportunity to adjust boundaries, add new ones, delete spurious ones, and add notes if desired.  The file name, notes (if any) and a sequential number are written to a log file.  Users can stop the script at any time, and resume work on the same directory of sound files by entering a “starting file number” when re-initiating the script.
-\begin{code}
-	\inputminted[fontsize=\footnotesize, tabsize=2]{r}{../scripts/CreateSyllableTierFromIntensity_DissVersion.praat}
-	\caption[Syllabic segmentation by intensity]{Praat script for semi-automated syllable-level segmentation by intensity\label{lst:SylInt}}
+\section[Create speech-shaped noise]{Create noise spectrally shaped to the \ac{ltas} of the corpus}
+This script takes a directory of sound files and creates a Gaussian noise file that is spectrally shaped to match the long-term average spectrum (\ac{ltas}) of the stimuli.  The noise file is created to match the duration of the longest stimulus (plus any noise padding specified in the arguments to the script), and scaled to match the average intensity of the stimuli.  Two methods of spectral averaging are available: either
+\begin{inparaenum}
+\item calculating the \ac{ltas} of each file and averaging them, or \label{list:methodOne} 
+\item concatenating the stimuli and breaking into equal-sized chunks and averaging the spectra of the chunks.  
+\end{inparaenum}
+The methods are expected to differ substantially only when the stimuli vary dramatically in length (in which case method \ref{list:methodOne}, by treating all file-level \ac{ltas} objects equally, effectively weights the final spectrum in favor of shorter files).  The script also saves the \ac{ltas} object into the output directory (along with the noise file).
+ \begin{code}
+	\inputminted[fontsize=\footnotesize, tabsize=2]{r}{../scripts/LTASNoise_DissVersion.praat}
+	\caption[Create speech-shaped noise]{Praat script for creating speech-shaped noise.\label{lst:LTASNoise}}
 \end{code}
 \newpage
 
-% ADD NOISE
+% MIX NOISE
 \section{Mix signal and noise}
-This script takes a directory of sound files and, for each file, creates a new TextGrid and prepopulates an interval tier with boundaries at each local minimum of the sound file’s intensity contour.  It then presents the user with a TextGrid editor for the opportunity to adjust boundaries, add new ones, delete spurious ones, and add notes if desired.  The file name, notes (if any) and a sequential number are written to a log file.  Users can stop the script at any time, and resume work on the same directory of sound files by entering a “starting file number” when re-initiating the script.
+This script takes a noise file and a directory of sound files, and mixes the stimuli with the noise at a specified \ac{snr}, writing the files to the specified directory.  The mixed signal-plus-noise files can optionally be scaled to match the original intensity of the stimulus files. 
 \begin{code}
-	\inputminted[fontsize=\footnotesize, tabsize=2]{r}{../scripts/CreateSyllableTierFromIntensity_DissVersion.praat}
-	\caption[Syllabic segmentation by intensity]{Praat script for semi-automated syllable-level segmentation by intensity\label{lst:SylInt}}
+	\inputminted[fontsize=\footnotesize, tabsize=2]{r}{../scripts/MixSpeechNoise_DissVersion.praat}
+	\caption[Mix signal and noise]{Praat script for mixing speech and noise at a specified \ac{snr}.\label{lst:MixNoise}}
 \end{code}
 \newpage
 
-% ADD NOISE
-\section{Mix signal and noise}
-This script takes a directory of sound files and, for each file, creates a new TextGrid and prepopulates an interval tier with boundaries at each local minimum of the sound file’s intensity contour.  It then presents the user with a TextGrid editor for the opportunity to adjust boundaries, add new ones, delete spurious ones, and add notes if desired.  The file name, notes (if any) and a sequential number are written to a log file.  Users can stop the script at any time, and resume work on the same directory of sound files by entering a “starting file number” when re-initiating the script.
+% RAMP EDGES
+\section{Ramp edges of stimuli}
+This script takes a directory of sound files and applies linear onset and offset ramps to the beginning and end of the file, respectively.  The duration of the ramps is specified in the arguments to the script. 
 \begin{code}
-	\inputminted[fontsize=\footnotesize, tabsize=2]{r}{../scripts/CreateSyllableTierFromIntensity_DissVersion.praat}
-	\caption[Syllabic segmentation by intensity]{Praat script for semi-automated syllable-level segmentation by intensity\label{lst:SylInt}}
+	\inputminted[fontsize=\footnotesize, tabsize=2]{r}{../scripts/RampEdges_DissVersion.praat}
+	\caption[Ramp edges of stimuli]{Praat script for applying linear ramps to the beginning and end of sound files.\label{lst:RampEdges}}
 \end{code}
 \newpage
 
