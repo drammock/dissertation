@@ -131,7 +131,7 @@
 \RaggedRight
 \begin{spacing}{2}
 
-%\exclude{
+\exclude{
 	% TITLE PAGE & ABSTRACT
 	\input{00a_tit_abs}
 	% FRONTMATTER
@@ -148,17 +148,17 @@
 	\addcontentsline{toc}{section}{Dedication}
 	\input{00c_ded}
 	\cleardoublepage
-%}
+}
 % MAIN CONTENT
 \pagenumbering{arabic}
 \input{01_introduction}
 \input{02_background}
-%\exclude{
+\exclude{
 	\input{03_questions}
 	\input{04_methods}
 	\input{05_results}
 	\input{06_discussion}
-%}
+}
 \end{spacing}
 
 % BIBLIOGRAPHY (SINGLE SPACED)
@@ -166,11 +166,11 @@
 \bibliography{dissertation}
 
 %\appendix
-%\exclude{
+\exclude{
 	\titleformat{\chapter}{\LARGE\bfseries\doublespacing}{Appendix \thechapter.}{0.6em}{}
 	\begin{appendices}
 	\input{apx_HarvardSents}
 	\input{apx_PraatScripts}
 	\end{appendices}
-%}
+}
 \end{document}
