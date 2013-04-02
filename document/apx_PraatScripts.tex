@@ -11,7 +11,7 @@
 \section{Syllabic segmentation by intensity}
 This script takes a directory of sound files and, for each file, creates a new TextGrid and prepopulates an interval tier with boundaries at each local minimum of the sound file’s intensity contour.  It then presents the user with a TextGrid editor for the opportunity to adjust boundaries, add new ones, delete spurious ones, and add notes if desired.  The file name, notes (if any) and a sequential number are written to a log file.  Users can stop the script at any time, and resume work on the same directory of sound files by entering a “starting file number” when re-initiating the script.
 \begin{code}
-	\inputminted[fontsize=\footnotesize, tabsize=2]{r}{../scripts/CreateSyllableTierFromIntensity_DissVersion.praat}
+	\inputminted[fontsize=\footnotesize, tabsize=2]{r}{../scripts/dissversions/CreateSyllableTierFromIntensity_DissVersion.praat}
 	\caption[Syllabic segmentation by intensity]{Praat script for semi-automated syllable-level segmentation by intensity\label{lst:SylInt}}
 \end{code}
 \newpage
@@ -31,7 +31,7 @@ before continuing on to the next file.  An \texttt{advancedInterface} option is 
 	\item create manipulation objects and open them for hand-correction before continuing to the next file.
 \end{inparaenum}  
 \begin{code}
-	\inputminted[fontsize=\footnotesize, tabsize=2]{r}{../scripts/SoundToManipulation_DissVersion.praat}
+	\inputminted[fontsize=\footnotesize, tabsize=2]{r}{../scripts/dissversions/SoundToManipulation_DissVersion.praat}
 	\caption[Semi-auto pulse correction]{Praat script for semi-automated correction of glottal pulses within a manipulation object.\label{lst:PulseCor}}
 \end{code}
 \newpage
@@ -40,7 +40,7 @@ before continuing on to the next file.  An \texttt{advancedInterface} option is 
 \section{Prosody replacement with \psola}
 This script takes as input two manipulation objects and two {TextGrids} and maps the pitch, duration, and intensity patterns from one manipulation object onto the other.  The manipulation objects must have the waveform embedded, but may be either text or binary.
 \begin{code}
-	\inputminted[fontsize=\footnotesize, tabsize=2]{r}{../scripts/ReplaceProsodyPSOLA_DissVersion.praat}
+	\inputminted[fontsize=\footnotesize, tabsize=2]{r}{../scripts/dissversions/ReplaceProsodyPSOLA_DissVersion.praat}
 	\caption[Prosody replacement with \psola]{Praat script for prosodic replacement using \psola.\label{lst:ProsPSOLA}}
 \end{code}
 \newpage
@@ -54,7 +54,7 @@ This script takes a directory of sound files and creates a Gaussian noise file t
 \end{inparaenum}
 The methods are expected to differ substantially only when the stimuli vary dramatically in length (in which case method \ref{list:methodOne}, by treating all file-level \ac{ltas} objects equally, effectively weights the final spectrum in favor of shorter files).  The script also saves the \ac{ltas} object into the output directory (along with the noise file).
  \begin{code}
-	\inputminted[fontsize=\footnotesize, tabsize=2]{r}{../scripts/LTASNoise_DissVersion.praat}
+	\inputminted[fontsize=\footnotesize, tabsize=2]{r}{../scripts/dissversions/LTASNoise_DissVersion.praat}
 	\caption[Create speech-shaped noise]{Praat script for creating speech-shaped noise.\label{lst:LTASNoise}}
 \end{code}
 \newpage
@@ -63,7 +63,7 @@ The methods are expected to differ substantially only when the stimuli vary dram
 \section{Mix signal and noise}
 This script takes a noise file and a directory of sound files, and mixes the stimuli with the noise at a specified \ac{snr}, writing the files to the specified directory.  The mixed signal-plus-noise files can optionally be scaled to match the original intensity of the stimulus files. 
 \begin{code}
-	\inputminted[fontsize=\footnotesize, tabsize=2]{r}{../scripts/MixSpeechNoise_DissVersion.praat}
+	\inputminted[fontsize=\footnotesize, tabsize=2]{r}{../scripts/dissversions/MixSpeechNoise_DissVersion.praat}
 	\caption[Mix signal and noise]{Praat script for mixing speech and noise at a specified \ac{snr}.\label{lst:MixNoise}}
 \end{code}
 \newpage
@@ -72,7 +72,7 @@ This script takes a noise file and a directory of sound files, and mixes the sti
 \section{Ramp edges of stimuli}
 This script takes a directory of sound files and applies linear onset and offset ramps to the beginning and end of the file, respectively.  The duration of the ramps is specified in the arguments to the script. 
 \begin{code}
-	\inputminted[fontsize=\footnotesize, tabsize=2]{r}{../scripts/RampEdges_DissVersion.praat}
+	\inputminted[fontsize=\footnotesize, tabsize=2]{r}{../scripts/dissversions/RampEdges_DissVersion.praat}
 	\caption[Ramp edges of stimuli]{Praat script for applying linear ramps to the beginning and end of sound files.\label{lst:RampEdges}}
 \end{code}
 \newpage

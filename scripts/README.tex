@@ -13,4 +13,13 @@ BatchResynth.py
 % batch runner for ReplaceProsodyPSOLA.praat, takes a tab-delimited file with basenames of segmental donor and prosodic donor files.
 
 BatchResynthRunner.sh
-% a single call to BatchResynth.py with the long folder path arguments pre-specified.
+% a single shell call to BatchResynth.py with the long folder path arguments pre-specified.
+
+LTASNoise.praat
+% calculate long-term average spectrum of a corpus of sound files, and make some random noise that is spectrally shaped to match the corpus LTAS, and is longer than the longest stimulus in the corpus (to ensure complete masking). 
+
+MixSpeechNoise.praat
+% mix speech and noise at the desired SNR.
+
+RampEdges.praat
+% apply a linear amplitude ramp at beginning and end of file.
