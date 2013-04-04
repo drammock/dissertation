@@ -4,7 +4,7 @@ form Vacuous manipulation
 endform
 
 # STIMULI
-Create Strings as file list... manipFiles 'inputFolder$'*.Manpulation
+Create Strings as file list... manipFiles 'inputFolder$'*.Manipulation
 n = Get number of strings
 echo 'n' Manipulation files in folder 'inputFolder$'
 
@@ -13,9 +13,12 @@ for i from 1 to n
 	select Strings manipFiles
 	curFile$ = Get string... 'i'
 	curManip = Read from file... 'inputFolder$''curFile$'
+
+	# EXTRACT ORIGINAL PITCH
 	curPitch = Extract pitch tier
 	meanPitch = Get mean (curve)... 0 0
 
+	# CREATE FLATTENED PITCH
 	select curManip
 	monoPitch = Extract pitch tier
 	Formula... meanPitch
@@ -24,23 +27,25 @@ for i from 1 to n
 	minus monoPitch
 	monoSound = Get resynthesis (overlap-add)
 
+	# RECREATE ORIGINAL PITCH FROM MONOTONIZED SOUND
 	monoManip = To Manipulation... 0.01 50 300
 	plus curPitch
 	Replace pitch tier
 	minus curPitch
 	finalSound = Get resynthesis (overlap-add)
+	newFileName$ = replace$("'curFile$'", ".Manipulation", ".wav", 0)
+	Save as WAV file... 'outputFolder$''newFileName$'
 
-	Save as WAV file... 'outputFolder$' replace$ ("'curFile$'", ".Manipulation", ".wav", 0)
-
+	# CLEAN UP
 	select curManip
 	plus curPitch
 	plus monoPitch
+	plus monoManip
 	plus monoSound
 	plus finalSound
 	Remove
 endfor
 
-# CLEAN UP
 select Strings manipFiles
 Remove
 printline Done!
