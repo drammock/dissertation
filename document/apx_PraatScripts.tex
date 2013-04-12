@@ -8,7 +8,7 @@
 % ramp edges
 
 % SEGMENTATION
-\section{Syllabic segmentation by intensity}
+\section{Syllabic segmentation by intensity\label{scr:SyllIntens}}
 This script takes a directory of sound files and, for each file, creates a new TextGrid and prepopulates an interval tier with boundaries at each local minimum of the sound file’s intensity contour.  It then presents the user with a TextGrid editor for the opportunity to adjust boundaries, add new ones, delete spurious ones, and add notes if desired.  The file name, notes (if any) and a sequential number are written to a log file.  Users can stop the script at any time, and resume work on the same directory of sound files by entering a “starting file number” when re-initiating the script.
 \begin{code}
 	\inputminted[fontsize=\footnotesize, tabsize=2]{r}{../scripts/dissversions/CreateSyllableTierFromIntensity_DissVersion.praat}
@@ -17,7 +17,7 @@ This script takes a directory of sound files and, for each file, creates a new T
 \newpage
 
 % PITCH SETTINGS AND PULSE CORRECTION
-\section{Semi-auto pulse correction}
+\section{Semi-auto pulse correction\label{scr:PulseCor}}
 This script faciliates semi-automatic creation of manipulation objects from \texttt{.wav} files.  It takes a directory of sound files and, for each file, displays the pitch contour over a narrowband spectrogram, and prompts the user to either:
 \begin{inparaenum}
 	\item accept the pitch settings, 
@@ -37,7 +37,7 @@ before continuing on to the next file.  An \texttt{advancedInterface} option is 
 \newpage
 
 % PSOLA
-\section{Prosody replacement with \psola}
+\section{Prosody replacement with \psola\label{scr:Psola}}
 This script takes as input two manipulation objects and two {TextGrids} and maps the pitch, duration, and intensity patterns from one manipulation object onto the other.  The manipulation objects must have the waveform embedded, but may be either text or binary.
 \begin{code}
 	\inputminted[fontsize=\footnotesize, tabsize=2]{r}{../scripts/dissversions/ReplaceProsodyPSOLA_DissVersion.praat}
