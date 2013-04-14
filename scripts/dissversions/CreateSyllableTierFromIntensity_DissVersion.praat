@@ -1,7 +1,7 @@
 # COLLECT ALL THE USER INPUT
 form Create syllable tier using intensity
 	sentence Sound_directory ~/Desktop/SoundFiles/
-	sentence TextGrid_output_directory ~/Desktop/SyllableTextgrids/
+	sentence Textgrid_output_directory ~/Desktop/SyllableTextgrids/
 	sentence Sound_extension .wav
 	sentence logFile ~/Desktop/CreateSyllableTierFromIntensity.log
 	integer textgrid_tier 1
@@ -13,14 +13,6 @@ form Create syllable tier using intensity
 	integer startingFileNum 1
 endform
 
-# BE FORGIVING IF THE USER FORGOT TRAILING PATH SLASHES OR LEADING FILE EXTENSION DOTS
-call cleanPath 'sound_directory$'
-snDir$ = "'cleanPath.out$'"
-call cleanPath 'textGrid_output_directory$'
-tgOutDir$ = "'cleanPath.out$'"
-call cleanExtn 'sound_extension$'
-snExt$ = "'cleanExtn.out$'"
-
 # INITIATE THE OUTPUT FILE
 if fileReadable (logFile$)
 	beginPause ("The log file already exists!")
@@ -29,20 +21,22 @@ if fileReadable (logFile$)
 	overwrite_setting = endPause ("Append", "Overwrite", 1)
 	if overwrite_setting = 2
 		filedelete 'logFile$'
-		call initializeOutfile
+		headerline$ = "number'tab$'filename'tab$'notes'newline$'"
+		fileappend "'logFile$'" 'headerline$'
 	endif
 else
 	# THERE IS NOTHING TO OVERWRITE, SO CREATE THE HEADER ROW FOR THE NEW OUTPUT FILE
-	call initializeOutfile
+	headerline$ = "number'tab$'filename'tab$'notes'newline$'"
+	fileappend "'logFile$'" 'headerline$'
 endif
 
 # MAKE A LIST OF ALL SOUND FILES IN THE DIRECTORY
-Create Strings as file list... soundFiles 'snDir$'*'snExt$'
+Create Strings as file list... soundFiles 'sound_directory$'*'sound_extension$'
 fileList = selected("Strings")
 fileCount = Get number of strings
 
-# SOME INITIAL SETTINGS
-firstFile = 1 ; THIS IS A BOOLEAN FOR SETTING EDITOR WINDOW SETTINGS
+# THE NEXT LINE IS A BOOLEAN FOR HANDLING EDITOR WINDOW SETTINGS
+firstFile = 1
 curSent$ = ""
 curName$ = ""
 persistentName$ = ""
@@ -66,7 +60,7 @@ for curFile from startingFileNum to fileCount
 	endif
 
 	# READ IN THE SOUND
-	Read from file... 'snDir$''soundfile$'
+	Read from file... 'sound_directory$''soundfile$'
 	totalDur = Get total duration
 	prvName$ = curName$
 	curName$ = selected$ ("Sound", 1)
@@ -169,7 +163,7 @@ for curFile from startingFileNum to fileCount
 		until clicked = 3
 
 		if clicked = 3
-			Save TextGrid as text file... 'tgOutDir$''curName$'.TextGrid
+			Save TextGrid as text file... 'textgrid_output_directory$''curName$'.TextGrid
 		endif
 	endeditor
 
@@ -189,25 +183,3 @@ Remove
 clearinfo
 files_read = fileCount - startingFileNum + 1
 printline Done! 'files_read' files read.'newline$'
-
-# FUNCTIONS (A.K.A. PROCEDURES) THAT WERE CALLED EARLIER
-procedure cleanPath .in$
-	if not right$(.in$, 1) = "/"
-		.out$ = "'.in$'" + "/"
-	else
-		.out$ = "'.in$'"
-	endif
-endproc
-
-procedure cleanExtn .in$
-	if not left$(.in$, 1) = "."
-		.out$ = "." + "'.in$'"
-	else
-		.out$ = "'.in$'"
-	endif
-endproc
-
-procedure initializeOutfile
-	headerline$ = "number'tab$'filename'tab$'notes'newline$'"
-	fileappend "'logFile$'" 'headerline$'
-endproc

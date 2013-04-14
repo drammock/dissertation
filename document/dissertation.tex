@@ -38,8 +38,8 @@
 \AtBeginEnvironment{thebibliography}{\interlinepenalty10000}
 
 % avoid in-text citations that say "American National Standards Institute"
-\defcitealias{ansi1994}{ANSI, 1994}
-\defcitealias{ansi2004}{ANSI, 2004}
+\defcitealias{ansi1994}{\ac{ansi}, 1994}
+\defcitealias{ansi2004}{\ac{ansi}, 2004}
 
 % setup handling of code listings
 \usepackage{caption}
@@ -88,7 +88,8 @@
 \newcommand{\slsh}{/‌} % contains a zero-width non-joiner after the slash, to allow line breaking
 
 % fonts & formatting
-\setmainfont[Numbers={Lining}]{Linux Libertine O} \setmonofont{M+ 1m regular} %\setmonofont{Linux Libertine Mono O}
+\setmainfont[Numbers={Lining}]{Linux Libertine O} \setmonofont{Source Sans Pro} %\setmonofont{Linux Libertine Mono O}
+%\setmainfont[Numbers={Lining}]{Linux Libertine O} \setmonofont{M+ 1m regular} %\setmonofont{Linux Libertine Mono O}
 \renewcommand{\url}{\begingroup \def\UrlLeft{}\def\UrlRight{}\urlstyle{same}\Url} % set URLs in whatever font surrounding text uses
 
 % itemized lists

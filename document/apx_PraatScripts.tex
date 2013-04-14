@@ -77,6 +77,7 @@ This script takes a directory of sound files and applies linear onset and offset
 \end{code}
 \newpage
 
+\exclude{
 % VACUOUS RESYNTH
 \section{Vacuous resynthesis}
 This script takes a directory of manipulation objects and monotonizes the pitch using \psola, then reapplies the original pitch contour (also using \psola).  The purpose of this is to intentionally introduce processing artifacts into what would otherwise be clean, unmanipulated recordings, to provide a more equivalent comparison point for prosody-swapped stimuli. 
@@ -84,5 +85,5 @@ This script takes a directory of manipulation objects and monotonizes the pitch 
 	\inputminted[fontsize=\footnotesize, tabsize=2]{r}{../scripts/dissversions/VacuousResynthesis_DissVersion.praat}
 	\caption[Vacuous resynthesis]{Praat script for introducing processing artifacts without altering prosody, via monotonization and demonotonization.\label{lst:VacResynth}}
 \end{code}
+}
 %\newpage
-

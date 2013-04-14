@@ -1,9 +1,11 @@
+# COLLECT ALL THE USER INPUT
 form Ramp edges of sound files
 	sentence InputFolder ~/Desktop/StimuliWithNoise/
 	sentence OutputFolder ~/Desktop/StimuliWithNoise/Ramped/
 	real RampDuration_(seconds) 0.05
 endform
 
+# READ IN LIST OF FILES
 Create Strings as file list... stimuli 'inputFolder$'*.wav
 n = Get number of strings
 echo 'n' WAV files in directory 'inputFolder$'

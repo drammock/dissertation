@@ -1,6 +1,7 @@
+# COLLECT ALL THE USER INPUT
 form Calculate LTAS of corpus
-	sentence InputFolder ~/Desktop/SoundFiles/
-	sentence OutputFolder ~/Desktop/NoiseFiles/
+	sentence Input_directory ~/Desktop/SoundFiles/
+	sentence Output_directory ~/Desktop/NoiseFiles/
 	positive ltasBandwidth_(Hz) 100
 	positive noisePad_(seconds) 0.05
 	optionmenu method: 2
@@ -10,17 +11,18 @@ form Calculate LTAS of corpus
 	comment Chunk duration is ignored if method is "by file".
 endform
 
-Create Strings as file list... stimuli 'inputFolder$'*.wav
+# READ IN LIST OF FILES
+Create Strings as file list... stimuli 'input_directory$'*.wav
 n = Get number of strings
 intensityRunningTotal = 0
 longestFile = 0
-echo 'n' WAV files in directory 'inputFolder$'
+echo 'n' WAV files in directory 'input_directory$'
 
 # OPEN ALL SOUND FILES
 for i from 1 to n
 	select Strings stimuli
 	curFile$ = Get string... 'i'
-	tempSound = Read from file... 'inputFolder$''curFile$'
+	tempSound = Read from file... 'input_directory$''curFile$'
 
 	# KEEP TRACK OF INTENSITIES SO WE CAN SCALE NOISE APPROPRIATELY
 	intens = Get intensity (dB)
@@ -43,7 +45,7 @@ for i from 1 to n
 	else
 		# RE-OPEN EACH FILE AS LONGSOUND, TO BE CONCATENATED AND CHUNKED LATER
 		Remove
-		snd_'i' = Open long sound file... 'inputFolder$''curFile$'
+		snd_'i' = Open long sound file... 'input_directory$''curFile$'
 	endif
 endfor
 
@@ -55,7 +57,7 @@ if method = 1
 		plus ltas_'i'
 	endfor
 	finalLTAS = Average
-	Save as binary file... 'outputFolder$'CorpusFilewise.Ltas
+	Save as binary file... 'output_directory$'CorpusFilewise.Ltas
 	select ltas_1
 	for i from 2 to n
 		plus ltas_'i'
@@ -68,12 +70,12 @@ else
 	for i from 2 to n
 		plus snd_'i'
 	endfor
-	Save as WAV file... 'outputFolder$'ConcatenatedCorpus.wav
+	Save as WAV file... 'output_directory$'ConcatenatedCorpus.wav
 	Remove
 
 	# SPLIT INTO EQUAL-LENGTH CHUNKS
 	printline Chunking corpus...
-	corpus = Open long sound file... 'outputFolder$'ConcatenatedCorpus.wav
+	corpus = Open long sound file... 'output_directory$'ConcatenatedCorpus.wav
 	corpusDur = Get total duration
 	chunkCount = ceiling(corpusDur/chunk_duration)
 
@@ -94,7 +96,7 @@ else
 		plus ltas_'i'
 	endfor
 	finalLTAS = Average
-	Save as binary file... 'outputFolder$'CorpusChunkwise.Ltas
+	Save as binary file... 'output_directory$'CorpusChunkwise.Ltas
 
 	# CLEAN UP INTERIM FILES
 	select corpus
@@ -102,7 +104,7 @@ else
 		plus ltas_'i'
 	endfor
 	Remove
-	filedelete 'outputFolder$'ConcatenatedCorpus.wav
+	filedelete 'output_directory$'ConcatenatedCorpus.wav
 endif
 
 # CREATE WHITE NOISE SPECTRUM
@@ -115,7 +117,7 @@ ltasNoise = To Sound
 # SCALE TO AVERAGE INTENSITY OF INPUT FILES
 meanIntensity = intensityRunningTotal / n
 Scale intensity... meanIntensity
-Save as WAV file... 'outputFolder$'SpeechShapedNoise.wav
+Save as WAV file... 'output_directory$'SpeechShapedNoise.wav
 
 # CLEAN UP
 select noise

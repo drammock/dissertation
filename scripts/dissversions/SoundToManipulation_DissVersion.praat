@@ -1,6 +1,5 @@
 # COLLECT ALL THE USER INPUT
 form Pitch settings tool: Select directories & starting parameters
-#	comment See the script's header for explanation of the form variables.
 	sentence Sound_directory ~/Desktop/SoundFiles/
 	sentence Pitch_directory ~/Desktop/PitchObjects/
 	sentence Manip_directory ~/Desktop/ManipObjects/
@@ -31,15 +30,14 @@ form Pitch settings tool: Select directories & starting parameters
 	real defVoiCost 0.14
 endform
 
-# BE FORGIVING IF THE USER FORGOT TRAILING PATH SLASHES OR LEADING FILE EXTENSION DOTS
-call cleanPath 'sound_directory$'
-soundDir$ = "'cleanPath.out$'"
-call cleanPath 'pitch_directory$'
-pitchDir$ = "'cleanPath.out$'"
-call cleanPath 'manip_directory$'
-manipDir$ = "'cleanPath.out$'"
-
 # INITIATE THE OUTPUT FILE
+procedure initializeOutfile
+	headerline$ = "Number'tab$'Filename'tab$'Duration'tab$'PitchFloor'tab$'PitchCeiling'tab$'TimeStep'tab$'
+	...MaxCandidates'tab$'HighAccuracy'tab$'SilenceThreshold'tab$'VoicingThreshold'tab$'OctaveCost'tab$'
+	...JumpCost'tab$'VoicingCost'tab$'Notes'newline$'"
+	fileappend "'logFile$'" 'headerline$'
+endproc
+
 if fileReadable (logFile$)
 	beginPause ("The log file already exists!")
 		comment ("The log file already exists!")
@@ -55,7 +53,7 @@ else
 endif
 
 # MAKE A LIST OF ALL SOUND FILES IN THE FOLDER
-Create Strings as file list... list 'soundDir$'*.wav
+Create Strings as file list... list 'sound_directory$'*.wav
 fileList = selected("Strings")
 fileCount = Get number of strings
 
@@ -78,7 +76,7 @@ for curFile from startingFileNum to fileCount
 	select Strings list
 	soundname$ = Get string... curFile
 	basename$ = mid$(soundname$,7,11)
-	Read from file... 'soundDir$''soundname$'
+	Read from file... 'sound_directory$''soundname$'
 	Rename... 'basename$'
 	filename$ = selected$ ("Sound", 1)
 	totalDur = Get total duration
@@ -103,7 +101,8 @@ for curFile from startingFileNum to fileCount
 		Advanced spectrogram settings... 1000 250 Fourier Gaussian yes 100 6 0
 		if carryover = 0
 			Pitch settings... defMinPitch defMaxPitch Hertz cross-correlation speckles
-			Advanced pitch settings... viewMin viewMax defHighAcc defMaxCand defSilThresh defVoiThresh defOctCost defJumpCost defVoiCost
+			Advanced pitch settings... viewMin viewMax defHighAcc defMaxCand defSilThresh defVoiThresh defOctCost
+			... defJumpCost defVoiCost
 		else
 			Pitch settings... minPitch maxPitch Hertz cross-correlation automatic
 			Advanced pitch settings... viewMin viewMax highAcc maxCand silThresh voiThresh octCost jumpCost voiCost
@@ -240,7 +239,7 @@ for curFile from startingFileNum to fileCount
 	# IF WE'RE DOING MORE THAN JUST WRITING SETTINGS LOG
 	if outputType > 0
 		To Pitch (cc)... timeStep minPitch 15 highAcc silThresh voiThresh octCost jumpCost voiCost maxPitch
-		Save as text file... 'pitchDir$''filename$'.Pitch
+		Save as text file... 'pitch_directory$''filename$'.Pitch
 		plus Sound 'filename$'
 		To Manipulation
 		# CREATE BACKUP OF PULSES FOR "RESET" BUTTON
@@ -286,9 +285,8 @@ for curFile from startingFileNum to fileCount
 					select Manipulation 'filename$'
 					Extract pulses
 					To PitchTier... 1/minPitch
-					# previous line: 20ms is the longest gap allowed by PSOLA algorithm in treating
-					# something as voiced, so the lowest pitch it will track is 50Hz. Might want to
-					# hard-code the value of 0.02 instead of 1/minPitch.
+					# previous line: 20ms is the longest gap allowed by PSOLA algorithm in treating a span as voiced, so the
+					# lowest pitch it will track is 50Hz. Might want to hard-code the value of 0.02 instead of 1/minPitch.
 					select Manipulation 'filename$'
 					plus PitchTier 'filename$'
 					Replace pitch tier
@@ -305,14 +303,16 @@ for curFile from startingFileNum to fileCount
 
 		# SAVE FILES
 		select Manipulation 'filename$'
-		Save as binary file... 'manipDir$''filename$'.Manipulation
+		Save as binary file... 'manip_directory$''filename$'.Manipulation
 		plus Pitch 'filename$'
 		plus Sound 'filename$'
 	endif
 	Remove
 
 	# WRITE TO LOG FILE
-	resultline$ = "'curFile''tab$''filename$''tab$''totalDur''tab$''minPitch''tab$''maxPitch''tab$''timeStep''tab$''maxCand''tab$''highAcc''tab$''silThresh''tab$''voiThresh''tab$''octCost''tab$''jumpCost''tab$''voiCost''tab$''notes$''newline$'"
+	resultline$ = "'curFile''tab$''filename$''tab$''totalDur''tab$''minPitch''tab$''maxPitch''tab$''timeStep''tab$'
+	...'maxCand''tab$''highAcc''tab$''silThresh''tab$''voiThresh''tab$''octCost''tab$''jumpCost''tab$''voiCost'
+	...'tab$''notes$''newline$'"
 	fileappend "'logFile$'" 'resultline$'
 endfor
 
@@ -322,25 +322,3 @@ Remove
 clearinfo
 files_read = fileCount - startingFileNum + 1
 printline Done! 'files_read' files read.'newline$'
-
-# FUNCTIONS (A.K.A. PROCEDURES) THAT WERE CALLED EARLIER
-procedure cleanPath .in$
-	if not right$(.in$, 1) = "/"
-		.out$ = "'.in$'" + "/"
-	else
-		.out$ = "'.in$'"
-	endif
-endproc
-
-procedure cleanExtn .in$
-	if not left$(.in$, 1) = "."
-		.out$ = "." + "'.in$'"
-	else
-		.out$ = "'.in$'"
-	endif
-endproc
-
-procedure initializeOutfile
-	headerline$ = "Number'tab$'Filename'tab$'Duration'tab$'PitchFloor'tab$'PitchCeiling'tab$'TimeStep'tab$'MaxCandidates'tab$'HighAccuracy'tab$'SilenceThreshold'tab$'VoicingThreshold'tab$'OctaveCost'tab$'JumpCost'tab$'VoicingCost'tab$'Notes'newline$'"
-	fileappend "'logFile$'" 'headerline$'
-endproc

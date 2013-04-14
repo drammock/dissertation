@@ -1,3 +1,4 @@
+# COLLECT ALL THE USER INPUT
 form Neutralize Prosody: Select directories & starting parameters
 	sentence Segmental_donor ~/Desktop/ManipulationObjects/NWM02_01-07.Manipulation
 	sentence Seg_donor_textgrid ~/Desktop/TextGrids/NWM02_01-07.TextGrid
@@ -5,15 +6,10 @@ form Neutralize Prosody: Select directories & starting parameters
 	sentence Prosodic_donor ~/Desktop/ManipulationObjects/NWM07_01-07.Manipulation
 	sentence Pro_donor_textgrid ~/Desktop/TextGrids/NWM07_01-07.TextGrid
 	integer Pro_donor_tier 1
-	sentence OutputFolder ~/Desktop/ResynthesizedFiles/
+	sentence Output_directory ~/Desktop/ResynthesizedFiles/
 endform
 
-# BE FORGIVING IF THE USER FORGOT TRAILING PATH SLASHES OR LEADING FILE EXTENSION DOTS
-call cleanPath 'outputFolder$'
-outDir$ = "'cleanPath.out$'"
-
-# INITIALIZE SOME GLOBAL VALUES
-# used in the duration tier to prevent points from coinciding
+# INITIALIZE GLOBAL VARIABLE (used in the duration tier to prevent points from coinciding)
 offset = 0.00000000001
 
 # READ IN ALL THE FILES
@@ -102,13 +98,17 @@ for intNum to segInt
 
 	# WARP TIME DOMAIN OF PITCH AND INTENSITY VALUES AND STORE IN (PREVIOUSLY EMPTY) COLUMN 3 OF THE TABLES.
 	select segPitchTable
-	Formula... if col = 3 and self[row,1] > segIntStart and self[row,1] <= segIntEnd then proIntStart + (self[row,1] - segIntStart) * proSegRatio else self fi
+		Formula... if col = 3 and self[row,1] > segIntStart and self[row,1] <= segIntEnd
+		... then proIntStart + (self[row,1] - segIntStart) * proSegRatio else self fi
 	select proPitchTable
-	Formula... if col = 3 and self[row,1] > proIntStart and self[row,1] <= proIntEnd then segIntStart + (self[row,1] - proIntStart) * segProRatio else self fi
+		Formula... if col = 3 and self[row,1] > proIntStart and self[row,1] <= proIntEnd
+		... then segIntStart + (self[row,1] - proIntStart) * segProRatio else self fi
 	select segIntensityTable
-	Formula... if col = 3 and self[row,1] > segIntStart and self[row,1] <= segIntEnd then proIntStart + (self[row,1] - segIntStart) * proSegRatio else self fi
+		Formula... if col = 3 and self[row,1] > segIntStart and self[row,1] <= segIntEnd
+		... then proIntStart + (self[row,1] - segIntStart) * proSegRatio else self fi
 	select proIntensityTable
-	Formula... if col = 3 and self[row,1] > proIntStart and self[row,1] <= proIntEnd then segIntStart + (self[row,1] - proIntStart) * segProRatio else self fi
+		Formula... if col = 3 and self[row,1] > proIntStart and self[row,1] <= proIntEnd
+		... then segIntStart + (self[row,1] - proIntStart) * segProRatio else self fi
 
 # DONE STEPPING THROUGH EACH INTERVAL OF THE TEXTGRIDS
 endfor
@@ -168,9 +168,9 @@ plus segDurationTier
 Replace duration tier
 
 select segManip
-Save as binary file... 'outDir$''segDonorFilename$'_'proDonorFilename$'.Manipulation
+Save as binary file... 'output_directory$''segDonorFilename$'_'proDonorFilename$'.Manipulation
 segProResynth = Get resynthesis (overlap-add)
-Save as WAV file... 'outDir$''segDonorFilename$'_'proDonorFilename$'.wav
+Save as WAV file... 'output_directory$''segDonorFilename$'_'proDonorFilename$'.wav
 
 # CLEAN UP
 select segManip
@@ -200,12 +200,3 @@ plus proIntensityTier
 plus proIntensityTable
 plus proDurationTier
 Remove
-
-# FUNCTIONS (A.K.A. PROCEDURES) THAT WERE CALLED EARLIER
-procedure cleanPath .in$
-  if not right$(.in$, 1) = "/"
-    .out$ = "'.in$'" + "/"
-  else
-    .out$ = "'.in$'"
-  endif
-endproc

@@ -1,3 +1,4 @@
+# COLLECT ALL THE USER INPUT
 form Mix speech with noise
 	sentence InputFolder ~/Desktop/SoundFiles/
 	sentence NoiseFile ~/Desktop/NoiseFiles/SpeechShapedNoise.wav
