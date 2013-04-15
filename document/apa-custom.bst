@@ -936,7 +936,10 @@ FUNCTION {article}
   new.block
   format.note output
   fin.entry
-  write.url
+  doi missing$
+    { write.url }
+    {}
+  if$
 }
 FUNCTION {book}
 { output.bibitem
@@ -972,7 +975,10 @@ FUNCTION {book}
   new.block
   format.note output
   fin.entry
-  write.url
+  doi missing$
+    { write.url }
+    {}
+  if$
 }
 FUNCTION {booklet}
 { output.bibitem
@@ -988,7 +994,10 @@ FUNCTION {booklet}
   new.block
   format.note output
   fin.entry
-  write.url
+  doi missing$
+    { write.url }
+    {}
+  if$
 }
 
 FUNCTION {inbook}
@@ -1027,7 +1036,10 @@ FUNCTION {inbook}
   new.block
   format.note output
   fin.entry
-  write.url
+  doi missing$
+    { write.url }
+    {}
+  if$
 }
 
 FUNCTION {incollection}
@@ -1055,7 +1067,10 @@ FUNCTION {incollection}
   new.block
   format.note output
   fin.entry
-  write.url
+  doi missing$
+    { write.url }
+    {}
+  if$
 }
 FUNCTION {inproceedings}
 { output.bibitem
@@ -1108,7 +1123,10 @@ FUNCTION {manual}
   new.block
   format.note output
   fin.entry
-  write.url
+  doi missing$
+    { write.url }
+    {}
+  if$
 }
 
 FUNCTION {mastersthesis}
@@ -1126,7 +1144,10 @@ FUNCTION {mastersthesis}
   new.block
   format.note output
   fin.entry
-  write.url
+  doi missing$
+    { write.url }
+    {}
+  if$
 }
 
 FUNCTION {misc}
@@ -1141,7 +1162,10 @@ FUNCTION {misc}
   new.block
   format.note output
   fin.entry
-  write.url
+  doi missing$
+    { write.url }
+    {}
+  if$
 }
 FUNCTION {phdthesis}
 { output.bibitem
@@ -1158,7 +1182,10 @@ FUNCTION {phdthesis}
   new.block
   format.note output
   fin.entry
-  write.url
+  doi missing$
+    { write.url }
+    {}
+  if$
 }
 
 FUNCTION {proceedings}
@@ -1181,7 +1208,10 @@ FUNCTION {proceedings}
   new.block
   format.note output
   fin.entry
-  write.url
+  doi missing$
+    { write.url }
+    {}
+  if$
 }
 
 FUNCTION {techreport}
@@ -1199,7 +1229,10 @@ FUNCTION {techreport}
   new.block
   format.note output
   fin.entry
-  write.url
+  doi missing$
+    { write.url }
+    {}
+  if$
 }
 
 FUNCTION {unpublished}
@@ -1212,7 +1245,10 @@ FUNCTION {unpublished}
   new.block
   format.note "note" output.check
   fin.entry
-  write.url
+  doi missing$
+    { write.url }
+    {}
+  if$
 }
 
 FUNCTION {default.type} { misc }
