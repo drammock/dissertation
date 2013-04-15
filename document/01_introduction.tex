@@ -17,18 +17,20 @@ Following is a table of acronyms and abbreviations used in this thesis.  I have 
 		\rowfont[c]{\bfseries} Abbreviation & Explanation\\
 		\taburulecolor{ltgray}
 		{dB} & Decibels (a dimensionless logarithmic unit commonly used to express the intensity or power of a sound, relative to a known reference value).\\ 
-		{dB \ac{spl}} & Intensity in decibels relative to 20 micropascals (μPa), an accepted standard for the threshold of human hearing \citepalias{ansi1994}.\\
+		{dB \ac{hl}} & Intensity in decibels relative to a set of frequency-specific averages representative of normal-hearing humans \citepalias{ansi2004}.  “\ac{hl}” stands for “hearing level”.\\
+		{dB \ac{spl}} & Intensity in decibels relative to 20 micropascals (μPa) \citepalias{ansi1994}.  “\ac{spl}” stands for “sound pressure level”.\\
 		\ac{crm} & Coordinate response measure (a corpus of parallel sentences of the form “Ready ⟨\textsc{callsign}⟩ go to ⟨\textsc{color}⟩ ⟨\textsc{digit}⟩ now”).  In a typical competing speech usage, the listener is told to attend to the speech stream containing a particular callsign, and to repeat the color and digit from that stream.  See \citet{BoliaEtAl2000} for details.\\
 		\fo & Fundamental frequency (of speech).  Often represented as F₀ or F0, the form \fo{} is preferred because it emphasizes that the fundamental frequency is not a formant (which are typically represented as F1, F2, \etc).  The form f0 is an acceptable substitute when glyph choice is restricted to \ac{ascii} characters.\\
 		F2×F1 & The acoustic space defined by the center frequencies of the first and second formants of sonorant speech sounds (usually vowels).\\
+		\ac{hl} & See {dB \ac{hl}}.\\
 		L1, L2, \etc. & First (native) language, second language, \etc.\\
 		\ac{ltas} & Long-term average spectrum.\\
-		\psola & Pitch synchronous overlap and add (a method for time- or frequency-domain resythesis of speech; see \citealt{CharpentierMoulines1988, MoulinesCharpentier1990}).  \psola{} is a trademark of France Télécom.\\
-		\ac{rms} & Root mean square (a method of measuring sound power: insert formula here).\\
-		\ac{snr} & Signal-to-noise ratio (insert formula here).\\
+		\psola & Pitch synchronous overlap and add (a method for time-domain resynthesis of speech; see \citealt{CharpentierMoulines1988, MoulinesCharpentier1990}).  \psola{} is a trademark of France Télécom.\\
+		\ac{rms} & Root mean square, a measure of sound magnitude, defined as: \(\sqrt{\frac{1}{n}(x_1^2+x_2^2+\cdots+x_n^2)}\), where \(x_1 \ldots x_n\) are the samples of a digital signal.\\
+		\ac{snr} & Signal-to-noise ratio.\\
 		\ac{spl} & See {dB \ac{spl}}.\\
 		\everyrow{}
-		\ac{srt} & Speech reception threshold (insert explanation here).\\
+		\ac{srt} & Speech reception threshold (the intensity level at which a listener achieves 50\% correct in a speech recognition task).\\
 		\taburulecolor{black}
 		\bottomrule
 	\end{tabu}
