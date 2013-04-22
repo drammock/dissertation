@@ -1,14 +1,11 @@
 form Make resynth figure
 	sentence segDonorWav NWM05_33-05.wav
 	sentence segDonorTG NWM05_33-05.TextGrid
-#	sentence proDonorWav NWM02_33-05.wav
-#	sentence proDonorTG NWM02_33-05.TextGrid
-#	sentence resynthWav NWM52_33-05.wav
 	sentence manip NWM05_33-05.Manipulation
 	sentence figureFilename creakJitterShimmer.eps
-	positive segStart 1.410822410264919
+	real segStart 1.410822410264919
 	real segEnd 1.6402072562358276
-	positive proStart 1.550969387755102
+	real proStart 1.550969387755102
 	real proEnd 1.8329841465885104
 endform
 
@@ -31,16 +28,16 @@ ptch = Extract pitch tier
 x1 = 0.25
 x2 = 6.25
 y1 = 0.25
-y2 = 2.25
-y1int = 0.6
-y2int = 1.85
-y1wav = 0.35
-y2wav = 1.85
+y2 = 2
+y1pulse = 0.25
+y2pulse = 0.4
+y1wav = 0.5
+y2wav = 1.25
+y1int = 1.2
+y2int = 1.8
 
-offsetB = 2.25
+offsetB = 2
 offsetC = 4.5
-
-Erase all
 
 # FIGURE OUT WHICH IS LONGER, AND EXTEND THE SELECTION ON THE OTHER ONE TO MATCH
 segDur = segEnd - segStart
@@ -54,155 +51,101 @@ else
 endif
 
 
-# # # # #
-# PART A #
-# # # # #
+# START DRAWING
+Erase all
 
-select seg
-plus segTG
-segName$ = selected$("TextGrid")
-View & Edit
-
-Grey
-Solid line
+# SUBFIGURE LETTER
 Select inner viewport... x1 x2 y1 y2
-	editor TextGrid 'segName$'
-		Show analyses... no yes no no yes 10
-		Pitch settings... 50 300 Hertz cross-correlation speckles
-		Advanced pitch settings... 1 300 yes 15 0.03 0.45 0.01 0.35 0.14
-		Zoom... segStart segEnd
-		Draw visible TextGrid... no no no no no
-	endeditor
+	Black
+	Solid line
+	Axes... x1 x2 y1 y2
+	Text special... -0.25 left 2.25 top Times 16 0  a)
 
-Blue
-# Dashed line
-Select inner viewport... x1 x2 y1int y2int
-	editor TextGrid 'segName$'
-		Draw visible pitch contour... no no no no no no ; the second argument is "speckle"
-	endeditor
-
-# pulses
-Red
-Solid line
-Select inner viewport... x1 x2 y1wav+0.4 y2wav-1
-	editor TextGrid 'segName$'
-		Draw visible pulses... no no no no no
-	endeditor
-
-Black
-Select inner viewport... x1 x2 y1wav y2wav
-	editor TextGrid 'segName$'
-		Draw visible sound... no yes -0.5 0.5 no no no no
-	endeditor
-
-
-Red
-Axes... x1 x2 y1wav y2wav
-Draw arrow... 4.05 1.75 4.05 1.5
-
-Black
-Select inner viewport... x1 x1+0.5 y1 y1+0.5
-Axes... 0 1 0 1
-Text special... 0 centre 0.5 half Times 18 0  a)
-
-
-# # # # #
-# PART B #
-# # # # #
-
-Grey
-Solid line
 Select inner viewport... x1 x2 y1+offsetB y2+offsetB
-	editor TextGrid 'segName$'
-		Zoom... segStart segEnd
-		Draw visible TextGrid... no no no no no
-	endeditor
+	Black
+	Solid line
+	Axes... x1 x2 y1 y2
+	Text special... -0.25 left 2 top Times 16 0  b)
 
-Blue
-# Dashed line
+
+# TEXTGRID
+Select inner viewport... x1 x2 y1+1 y2
+	Colour... 0.4
+	Solid line
+	select segTG
+	Draw... segStart segEnd no no no
+
+Select inner viewport... x1 x2 y1+1+offsetB y2+offsetB
+	Grey
+	Solid line
+	select segTG
+	Draw... segStart segEnd no no no
+	Marks bottom... 2 yes yes no
+	Text bottom... yes Time (seconds)
+
+
+# PITCH TRACK
+Select inner viewport... x1 x2 y1int y2int
+	Blue
+	Dashed line
+	select seg
+	segPitch = To Pitch (cc)... 0 50 15 yes 0.03 0.45 0.01 0.35 0.14 300
+	Draw... segStart segEnd 40 140 no
+	Marks right... 2 yes yes no
+	Text right... yes %f_0 (Hz)
+
 Select inner viewport... x1 x2 y1int+offsetB y2int+offsetB
+	Blue
+	Dashed line
 	select ptch
-	Draw... segStart segEnd 0 300 no lines
-#	editor TextGrid 'segName$'
-#		Draw visible pitch contour... no no no no no no ; the second argument is "speckle"
-#	endeditor
+	Draw... segStart segEnd 40 140 no lines
+	Marks right... 2 yes yes no
+	Text right... yes %f_0 (Hz)
 
-# pulses
-Red
-Solid line
-Select inner viewport... x1 x2 y1wav+0.4+offsetB y2wav-1+offsetB
+
+# PULSES
+Select inner viewport... x1 x2 y1pulse+0.2 y2pulse+0.2
+	Red
+	Solid line
+	select seg
+	segPulse = To PointProcess (periodic, cc)... 50 300
+	Draw... segStart segEnd no
+
+	# ARROW
+	Red
+	Axes... x1 x2 y2pulse y1pulse
+	Draw arrow... 3.94 y2pulse-y1pulse-0.25 3.94 y2pulse-y1pulse+0.05
+
+Select inner viewport... x1 x2 y1pulse+offsetB+0.1 y2pulse+offsetB+0.1
+	Red
+	Solid line
 	select puls
 	Draw... segStart segEnd no
-#	editor TextGrid 'segName$'
-#		Draw visible pulses... no no no no no
-#	endeditor
 
-Black
+
+# WAVEFORM
+Select inner viewport... x1 x2 y1wav y2wav
+	Black
+	Solid line
+	select seg
+	Draw... segStart segEnd -0.2 0.2 no Curve
+#	Marks right... 3 yes yes no
+
 Select inner viewport... x1 x2 y1wav+offsetB y2wav+offsetB
-	editor TextGrid 'segName$'
-		Draw visible sound... no yes -0.5 0.5 no no no no
-		Close
-	endeditor
+	Black
+	Solid line
+	select seg
+	Draw... segStart segEnd -0.2 0.2 no Curve
+#	Marks right... 3 yes yes no
 
-
-#Red
-#Axes... x1 x2 y1wav+offsetB y2wav+offsetB
-#Draw arrow... 4.05 1.75 4.05 1.5
-
-Black
-Select inner viewport... x1 x1+0.5 y1+offsetB y1+0.5+offsetB
-Axes... 0 1 0 1
-Text special... 0 centre 0.5 half Times 18 0  b)
-
-
-# # # # #
-# PART C #
-# # # # #
-
-#select resynth
-#rsName$ = selected$("Sound")
-#View & Edit
-
-#Grey
-#Solid line
-#Select inner viewport... x1 x2 y1+offsetC y2+offsetC
-#	editor TextGrid 'proName$'
-#		Zoom... proStart proEnd
-#		Draw visible TextGrid... no no no no no
-#		Close
-#	endeditor
-
-#Blue
-#Dashed line
-#Select inner viewport... x1 x2 y1int+offsetC y2int+offsetC
-#	editor Sound 'rsName$'
-#		Draw visible pitch contour... no no no no no no
-#	endeditor
-
-#Black
-#Solid line
-#Select inner viewport... x1 x2 y1wav+offsetC y2wav+offsetC
-#	editor Sound 'rsName$'
-#		Draw visible sound... no yes -0.5 0.5 no no no no
-#		Close
-#	endeditor
-
-#Red
-#Draw arrow... 0.662 -0.35 0.662 -0.15
-
-#Black
-#Select inner viewport... x1 x1+0.5 y1+offsetC y1+0.5+offsetC
-#Axes... 0 1 0 1
-#Text special... 0 centre 0.5 half Times 18 0  c)
 
 Select inner viewport... x1 x2 y1 y2+offsetB
 Save as EPS file... 'figureFilename$'
 
 select seg
 plus segTG
-#plus pro
-#plus proTG
-#plus resynth
+plus segPitch
+plus segPulse
 plus manip
 plus ptch
 plus puls
