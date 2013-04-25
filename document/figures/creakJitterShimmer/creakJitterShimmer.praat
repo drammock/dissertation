@@ -25,19 +25,19 @@ puls = Extract pulses
 select manip
 ptch = Extract pitch tier
 
-x1 = 0.25
-x2 = 6.25
-y1 = 0.25
-y2 = 2
-y1pulse = 0.25
-y2pulse = 0.4
+x1 = 0
+x2 = 6.5
+y1 = 0
+y2 = 2.68
+y1pulse = 0.4
+y2pulse = 1.25
 y1wav = 0.5
-y2wav = 1.25
-y1int = 1.2
-y2int = 1.8
+y2wav = 1.75
+y1pitch = 1
+y2pitch = 2.4
 
 offsetB = 2
-offsetC = 4.5
+#offsetC = 4.5
 
 # FIGURE OUT WHICH IS LONGER, AND EXTEND THE SELECTION ON THE OTHER ONE TO MATCH
 segDur = segEnd - segStart
@@ -55,27 +55,27 @@ endif
 Erase all
 
 # SUBFIGURE LETTER
-Select inner viewport... x1 x2 y1 y2
+Select outer viewport... x1 x2 y1 y2
 	Black
 	Solid line
 	Axes... x1 x2 y1 y2
-	Text special... -0.25 left 2.25 top Times 16 0  a)
+	Text special... -0.5 left y2 top Times 16 0  a)
 
-Select inner viewport... x1 x2 y1+offsetB y2+offsetB
+Select outer viewport... x1 x2 y1+offsetB y2+offsetB
 	Black
 	Solid line
 	Axes... x1 x2 y1 y2
-	Text special... -0.25 left 2 top Times 16 0  b)
+	Text special... -0.5 left y2-0.4 top Times 16 0  b)
 
 
 # TEXTGRID
-Select inner viewport... x1 x2 y1+1 y2
+Select outer viewport... x1 x2 y1+0.5 y2
 	Colour... 0.4
 	Solid line
 	select segTG
 	Draw... segStart segEnd no no no
 
-Select inner viewport... x1 x2 y1+1+offsetB y2+offsetB
+Select outer viewport... x1 x2 y1+0.5+offsetB y2+offsetB
 	Grey
 	Solid line
 	select segTG
@@ -85,7 +85,7 @@ Select inner viewport... x1 x2 y1+1+offsetB y2+offsetB
 
 
 # PITCH TRACK
-Select inner viewport... x1 x2 y1int y2int
+Select outer viewport... x1 x2 y1pitch y2pitch
 	Blue
 	Dashed line
 	select seg
@@ -94,7 +94,7 @@ Select inner viewport... x1 x2 y1int y2int
 	Marks right... 2 yes yes no
 	Text right... yes %f_0 (Hz)
 
-Select inner viewport... x1 x2 y1int+offsetB y2int+offsetB
+Select outer viewport... x1 x2 y1pitch+offsetB y2pitch+offsetB
 	Blue
 	Dashed line
 	select ptch
@@ -104,7 +104,7 @@ Select inner viewport... x1 x2 y1int+offsetB y2int+offsetB
 
 
 # PULSES
-Select inner viewport... x1 x2 y1pulse+0.2 y2pulse+0.2
+Select outer viewport... x1 x2 y1pulse y2pulse
 	Red
 	Solid line
 	select seg
@@ -113,10 +113,10 @@ Select inner viewport... x1 x2 y1pulse+0.2 y2pulse+0.2
 
 	# ARROW
 	Red
-	Axes... x1 x2 y2pulse y1pulse
-	Draw arrow... 3.94 y2pulse-y1pulse-0.25 3.94 y2pulse-y1pulse+0.05
+	Axes... 0 1 0 1
+	Draw arrow... 0.613 2.4 0.613 1.1
 
-Select inner viewport... x1 x2 y1pulse+offsetB+0.1 y2pulse+offsetB+0.1
+Select outer viewport... x1 x2 y1pulse+offsetB y2pulse+offsetB
 	Red
 	Solid line
 	select puls
@@ -124,14 +124,14 @@ Select inner viewport... x1 x2 y1pulse+offsetB+0.1 y2pulse+offsetB+0.1
 
 
 # WAVEFORM
-Select inner viewport... x1 x2 y1wav y2wav
+Select outer viewport... x1 x2 y1wav y2wav
 	Black
 	Solid line
 	select seg
 	Draw... segStart segEnd -0.2 0.2 no Curve
 #	Marks right... 3 yes yes no
 
-Select inner viewport... x1 x2 y1wav+offsetB y2wav+offsetB
+Select outer viewport... x1 x2 y1wav+offsetB y2wav+offsetB
 	Black
 	Solid line
 	select seg
@@ -139,7 +139,7 @@ Select inner viewport... x1 x2 y1wav+offsetB y2wav+offsetB
 #	Marks right... 3 yes yes no
 
 
-Select inner viewport... x1 x2 y1 y2+offsetB
+Select outer viewport... x1 x2 y1 y2+offsetB
 Save as EPS file... 'figureFilename$'
 
 select seg

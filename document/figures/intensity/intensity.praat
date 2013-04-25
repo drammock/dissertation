@@ -1,9 +1,9 @@
 form Make resynth figure
-	sentence segDonorWav NWM05_33-05.wav
-	sentence segDonorTG NWM05_33-05.TextGrid
-	sentence proDonorWav NWM02_33-05.wav
-	sentence proDonorTG NWM02_33-05.TextGrid
-	sentence resynthWav NWM52_33-05.wav
+	sentence segDonorWav NWM02_08-02.wav
+	sentence segDonorTG NWM02_08-02.TextGrid
+	sentence proDonorWav NWM07_08-02.wav
+	sentence proDonorTG NWM07_08-02.TextGrid
+	sentence resynthWav NWM57_08-02.wav
 	sentence figureFilename intensity.eps
 	real segStart 0
 	real segEnd 0
@@ -11,11 +11,11 @@ form Make resynth figure
 	real proEnd 0
 endform
 
-segSound = Read from file... 'segDonorWav$'
+segOrig = Read from file... 'segDonorWav$'
 segTextGrid = Read from file... 'segDonorTG$'
-proSound = Read from file... 'proDonorWav$'
+proOrig = Read from file... 'proDonorWav$'
 proTextGrid = Read from file... 'proDonorTG$'
-resynth = Read from file... 'resynthWav$'
+resynthOrig = Read from file... 'resynthWav$'
 
 seg_donor_tier = 1
 pro_donor_tier = 1
@@ -25,86 +25,140 @@ offset = 0.00000000001 ; used in the duration tier to prevent points from coinci
 #segStart = segStart + 0.000001
 #proStart = proStart + 0.000001
 
-x1 = 0.25
-x2 = 6.25
-y1 = 0.25
-y2 = 2.25
-y1wav = 0.25
-y2wav = 1.75
-y1int = 0.25
-y2int = 0.75
-y1int2 = 1.25
-y2int2 = 1.75
+# EQUALIZE DURATIONS FOR DISPLAY BY ADDING SILENCE TO SHORTER SOUND
+select proOrig
+proStart = Get start time
+proEnd = Get end time
+proDur = Get total duration
+select segOrig
+segStart = Get start time
+segEnd = Get end time
+segDur = Get total duration
+diff = segDur - proDur
+silentBit = Create Sound from formula... foo 1 0 abs(diff) 44100 0
 
-offsetB = 2.25
-offsetC = 4.5
+if segDur < proDur
+	select segOrig
+	plus silentBit
+	segSound = Concatenate
+	proSound = proOrig
+	resynth = resynthOrig
+else
+	select proOrig
+	plus silentBit
+	proSound = Concatenate
+	select resynthOrig
+	plus silentBit
+	resynth = Concatenate
+	segSound = segOrig
+endif
+
+
+x1 = 0
+x2 = 6.5
+y1 = 0
+y2 = 2.25
+y1int = 0
+y2int = 1.5
+y1wav = 0.1
+y2wav = 2.1
+y1inv = 0.5
+y2inv = 2
+
+offsetB = 1.5
+offsetC = 3
+offsetD = 4.5
+offsetE = 6
 
 Erase all
 
-# PANEL 1
-Select inner viewport... x1 x2 y1 y2
-	Grey
+# SUBFIGURE LETTER
+Select outer viewport... x1 x2 y1 y2
+	Black
 	Solid line
-	select segTextGrid
-	Draw... 0 0 no no no
+	Axes... x1 x2 y1 y2
+	Text special... -0.5 left y2 top Times 16 0  a)
 
-Select inner viewport... x1 x2 y1wav y2wav
+Select outer viewport... x1 x2 y1+offsetB y2+offsetB
+	Black
+	Solid line
+	Axes... x1 x2 y1 y2
+	Text special... -0.5 left y2 top Times 16 0  b)
+
+Select outer viewport... x1 x2 y1+offsetC y2+offsetC
+	Black
+	Solid line
+	Axes... x1 x2 y1 y2
+	Text special... -0.5 left y2 top Times 16 0  c)
+
+Select outer viewport... x1 x2 y1+offsetD y2+offsetD
+	Black
+	Solid line
+	Axes... x1 x2 y1 y2
+	Text special... -0.5 left y2 top Times 16 0  d)
+
+Select outer viewport... x1 x2 y1+offsetE y2+offsetE
+	Black
+	Solid line
+	Axes... x1 x2 y1 y2
+	Text special... -0.5 left y2 top Times 16 0  e)
+
+
+## TEXTGRID
+#Select outer viewport... x1 x2 y1+0.5 y2
+#	Grey
+#	Solid line
+#	select segTextGrid
+#	Draw... 0 0 no no no
+
+
+# WAVEFORM
+Select outer viewport... x1 x2 y1wav y2wav
 	Black
 	Solid line
 	select segSound
-	Draw... 0 0 -0.5 0.5 no Curve
+	Draw... 0 0 -0.6 0.6 no Curve
 
-Select inner viewport... x1 x2 y1int y2int
+# UPPER INTENSITY
+Select outer viewport... x1 x2 y1int y2int
 	Blue
 	Solid line
 	select segSound
 	segIntensity = To Intensity... 60 0 yes
-	Draw... 0 0 40 80 no
+	Draw... 0 0 20 80 no
+#	Marks right... 2 yes yes no
+#	Text right... yes Intensity (dB)
 
-	Grey
-	Dotted line
+# WAVEFORM B
+Select outer viewport... x1 x2 y1wav+offsetB y2wav+offsetB
+	Black
+	Solid line
 	select segIntensity
 	segIntensityMax = Get maximum... 0 0 Parabolic
-	select segSound
-	tMin = Get start time
-	tMax = Get end time
-	Draw line... tMin segIntensityMax tMax segIntensityMax
-
-Select inner viewport... x1 x1+0.5 y1 y1+0.5
-	Black
-	Solid line
-	Axes... 0 1 0 1
-	Text special... 0 centre 0.5 half Times 18 0  a)
-
-
-Select inner viewport... x1 x2 y1int2 y2int2
-	Red
-	Dotted line
-	select segIntensity
-	segInverse = Formula... segIntensityMax-self
-	Draw... 0 0 0 40 no
-
-
-# PANEL 2
-Select inner viewport... x1 x2 y1wav+offsetB+0.25 y2wav+offsetB+0.25
-	Black
-	Solid line
-	segIntensityInverse = Down to IntensityTier
+	segInverseIntensity = Formula... segIntensityMax-self
+	segInverseIntensityTier = Down to IntensityTier
 	plus segSound
-	segSoundInverse = Multiply... yes
-	Draw... 0 0 -0.5 0.5 no Curve
+	segInverseSound = Multiply... yes
+	Draw... 0 0 -0.6 0.6 no Curve
 
-Select inner viewport... x1 x2 y1int+offsetB y2int+offsetB
-	Purple
-	Solid line
-	select segSoundInverse
-	segIntensityFlat = To Intensity... 60 0 yes
-	Draw... 0 0 40 80 no
+# LOWER INTENSITY
+#Select outer viewport... x1 x2 y1inv y2inv
+#	Red
+#	Dotted line
+#	select segInverse
+#	Draw... segStart segEnd 0 60 no
 
-Select inner viewport... x1 x1+0.5 y1+offsetB y1+0.5+offsetB
-	Black
-	Axes... 0 1 0 1
-	Text special... 0 centre 0.5 half Times 18 0  b)
+# UPPER INTENSITY B
+Select outer viewport... x1 x2 y1int+offsetB y2int+offsetB
+	Blue
+	Dashed line
+	select segInverseSound
+	segFlatIntensity = To Intensity... 60 0 yes
+	Draw... 0 0 20 80 no
+#	Marks right... 2 yes yes no
+#	Text right... yes Intensity (dB)
+
+
 
 # # # # # # # # # # # # # #
 # do the dynamic warping  #
@@ -178,40 +232,92 @@ Select inner viewport... x1 x1+0.5 y1+offsetB y1+0.5+offsetB
 		endfor
 
 		# MULTIPLY FLATTENED TARGET SOUND BY THE TARGET INTENSITY
-		select segSoundInverse
+		select segInverseSound
 		plus segProIntensityWarped
 		segSoundProIntensity = Multiply... yes
 		Scale intensity... proIntensityRMS
 
-# END WARPING
+# # # # # # # #
+# END WARPING #
+# # # # # # # #
 
-# PANEL 3
-Select inner viewport... x1 x2 y1wav+offsetC y2wav+offsetC
+# WAVEFORM C
+Select outer viewport... x1 x2 y1wav+offsetC y2wav+offsetC
 	Black
 	Solid line
 	select segSoundProIntensity
-	Draw... 0 0 -0.5 0.5 no Curve
+	Draw... 0 0 -0.6 0.6 no Curve
 
-Select inner viewport... x1 x2 y1int+offsetC y2int+offsetC
-	Blue
-	Solid line
+# UPPER INT C
+Select outer viewport... x1 x2 y1int+offsetC y2int+offsetC
+	Purple
+	Dashed line
 	select segSoundProIntensity
 	finalIntensity = To Intensity... 60 0 yes
-	Draw... 0 0 40 80 no
+	Draw... 0 0 20 80 no
 
-
-Select inner viewport... x1 x1+0.5 y1+offsetC y1+0.5+offsetC
+# WAVEFORM C
+Select outer viewport... x1 x2 y1wav+offsetD y2wav+offsetD
 	Black
-	Axes... 0 1 0 1
-	Text special... 0 centre 0.5 half Times 18 0  c)
+	Solid line
+	select resynth
+	Draw... 0 0 -0.6 0.6 no Curve
+
+# UPPER INT D
+Select outer viewport... x1 x2 y1int+offsetD y2int+offsetD
+	Purple
+	Solid line
+	select resynth
+	resynthIntensity = To Intensity... 60 0 yes
+	Draw... 0 0 20 80 no
+
+# WAVEFORM E
+Select outer viewport... x1 x2 y1wav+offsetE y2wav+offsetE
+	Black
+	Solid line
+	select proSound
+	Draw... 0 0 -0.6 0.6 no Curve
+
+# UPPER INT E
+Select outer viewport... x1 x2 y1int+offsetE y2int+offsetE
+	Red
+	Solid line
+	select proIntensity
+	Draw... 0 0 20 80 no
+#	Marks right... 2 yes yes no
+#	Text right... yes Intensity (dB)
 
 
 
-Select inner viewport... x1 x2 y1 y2+offsetC
+
+
+Select outer viewport... x1 x2 y1 y2+offsetE
 Save as EPS file... 'figureFilename$'
 
-#select seg
-#plus segTG
-#plus pro
-#plus proTG
-#Remove
+select resynthOrig
+plus segOrig
+plus proOrig
+plus resynth
+plus segSound
+plus proSound
+plus silentBit
+plus segTextGrid
+plus proTextGrid
+
+plus segIntensity
+plus segInverseIntensity
+plus segInverseIntensityTier
+plus segInverseSound
+plus segFlatIntensity
+plus segIntensityTier
+plus segIntensityTable
+
+plus proIntensity
+plus proIntensityTier
+plus proIntensityTable
+
+plus segProIntensityWarped
+plus segSoundProIntensity
+plus finalIntensity
+plus resynthIntensity
+Remove
