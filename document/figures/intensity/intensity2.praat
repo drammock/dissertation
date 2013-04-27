@@ -122,18 +122,22 @@ Font size... 10
 Solid line
 
 # BIG ARROWS
+radius1 = 5.5
+radius2 = 1.2
+join1x =  3.4
+join1y =  3.2
+
 Select inner viewport... outerL outerR outerT outerB
 	Silver
-	Line width... 4
+	Line width... 5
 	Axes... outerL outerR outerT outerB
-#	Draw arc... -1.7 3.75 4.8 342 22
-#	Draw arrow... -1.7+4.8*cos(pi/10) 3.75-4.8*sin(pi/10) -1.7+4.8*cos(pi/10)-0.05 3.75-4.8*sin(pi/10)-0.05/tan(pi/10)
-	Draw arc... -2.4 3.2 5.5 0 27
-	Draw arc... 1.9 3.2 1.2 300 0
-	Draw arrow... 1.9+1.2*cos(pi/3) 3.2-1.2*sin(pi/3) 1.9+1.2*cos(pi/3)-0.5 3.2-1.2*sin(pi/3)-0.5/tan(pi/3)
+	Draw arc... join1x-radius1 join1y radius1 0 27
+	Draw arc... join1x-radius2 join1y radius2 300 0
+	Draw arrow... join1x-radius2+radius2*cos(pi/3) join1y-radius2*sin(pi/3) join1x-radius2+radius2*cos(pi/3)-0.5 join1y-radius2*sin(pi/3)-0.5/tan(pi/3)
 
 	Draw arc... 4.7 -0.5 2.7 90 135
 	Draw arc... 4.7 1.9 0.3 0 90
+	Line width... 4
 	Draw arrow... 5 1.9 5 1.65
 	Line width... 1
 
