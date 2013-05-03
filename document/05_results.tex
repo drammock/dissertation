@@ -1,7 +1,9 @@
 \chapter{Results}
 
 \section{Experiment 1}
-Experiment~1 tests the effect of prosodic replacement on intelligibility.  The mean sentence score for each talker across listeners is given in Figure~\ref{fig:ExpOneBarplot}.  Darker bars indicate unmodified recordings, while light bars represent resynthesized stimuli.  Contrary to expectations, not all resynthesized stimuli are lower than their unmodified counterparts, suggesting that distortion due to the resynthesis process was relatively minimal.  With regard to Research Question~1 — how does prosody relate to intelligibility — a complicated picture emerges.  Talker~\ac{b} suffers dramatically when his prosody is replaced, whereas Talker~\ac{c} is unchanged or slightly improved, and Talker~\ac{a} is unchanged or slightly worsened.
+Experiment~1 tests the role of prosody in intelligibility, by comparing mean sentence scores for unmodified talkers against resynthesized stimuli with prosodic replacement.  The mean sentence score for each talker across listeners is shown in Figure~\ref{fig:ExpOneBarplot}.  Darker bars indicate unmodified recordings, while light bars represent resynthesized stimuli.  Contrary to expectations, not all resynthesized stimuli have lower mean scores compared to their unmodified counterparts, suggesting that distortion due to the resynthesis process was relatively minimal.\footnotemark{}  With regard to Research Question~1 — how does prosody relate to intelligibility — a complicated picture emerges.  Talker~\ac{b} suffers dramatically when his prosody is replaced, whereas Talker~\ac{c} is unchanged or slightly improved, and Talker~\ac{a} is unchanged or slightly worsened.
+
+\footnotetext{This is likely due to several factors.  One is probably the painstaking hand-correction of the pulse marking to ensure consistent phase throughout voiced spans of speech.  Another is the choice to maintain each talker’s natural mean pitch on each sentence, and map only the {\emph shape} of the pitch contour of the prosodic donor during resynthesis.}
 
 One possible explanation for these results is to postulate that Talker~\ac{a}, despite being highly intelligible, does not have especially good prosody, evidenced in particular by the fact that scores for Talker~\ac{ca} are lower than the scores for Talker~\ac{cb}.  On the same grounds, and on the additional observation that scores for Talker~\ac{ab} are greater than for Talker~\ac{ac}, we might conclude that Talker~\ac{b} has more intelligible prosody than the other two talkers, and his middling base intelligibility scores are due to segmental factors.
 
@@ -44,5 +46,19 @@ A summary of the model shown in Equation~\ref{eq:ExpOneMM} is given in Table~\re
 
 
 \section{Experiment 2}
+Experiment~2 tests the role of prosody in the familiar talker advantage, by comparing mean sentence scores for various talkers across two groups of listeners: those trained on one of the test talkers (Talker~\ac{c}), and those trained on a control talker (Talker~\ac{d}).  The first question to be addressed is whether the training phase was in fact effective for both groups of listeners.  Mean sentence scores of the training phase (grouped by quartile) are shown in Figure~\ref{fig:Quartile}. 
 
-Experiment~2 results.
+\begin{figure}[htbp]
+	\begin{centering}
+	\includegraphics{figures/results/QuartileBarplot.eps}
+	\caption[Quartile analysis of training phase in Experiment~2]{Quartile analysis of training phase in Experiment~2.\label{fig:Quartile}}
+	\end{centering}
+\end{figure}
+
+T-tests performed between the first and fourth quartile of each group show a statistically significant improvement in both groups of listeners (test group: \textit{t}=−2.816 on 438.1 degrees of freedom, \textit{p}<0.01; control group: \textit{t}=−2.898 on 437.2 degrees of freedom, \textit{p}<0.01).  However, the improvement is less than 0.5 keywords for both groups, so the magnitude of effect to be expected when comparing the test sentences should likewise be small.
+% testGrp: t = -2.8156, df = 438.108, p-value = 0.005088
+% control: t = -2.898, df = 437.208, p-value = 0.003945
+
+
+
+
