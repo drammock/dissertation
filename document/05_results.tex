@@ -51,14 +51,18 @@ Experiment~2 tests the role of prosody in the familiar talker advantage, by comp
 \begin{figure}[htbp]
 	\begin{centering}
 	\includegraphics{figures/results/QuartileBarplot.eps}
-	\caption[Quartile analysis of training phase in Experiment~2]{Quartile analysis of training phase in Experiment~2.\label{fig:Quartile}}
+	\caption[Quartile analysis of training phase in Experiment~2]{Quartile analysis of training phase in Experiment~2.  Improvement is seen during training for both the control group (trained on Talker~\ac{d}) and the test group (trained on Talker~\ac{c}).  The adaptation in the test group appears not to have been maintained during testing.\label{fig:Quartile}}
 	\end{centering}
 \end{figure}
 
-T-tests performed between the first and fourth quartile of each group show a statistically significant improvement in both groups of listeners (test group: \textit{t}=−2.816 on 438.1 degrees of freedom, \textit{p}<0.01; control group: \textit{t}=−2.898 on 437.2 degrees of freedom, \textit{p}<0.01).  However, the improvement is less than 0.5 keywords for both groups, so the magnitude of effect to be expected when comparing the test sentences should likewise be small.
-% testGrp: t = -2.8156, df = 438.108, p-value = 0.005088
-% control: t = -2.898, df = 437.208, p-value = 0.003945
+T-tests performed on the first and fourth quartile of each group show a statistically significant improvement in both groups of listeners (control group: \textit{t}=−2.898 on 437.2 degrees of freedom, \textit{p}<0.01; test group: \textit{t}=−2.816 on 438.1 degrees of freedom, \textit{p}<0.01).  However, the improvement is small (less that 0.5 keywords for both groups), and more importantly it appears the adaptation that occurred during training was not fully retained during the testing phase, as evidenced by the slight decline in performance on Talker~\ac{c} during the testing phase when compared to the last quartile of the training phase (see Figure~\ref{fig:Quartile}).\footnotemark{}
 
+footnotetext{This is true at least for the listeners trained on Talker~\ac{c}.  Listeners trained on Talker~\ac{d} did not hear their training talker during the testing phase, so it is unknown whether any adaptation was retained during testing.  Presumably, however, any such adaptation would have had little effect on performance when listening to Talkers~\ac{a}, \ac{b}, or \ac{c}.}
 
+One explanation for the failure to retain a perceptual advantage between the training to the testing phases is stimulus uncertainty: in the training phase, listeners heard the same talker for 90 sentences in a row, whereas the testing phase comprised a random ordering of sentences from the three unmodified talkers and the six resynthesized talkers.  It is possible that the uncertainty due to varying the talkers negated any advantage acquired from the training.  Another possible explanation is that the training was too brief, and the apparent learning seen in the quartile analysis is merely a task familiarization effect.
+
+% TODO: post hoc: count release bursts?
+% TODO: post hoc: pitch range, pitch dynamicity, intensity velocity, vowel space area?
+% TODO: training with talker B
 
 
