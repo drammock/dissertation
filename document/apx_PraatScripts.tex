@@ -7,6 +7,8 @@
 % mix noise
 % ramp edges
 
+This appendix contains the scripts used in stimulus creation for this thesis, and together represent a more-or-less complete workflow for high-quality \psola{} resynthesis using Praat (with the possible exception of initial \ac{rms} normalization of the original recordings, which functionality is built into Praat and for which numerous scripts are available online).
+
 % SEGMENTATION
 \section{Syllabic segmentation by intensity\label{scr:SyllIntens}}
 This script takes a directory of sound files and, for each file, creates a new TextGrid and prepopulates an interval tier with boundaries at each local minimum of the sound file’s intensity contour.  It then presents the user with a TextGrid editor for the opportunity to adjust boundaries, add new ones, delete spurious ones, and add notes if desired.  The file name, notes (if any) and a sequential number are written to a log file.  Users can stop the script at any time, and resume work on the same directory of sound files by entering a “starting file number” when re-initiating the script.
