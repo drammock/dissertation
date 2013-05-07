@@ -75,6 +75,7 @@ ENTRY
     type
     url
     volume
+    version
     year
   }
   {}
@@ -254,6 +255,9 @@ FUNCTION {bbl.mthesis}
 
 FUNCTION {bbl.phdthesis}
 { "Ph.D. thesis" }
+
+FUNCTION {bbl.version}
+{ "version" }
 
 MACRO {jan} {"Jan."}
 
@@ -468,6 +472,13 @@ FUNCTION {format.doi}
   if$
 }
 
+FUNCTION {format.version}
+{ version empty$
+	{ "" }
+	{ bbl.version " " * version * }
+  if$
+}
+
 FUNCTION {format.title}
 { title
   duplicate$ empty$ 'skip$
@@ -475,6 +486,7 @@ FUNCTION {format.title}
   if$
   "title" bibinfo.check
 }
+
 FUNCTION {format.full.names}
 {'s :=
  "" 't :=
@@ -920,9 +932,9 @@ FUNCTION {book}
   format.btitle "title" output.check
   crossref missing$
     { format.bvolume output
-      new.block
-#      format.number.series output
-#      new.sentence
+%      new.block
+%      format.number.series output
+      new.sentence
       format.publisher.address output
     }
     {
@@ -980,8 +992,8 @@ FUNCTION {inbook}
     {
       format.bvolume output
       format.chapter.pages "chapter and pages" output.check
-      new.block
-      format.number.series output
+%      new.block
+%      format.number.series output
       new.sentence
       format.publisher.address output
     }
@@ -1013,7 +1025,7 @@ FUNCTION {incollection}
   crossref missing$
     { format.in.ed.booktitle "booktitle" output.check
       format.bvolume output
-      format.number.series output
+%      format.number.series output
       format.chapter.pages output
       new.sentence
       format.publisher.address output
@@ -1117,6 +1129,7 @@ FUNCTION {misc}
   format.date "year" output.check
   date.block
   format.title output
+  format.version output
   new.block
   howpublished "howpublished" bibinfo.check output
   new.block
