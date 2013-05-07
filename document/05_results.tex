@@ -7,24 +7,23 @@ Experiment~1 tests the role of prosody in intelligibility, by comparing mean sen
 
 One possible explanation for these results is to postulate that Talker~\ac{a}, despite being highly intelligible, does not have especially good prosody, evidenced in particular by the fact that scores for Talker~\ac{ca} are lower than the scores for Talker~\ac{cb}.  On the same grounds, and on the additional observation that scores for Talker~\ac{ab} are greater than for Talker~\ac{ac}, we might conclude that Talker~\ac{b} has more intelligible prosody than the other two talkers, and his middling base intelligibility scores are due to segmental factors.
 
-\begin{figure}[htbp]
+\begin{figure}
 	\begin{centering}
 	\includegraphics{figures/results/ExpOneBarplot.eps}
-	\caption[Barplot of mean sentence scores for Experiment~1]{Barplot of mean sentence scores for Experiment~1.  Error bars are ±1 standard error; lighter colors indicate resynthesized talkers, with the second letter indicating the prosodic donor (see Section~\ref{sec:ExpDesign} for full explanation of talker codes).\label{fig:ExpOneBarplot}}
+	\caption[Barplot of mean sentence scores for Experiment~1]{Barplot of mean sentence scores for Experiment~1.  Error bars are ±1 standard error; lighter colors indicate resynthesized talkers, with the second letter indicating the prosodic donor (see Section~\ref{sec:ExpDesign} for full explanation of talker codes).  Similar hues indicate shared segmental donors.\label{fig:ExpOneBarplot}}
 	\end{centering}
 \end{figure}
 
 With regard to the question of whether low-intelligibility talkers can be made more intelligible through prosody alone, it would appear that the answer is “yes”: Talker~\ac{cb} appears to have higher scores than Talker~\ac{c}, despite the likelihood that Talker~\ac{cb}’s recordings suffer some amount of distortion from the resynthesis process.  In other words, any detriment due to resynthesis is more than overcome by the benefit of having Talker~\ac{b}’s prosody.  
 
 To further probe these results, the scores were submitted to a mixed-effects linear regression model, shown in Equation~\ref{eq:ExpOneMM}:
-
 \begin{equation}\label{eq:ExpOneMM}
-	\text{{\inlinecode lmer(sentScore\textasciitilde resynth+segDonor+proDonor+(1|listener)+(1|sentence), data=allData)}}
+	\text{{\small \inlinecode lmer(sentScore\textasciitilde resynth+segDonor+proDonor+(1|listener)+(1|sentence), data=allData)}}
 \end{equation}
 
-In this model, {\inlinecode sentScore} is the number of keywords correct (0–5), {\inlinecode resynth} is a boolean variable that is true for Talkers~\ac{ab ac ba bc ca} and~\ac{cb}, and {\inlinecode segDonor} and {\inlinecode proDonor} are three-level factors indicating the talker in the target signal and the talker from whom the prosodic information was drawn, respectively.  For the unmodified original recordings, {\inlinecode segDonor} and {\inlinecode proDonor} are defined as the talker himself, even though those recordings were not resynthesized.  
+In this model, {\inlinecode sentScore} is the number of keywords correct (0–5), {\inlinecode resynth} is a boolean variable that is true for Talkers~\ac{ab}, \ac{ac}, \ac{ba}, \ac{bc}, \ac{ca} and~\ac{cb}, and {\inlinecode segDonor} and {\inlinecode proDonor} are three-level factors indicating the talker in the target signal and the talker from whom the prosodic information was drawn, respectively.  For the unmodified original recordings, {\inlinecode segDonor} and {\inlinecode proDonor} are defined as the talker himself, even though those recordings were not resynthesized.  
 
-A summary of the model shown in Equation~\ref{eq:ExpOneMM} is given in Table~\ref{tab:ExpOneFixedEff}.  There was no evidence of correlation of fixed effects (correlation coefficients ranged from 0 to 0.505; not shown in Table~\ref{tab:ExpOneFixedEff}).  The baseline condition is Talker~\ac{a}, with a value at the intercept of about 4.4 words correct.  The coefficients reveal similar patterns as Figure~\ref{fig:ExpOneBarplot}.  Firstly, the model supports the interpretation that Talker~\ac{b} has the most intelligible prosody: having the prosody of Talker~\ac{b} represents a net gain of 0.3 words correct over the prosody of Talker~\ac{a}, whereas having the prosody of Talker~\ac{c} represents a net loss of 0.6 words correct.  The model also supports the idea that Talker~\ac{a}’s intelligibility stems in large part from segmental factors, given that the other levels of {\inlinecode segDonor} both have strongly negative coefficients.
+A summary of the model shown in Equation~\ref{eq:ExpOneMM} is given in Table~\ref{tab:ExpOneFixedEff}.  There was no evidence of correlation of fixed effects (correlation coefficients ranged from 0 to 0.505; not shown in Table~\ref{tab:ExpOneFixedEff}).  The baseline condition is Talker~\ac{a}, with a value at the intercept of about 4.4 words correct.  The coefficients reveal similar patterns as Figure~\ref{fig:ExpOneBarplot}: firstly, the model supports the interpretation that Talker~\ac{b} has the most intelligible prosody.  Having the prosody of Talker~\ac{b} represents a net gain of 0.3 words correct over the prosody of Talker~\ac{a}, whereas having the prosody of Talker~\ac{c} represents a net loss of 0.6 words correct compared to Talker~\ac{a}.  The model also supports the idea that Talker~\ac{a}’s intelligibility stems in large part from segmental factors, given that the other levels of {\inlinecode segDonor} both have strongly negative coefficients.
 
 % TODO: fix rowfont bolding (currently not bolding) in this table and in Exp 2 table
 \begin{table}
@@ -32,8 +31,9 @@ A summary of the model shown in Equation~\ref{eq:ExpOneMM} is given in Table~\re
 	\centering
 	\begin{tabu} spread 1em {Xrcrc}
 		\toprule
-		\rowfont{\textbf}\multicolumn{5}{l}{Summary of fixed effects (N=1440; log-likelihood=-2554)}\\
-		\rowfont[c]{\textbf}\multicolumn{1}{l}{Predictor} & Coefficient & \textit{SE} & \textit{t} & \textit{p}\\
+		\multicolumn{5}{l}{Summary of fixed effects (N=1440; log-likelihood=-2554)}\\
+		\rowfont\bfseries
+		\multicolumn{1}{l}{Predictor} & \multicolumn{1}{c}{Coefficient} & \textit{SE} & \multicolumn{1}{c}{\itshape t} & \textit{p}\\
 		\midrule
 		Intercept         &  4.382 & (0.132) &  33.19 & <10⁻¹⁶\\
 		resynth = TRUE    & −0.666 & (0.077) &  −8.64 & <10⁻¹⁶\\
@@ -45,56 +45,63 @@ A summary of the model shown in Equation~\ref{eq:ExpOneMM} is given in Table~\re
 	\end{tabu}
 \end{table}
 
-A summary of the random effects in the model of Experiment~1 are shown in Table~\ref{tab:ExpOneRandomEff}.  The results are unremarkable: as expected, the variability of listeners is relatively low (s²=0.043, or a standard deviation of 0.2 keywords correct across listeners), suggesting that to a first approximation listeners are all equally good at the task.  In contrast, the variability of sentence difficulty is somewhat higher (s²=0.513, or a standard deviation of 0.7 keywords correct across sentences).
+A summary of the random effects in the model of Experiment~1 are shown in Table~\ref{tab:ExpOneRandomEff}.  The results are unremarkable: the variance in intercepts due to particular listeners doing systematically better or worse on the task is only about 2\% of the total residual variance.  This suggests that, by and large, all listeners were performing equally well on the task.  The variance in intercepts due to varying difficulty of particular sentences is somewhat larger (about 22\% of the total residual variance, or a standard deviation of 0.7 keywords correct),\footnotemark{} suggesting that there was indeed some value in modeling the sentences as varying in their difficulty (cf. the discussion of scoring in Section~\ref{sec:Scoring}).
 
-%Random effects:
-% Groups   Name        Variance Std.Dev. MCMCmean   HPD95lower HPD95upper
-% sent     (Intercept) 0.51345  0.71655  0.6040129  0.5055609  0.7081530
-% listener (Intercept) 0.04289  0.20710  0.2212181  0.1082121  0.3494921
-% Residual             1.78542  1.33620  1.3516454  1.3010096  1.4038710
+\footnotetext{The \ac{mcmc} estimate for variability due to listener is in close agreement with the fitted model.  The \ac{mcmc} estimate for variability due to sentence is slightly smaller than the value in the fitted model, at 16\% of the total variance (\vs\ 22\%), with a standard deviation for sentence of about 0.6 keywords (\vs\ 0.7).}
+
 \begin{table}
 	\caption[Experiment~1 statistical model: Random effects]{Summary of random effects in the statistical model of Experiment~1.\label{tab:ExpOneRandomEff}}
 	\centering
 	\begin{tabu} spread 1em {Xcccc}
 		\toprule
-		\multicolumn{3}{l}{\bfseries Summary of random effects} & \multicolumn{2}{c}{95\% \ac{hpd}}\\
-		Group & \textit{s}² & \ac{mcmc} mean & lower bound & upper bound\\
+		\multicolumn{3}{l}{Summary of random effects} & \multicolumn{2}{c}{\bfseries \ac{mcmc} (nsim=10\thinspace000)}\\ 
+		\cmidrule{4-5}
+		\rowfont\bfseries
+		Group & \textit{s}² & \textit{s} & mean & 95\% \ac{hpd}\\
 		\midrule
-		Sentence (intercept) & (0.513) & 0.604 & 0.506 & 0.708\\
-		Listener (intercept) & (0.043) & 0.221 & 0.108 & 0.349\\
-		Residual             & (1.785) & 1.352 & 1.301 & 1.404\\
+		Sentence (intercept) & 0.513 & 0.717 & 0.604 & (0.506~~0.708)\\
+		Listener (intercept) & 0.043 & 0.207 & 0.221 & (0.108~~0.349)\\
+		Residual             & 1.785 & 1.336 & 1.352 & (1.301~~1.404)\\
 		\bottomrule
 	\end{tabu}
 \end{table}
 
 
 \section{Experiment 2}
-Experiment~2 tests the role of prosody in the familiar talker advantage, by comparing mean sentence scores for various talkers across two groups of listeners: those trained on one of the test talkers (Talker~\ac{c}), and those trained on a control talker (Talker~\ac{d}).  The first question to be addressed is whether the training phase was in fact effective for both groups of listeners.  Mean sentence scores of the training phase (grouped by quartile) are shown in Figure~\ref{fig:Quartile}. 
+Experiment~2 tests the role of prosody in the familiar talker advantage, by comparing mean sentence scores for various talkers across two groups of listeners: those trained on one of the test talkers (Talker~\ac{c}), and those trained on a control talker (Talker~\ac{d}).  The first question to be addressed is whether the training phase was in fact effective for both groups of listeners.  Mean sentence scores of the training phase (grouped by quartile) are shown in Figure~\ref{fig:Quartile}, along with the mean score during the testing phase on Talker~\ac{c} for the experimental group. 
 
-\begin{figure}[htbp]
+\begin{figure}
 	\begin{centering}
 	\includegraphics{figures/results/QuartileBarplot.eps}
-	\caption[Quartile analysis of training phase in Experiment~2]{Quartile analysis of training phase in Experiment~2.  Improvement is seen during training for both the control group (trained on Talker~\ac{d}) and the test group (trained on Talker~\ac{c}).  The adaptation in the test group appears not to have been maintained during testing.\label{fig:Quartile}}
+	\caption[Quartile analysis of training phase in Experiment~2]{Quartile analysis of training phase in Experiment~2.  Improvement is seen during training for both the control group (trained on Talker~\ac{d}) and the experimental group (trained on Talker~\ac{c}).  The adaptation in the experimental group appears not to have persisted through the testing phase.\label{fig:Quartile}}
 	\end{centering}
 \end{figure}
 
-T-tests performed on the first and fourth quartile of each group show a statistically significant improvement in both groups of listeners (control group: \textit{t}=−2.898 on 437.2 degrees of freedom, \textit{p}<0.01; test group: \textit{t}=−2.816 on 438.1 degrees of freedom, \textit{p}<0.01).  However, the improvement is small (less that 0.5 keywords for both groups), and more importantly it appears the adaptation that occurred during training was not fully retained during the testing phase, as evidenced by the slight decline in performance on Talker~\ac{c} during the testing phase when compared to the last quartile of the training phase (see Figure~\ref{fig:Quartile}).\footnotemark{}
+Both the control and experimental groups show an upward trend in mean sentence score across training quartiles, and \textit{t}-tests performed on the first and fourth quartile of each group show a statistically significant improvement in both groups of listeners (control group: \textit{t}=−2.898 on 437.2 degrees of freedom, \textit{p}<0.01; experimental group: \textit{t}=−2.816 on 438.1 degrees of freedom, \textit{p}<0.01).  However, the improvement is small (less that 0.5 keywords for both groups), and more importantly it appears the adaptation that occurred during training in the experimental group was not fully retained during the testing phase, as evidenced by the decline in performance on Talker~\ac{c} during the testing phase when compared to the last quartile of the training phase (see Figure~\ref{fig:Quartile}).\footnotemark{}
 
-footnotetext{This is true at least for the listeners trained on Talker~\ac{c}.  Listeners trained on Talker~\ac{d} did not hear their training talker during the testing phase, so it is unknown whether any adaptation was retained during testing.  Presumably, however, any such adaptation would have had little effect on performance when listening to Talkers~\ac{a}, \ac{b}, or \ac{c}.}
+\footnotetext{This is true at least for the listeners trained on Talker~\ac{c}.  Listeners trained on Talker~\ac{d} did not hear their training talker during the testing phase, so it is unknown whether any adaptation was retained during testing.  Presumably, however, any such adaptation would have had little effect on performance when listening to Talkers~\ac{a}, \ac{b}, or \ac{c}.}
 
 One explanation for the failure to retain a perceptual advantage between the training to the testing phases is stimulus uncertainty: in the training phase, listeners heard the same talker for 90 sentences in a row, whereas the testing phase comprised a random ordering of sentences from the three unmodified talkers and the six resynthesized talkers.  It is possible that the uncertainty due to varying the talkers negated any advantage acquired from the training.  Another possible explanation is that the training was too brief, and the apparent learning seen in the quartile analysis is merely a task familiarization effect that was not tied to any particular talker.
 
-In light of the preceding discussion it is perhaps unsurprising that training on a particular talker did not confer a reliable perceptual advantage on test stimuli resynthesized to have the training talker’s prosody.  Full results of the statistical model for Experiment~2 are shown in Table~\ref{tab:ExpTwoFixedEff}.  Predictor codes are the same as in the model for Experiment~1, with the addition of {\inlinecode segTrain} (a boolean variable indicating match between the training talker and the segmental donor of the test stimulus) and {\inlinecode proTrain} (indicating match between the training talker and the prosodic donor of the test stimulus).
+In light of the preceding discussion it is perhaps unsurprising that training on a particular talker did not confer a reliable perceptual advantage on test stimuli resynthesized to have the training talker’s prosody.  A barplot of the mean sentence scores for the testing phase of Experiment~2 are given in Figure~\ref{fig:ExpTwoBarplot}.  Even without controlling for multiple comparisons, none of the \textit{t}-tests comparing the experimental and control groups within talker are significant, suggesting that there was no familiar talker advantage enjoyed by the experimental group.  If there had been a familiar talker advantage, we would have expected the colored bars to be higher than their corresponding grey bars for Talker~\ac{c}, and perhaps for Talkers~\ac{ca}, \ac{cb}, \ac{ac} and \ac{bc} (depending on whether and how the advantage transferred to resynthesized talkers).
 
-Aside from the two non-significant predictors {\inlinecode segTrain} and {\inlinecode proTrain}, the model is nearly identical to the model for Experiment~1; the magnitude, direction, and significance of the other predictors are all unchanged from Experiment~1.
+\begin{figure}
+	\begin{centering}
+	\includegraphics{figures/results/ExpTwoBarplot.eps}
+	\caption[Barplot of mean sentence scores for Experiment~2]{Barplot of mean sentence scores for Experiment~2.  Error bars are ±1 standard error.  Colored bars indicate the experimental group; grayscale bars the control group.  Lighter colors indicate resynthesized talkers, and similar hues indicate shared segmental donors.\label{fig:ExpTwoBarplot}}
+	\end{centering}
+\end{figure}
+
+Full results of the statistical model for Experiment~2 are shown in Table~\ref{tab:ExpTwoFixedEff}.  Predictor codes are the same as in the model for Experiment~1, with the addition of Boolean variables {\inlinecode segTrain} (indicating match between the training talker and the segmental donor of the test stimulus) and {\inlinecode proTrain} (indicating match between the training talker and the prosodic donor of the test stimulus).  Aside from the two non-significant predictors {\inlinecode segTrain} and {\inlinecode proTrain}, the model is nearly identical to the model for Experiment~1; the magnitude, direction, and significance of the other fixed-effect predictors are all unchanged from Experiment~1.  
 
 \begin{table}
 	\caption[Experiment~2 statistical model: Fixed effects]{Summary of fixed effect predictors in the statistical model of Experiment~2.\label{tab:ExpTwoFixedEff}}
 	\centering
 	\begin{tabu} spread 1em {Xrcrc}
 		\toprule
-		\rowfont{\textbf}\multicolumn{5}{l}{Summary of fixed effects (N=1800; log-likelihood=-3103)}\\
-		\rowfont[c]{\textbf}\multicolumn{1}{l}{Predictor} & Coefficient & \textit{SE} & \textit{t} & \textit{p}\\
+		\multicolumn{5}{l}{Summary of fixed effects (N=1800; log-likelihood=-3103)}\\
+		\rowfont\bfseries
+		\multicolumn{1}{l}{Predictor} & \multicolumn{1}{c}{Coefficient} & \textit{SE} & \multicolumn{1}{c}{\itshape t} & \textit{p}\\
 		\midrule
 		Intercept	      &  4.334 & (0.129) &  33.56 & <10⁻¹⁶\\
 		resynth = TRUE    & −0.604 & (0.066) &  −9.17 & <10⁻¹⁶\\
@@ -108,25 +115,23 @@ Aside from the two non-significant predictors {\inlinecode segTrain} and {\inlin
 	\end{tabu}
 \end{table}
 
-A summary of the random effects in the model of Experiment~2 are shown in Table~\ref{tab:ExpTwoRandomEff}.  The results are again unremarkable: like the model for Experiment~1, the variability of listeners is relatively low (s²=0.083, or a standard deviation of 0.3 keywords correct across listeners), and the variability of sentence difficulty is again somewhat higher (s²=0.537, or a standard deviation of 0.7 keywords correct across sentences).
+A summary of the random effects in the model of Experiment~2 are shown in Table~\ref{tab:ExpTwoRandomEff}.  The results are also very similar to Experiment~1, with estimates of listener accounting for about 4\% of the total unexplained variability (with a standard deviation of 0.3 keywords) and sentence accounting for about 24\% of total unexplained variability (with a standard deviation of about 0.7 keywords).\footnotemark{}
 
-% Random effects:
-% Groups   Name        Variance Std.Dev. MCMCmean   HPD95lower HPD95upper
-% sent     (Intercept) 0.537497 0.73314  0.6170353  0.5238609  0.7132486
-% listener (Intercept) 0.083091 0.28825  0.2972227  0.1879063  0.4192268
-% Residual             1.616020 1.27123  1.2835182  1.2405740  1.3280362
+\footnotetext{Again, \ac{mcmc} estimates for the effect of sentence were slightly smaller than the fitted model (18\% \vs\ 24\%), and there was close agreement between the two for the effect of listener.}
 
 \begin{table}
 	\caption[Experiment~2 statistical model: Random effects]{Summary of random effects in the statistical model of Experiment~2.\label{tab:ExpTwoRandomEff}}
 	\centering
 	\begin{tabu} spread 1em {Xcccc}
 		\toprule
-		\multicolumn{3}{l}{\bfseries Summary of random effects} & \multicolumn{2}{c}{95\% \ac{hpd}}\\
-		Group & \textit{s}² & \ac{mcmc} mean & lower bound & upper bound\\
+		\multicolumn{3}{l}{Summary of random effects} & \multicolumn{2}{c}{\bfseries \ac{mcmc} (nsim=10\thinspace000)}\\ 
+		\cmidrule{4-5}
+		\rowfont\bfseries
+		Group & \textit{s}² & \textit{s} & mean & 95\% \ac{hpd}\\
 		\midrule
-		Sentence (intercept) & (0.537) & 0.617 & 0.524 & 0.713\\
-		Listener (intercept) & (0.083) & 0.297 & 0.188 & 0.419\\
-		Residual             & (1.616) & 1.284 & 1.241 & 1.328\\
+		Sentence (intercept) & 0.537 & 0.733 & 0.617 & (0.524~~0.713)\\
+		Listener (intercept) & 0.083 & 0.288 & 0.297 & (0.188~~0.419)\\
+		Residual             & 1.616 & 1.271 & 1.284 & (1.241~~1.328)\\
 		\bottomrule
 	\end{tabu}
 \end{table}
