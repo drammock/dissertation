@@ -1,14 +1,12 @@
 % !TEX TS-program = xelatex
 % !TEX encoding = UTF-8
 \documentclass[12pt,oneside]{report}
-\usepackage[letterpaper, margin=1in]{geometry} % smaller margins
+\usepackage[letterpaper, margin=1in]{geometry}
 \usepackage[nottoc,notlof,notlot,chapter]{tocbibind} % adds entries for the list of figs, list of tables, and bib to the TOC
 \usepackage[titletoc]{appendix} % adds "Appendix" before the appendix letter in TOC
 \usepackage[parfill]{parskip} % begin paragraphs with empty line, not an indent
-% \setlength{\parindent}{5pt}
 \usepackage[compact]{titlesec}
-%\usepackage[inline]{enumitem} % using paralist instead
-\usepackage{natbib, graphicx, xcolor, url, fontspec, ragged2e, setspace, paralist, float, array, longtable, tabu, booktabs, multicol, multirow, titling, amsmath, etoolbox}  % \setuldepth{x} siunitx 
+\usepackage{natbib, graphicx, xcolor, url, fontspec, setspace, paralist, float, array, longtable, tabu, booktabs, multicol, multirow, titling, amsmath, etoolbox}  % ragged2e, siunitx 
 \usepackage[pdfpagelabels,xetex]{hyperref} % another nice package option is hidelinks
 \definecolor{ltgray}{gray}{0.7}
 \definecolor{urlGreen}{rgb}{0.1,0.5,0.1}
@@ -19,7 +17,7 @@
     pdfkeywords={phonetics, speech perception, prosody, intelligibility, familiarity},
     bookmarksnumbered=true,
     bookmarksopen=true,
-    bookmarksopenlevel=1,
+    bookmarksopenlevel=0,
     colorlinks=true,
 %    anchorcolor
     citecolor=black,
@@ -132,7 +130,9 @@
 \author{Daniel~Robert~McCloy}
 \date{2013}
 \begin{document}
-\RaggedRight
+%\RaggedRight
+\raggedright
+\setlength{\parindent}{15pt}
 \begin{spacing}{2}
 
 %\exclude{
