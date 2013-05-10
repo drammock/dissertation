@@ -37,13 +37,15 @@ Following is a table of acronyms and abbreviations used in this thesis.  I have 
 	\endlastfoot
 
 \taburulecolor{ltgray}
+	\ac{crm} & Coordinate response measure (a corpus of parallel sentences of the form “Ready ⟨\textsc{callsign}⟩ go to ⟨\textsc{color}⟩ ⟨\textsc{digit}⟩ now”).  In a typical competing speech usage, the listener is told to attend to the speech stream containing a particular callsign, and to repeat the color and digit from that stream.  See \citet{BoliaEtAl2000} for details.\\
+\midrule
 	{dB} & Decibels (a dimensionless logarithmic unit commonly used to express the intensity or power of a sound, relative to a known reference value).\\
 \midrule
 	{dB \ac{hl}} & Intensity`in decibels relative to frequency-specific averages representative of normal-hearing humans \citepalias{ansi2004}.  “\ac{hl}” stands for “hearing level”.\\
 \midrule
 	{dB \ac{spl}} & Intensity in decibels relative to 20 micropascals (μPa) \citepalias{ansi1994}.  “\ac{spl}” stands for “sound pressure level”.\\
 \midrule
-	\ac{crm} & Coordinate response measure (a corpus of parallel sentences of the form “Ready ⟨\textsc{callsign}⟩ go to ⟨\textsc{color}⟩ ⟨\textsc{digit}⟩ now”).  In a typical competing speech usage, the listener is told to attend to the speech stream containing a particular callsign, and to repeat the color and digit from that stream.  See \citet{BoliaEtAl2000} for details.\\
+	\ac{dtw} & Dynamic Time Warping (a method of non-linear time-scaling of a sequence, that relies on inserting or removing elements to align key landmarks in the sequences being equated).  See \citet{KruskalLiberman1983}.\\
 \midrule
 	\fo & Fundamental frequency (of speech).  Often represented as F₀ or F0, the form \fo{} is preferred because it emphasizes that the fundamental frequency is not a formant (which are typically represented as F1, F2, \etc).  The form f0 is an acceptable substitute when glyph choice is restricted to \ac{ascii} characters.\\
 \midrule
@@ -57,10 +59,10 @@ Following is a table of acronyms and abbreviations used in this thesis.  I have 
 \midrule
 	\ac{mcmc} & Markov-chain Monte Carlo (an algorithm for sampling from probability distributions; useful for simulating the parameters of mixed models for, \eg, obtaining estimated \textit{p}-values).\\
 \midrule
-	\psola & Pitch synchronous overlap and add (a method for time-domain resynthesis of speech; see \citealt{CharpentierMoulines1988, MoulinesCharpentier1990}).  \psola{} is a trademark of France Télécom.\\
-\midrule
-	\ac{rms} & Root mean square, a measure of sound magnitude, defined as: \(\sqrt{\frac{1}{n}(x_1^2+x_2^2+\cdots+x_n^2)}\), where \(x_1 \ldots x_n\) are the samples of a digital signal.\\
+	\psola & Pitch synchronous overlap and add (a method for time- or frequency-domain resynthesis of speech; see \citealt{CharpentierMoulines1988, MoulinesCharpentier1990}).  \psola{} is a trademark of France Télécom.\\
 %\midrule
+	\ac{rms} & Root mean square, a measure of sound magnitude, defined as: \(\sqrt{\frac{1}{n}(x_1^2+x_2^2+\cdots+x_n^2)}\), where \(x_1 \ldots x_n\) are the samples of a digital signal.\\
+\midrule
 	\ac{snr} & Signal-to-noise ratio, usually expressed in decibels: \( \textnormal{\ac{snr}}_{\textnormal{dB}} = 20\log_{10}\frac{A_{\textnormal{signal}}}{A_{\textnormal{noise}}} \) (where \(A_{\textnormal{signal}}\) and \(A_{\textnormal{noise}}\) are \ac{rms} amplitudes).\\
 \midrule
 	\ac{spl} & See {dB \ac{spl}}.\\
