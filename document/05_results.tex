@@ -1,13 +1,10 @@
 \chapter{Results\label{chap:Results}}
-
-This chapter describes the results of the two experiments conducted for this thesis.  Post-hoc measurements that help explain the results found here are described in Chapter~\ref{chap:Discussion}. 
+This chapter describes the results of the two experiments conducted for this thesis.  Post\-/hoc analyses that help to clarify and explain the results are described in Chapter~\ref{chap:Discussion}. 
 
 \section{Experiment 1}
-Experiment~1 tests the role of prosody in intelligibility, by comparing mean sentence scores for unmodified talkers against resynthesized stimuli with prosodic replacement.  The mean sentence score for each talker across listeners is shown in Figure~\ref{fig:ExpOneBarplot}.  Darker bars indicate unmodified recordings, while light bars represent resynthesized stimuli.  Contrary to expectations, not all resynthesized stimuli have lower mean scores compared to their unmodified counterparts, suggesting that distortion due to the resynthesis process was relatively minimal.\footnotemark{}  With regard to Research Question~1 — how does prosody relate to intelligibility — a complicated picture emerges.  Talker~\ac{b} suffers dramatically when his prosody is replaced, whereas Talker~\ac{c} is unchanged or slightly improved, and Talker~\ac{a} is unchanged or slightly worsened.
+Experiment~1 tests the role of prosody in intelligibility, by comparing mean sentence scores for unmodified talkers against resynthesized stimuli with prosodic replacement.  The mean sentence score for each talker across listeners is shown in Figure~\ref{fig:ExpOneBarplot}.  Darker bars indicate unmodified recordings, while light bars represent resynthesized stimuli.  Contrary to expectations, not all resynthesized stimuli have lower mean scores compared to their unmodified counterparts, suggesting that distortion due to the resynthesis process was relatively minimal.  This is likely due to several factors; one is probably the painstaking hand\-/correction of the pulse marks during stimulus preparation, which ensured consistent phase of the pulse marks throughout voiced spans of speech.  Another possible explanation for the low levels of distortion is the choice to maintain each talker’s natural mean pitch on each sentence, and map only the {\emph shape} of the pitch contour of the prosodic donor during resynthesis.  
 
-\footnotetext{This is likely due to several factors.  One is probably the painstaking hand-correction of the pulse marking to ensure consistent phase throughout voiced spans of speech.  Another is the choice to maintain each talker’s natural mean pitch on each sentence, and map only the {\emph shape} of the pitch contour of the prosodic donor during resynthesis.}
-
-One possible explanation for these results is to postulate that Talker~\ac{a}, despite being highly intelligible, does not have especially good prosody, evidenced in particular by the fact that scores for Talker~\ac{ca} are lower than the scores for Talker~\ac{cb}.  On the same grounds, and on the additional observation that scores for Talker~\ac{ab} are greater than for Talker~\ac{ac}, we might conclude that Talker~\ac{b} has more intelligible prosody than the other two talkers, and his middling base intelligibility scores are due to segmental factors.
+With regard to Research Question~1 — \emph{how does prosody relate to intelligibility?} — a complex picture emerges.  Talker~\ac{b} suffers dramatically when his prosody is replaced, whereas Talker~\ac{c} is unchanged or slightly improved, and Talker~\ac{a} is unchanged or slightly worsened.  One possible explanation for these results is to postulate that Talker~\ac{a}, despite being highly intelligible, does not have especially good prosody, evidenced in particular by the fact that scores for Talker~\ac{ca} are lower than the scores for Talker~\ac{cb}.  On the same grounds, and on the additional observation that scores for Talker~\ac{ab} are greater than for Talker~\ac{ac}, we might conclude that Talker~\ac{b} has more intelligible prosody than the other two talkers, and his middling base intelligibility scores are due to segmental factors.
 
 \begin{figure}
 	\begin{centering}
@@ -16,24 +13,27 @@ One possible explanation for these results is to postulate that Talker~\ac{a}, d
 	\end{centering}
 \end{figure}
 
-With regard to the question of whether low-intelligibility talkers can be made more intelligible through prosody alone, it would appear that the answer is “yes”: Talker~\ac{cb} appears to have higher scores than Talker~\ac{c}, despite the likelihood that Talker~\ac{cb}’s recordings suffer some amount of distortion from the resynthesis process.  In other words, any detriment due to resynthesis is more than overcome by the benefit of having Talker~\ac{b}’s prosody.  
+With regard to the question of whether low\-/intelligibility talkers can be made more intelligible through prosody alone, it would appear that the answer is “yes”: Talker~\ac{cb} appears to have higher scores than Talker~\ac{c}, despite the likelihood that Talker~\ac{cb}’s recordings suffer some amount of distortion from the resynthesis process, however small.  In other words, any degradation due to resynthesis seems to have been more than overcome by the benefit of having Talker~\ac{b}’s prosody mapped onto Talker~\ac{c}’s signal.
 
-To further probe these results, the scores were submitted to a mixed-effects linear regression model, shown in Equation~\ref{eq:ExpOneMM}:
-\begin{equation}\label{eq:ExpOneMM}
-	\text{{\small \inlinecode lmer(sentScore\textasciitilde resynth+segDonor+proDonor+(1|listener)+(1|sentence), data=allData)}}
-\end{equation}
+\subsection{Experiment~1 statistical model}
+To further probe these results, the scores were submitted to a mixed\-/effects linear regression model, shown here:%in Equation~\ref{eq:ExpOneMM}:
 
-In this model, {\inlinecode sentScore} is the number of keywords correct (0–5), {\inlinecode resynth} is a boolean variable that is true for Talkers~\ac{ab}, \ac{ac}, \ac{ba}, \ac{bc}, \ac{ca} and~\ac{cb}, and {\inlinecode segDonor} and {\inlinecode proDonor} are three-level factors indicating the talker in the target signal and the talker from whom the prosodic information was drawn, respectively.  For the unmodified original recordings, {\inlinecode segDonor} and {\inlinecode proDonor} are defined as the talker himself, even though those recordings were not resynthesized.  
+{\small \inlinecode lmer(sentScore\textasciitilde resynth+segDonor+proDonor+(1|listener)+(1|sentence), data=allData)}
+%\begin{equation}\label{eq:ExpOneMM}
+%	\text{{\small \inlinecode lmer(sentScore\textasciitilde resynth+segDonor+proDonor+(1|listener)+(1|sentence), data=allData)}}
+%\end{equation}
 
-A summary of the model shown in Equation~\ref{eq:ExpOneMM} is given in Table~\ref{tab:ExpOneFixedEff}.  There was no evidence of correlation of fixed effects (correlation coefficients ranged from 0 to 0.505; not shown in Table~\ref{tab:ExpOneFixedEff}).  The baseline condition is Talker~\ac{a}, with a value at the intercept of about 4.4 words correct.  The coefficients reveal similar patterns as Figure~\ref{fig:ExpOneBarplot}: firstly, the model supports the interpretation that Talker~\ac{b} has the most intelligible prosody.  Having the prosody of Talker~\ac{b} represents a net gain of 0.3 words correct over the prosody of Talker~\ac{a}, whereas having the prosody of Talker~\ac{c} represents a net loss of 0.6 words correct compared to Talker~\ac{a}.  The model also supports the idea that Talker~\ac{a}’s intelligibility stems in large part from segmental factors, given that the other levels of {\inlinecode segDonor} both have strongly negative coefficients.
+In this model, {\inlinecode sentScore} is the number of keywords correct (0–5), {\inlinecode resynth} is a boolean variable that is true for Talkers~\ac{ab}, \ac{ac}, \ac{ba}, \ac{bc}, \ac{ca} and~\ac{cb}, and {\inlinecode segDonor} and {\inlinecode proDonor} are three\-/level factors indicating the talker in the target signal and the talker from whom the prosodic information was drawn, respectively.  For the unmodified original recordings, {\inlinecode segDonor} and {\inlinecode proDonor} are defined as the talker himself, even though those recordings were not resynthesized.  
 
-% TODO: fix rowfont bolding (currently not bolding) in this table and in Exp 2 table
+%A summary of the model shown in Equation~\ref{eq:ExpOneMM} 
+A summary of fixed\-/effects predictors for this model is given in Table~\ref{tab:ExpOneFixedEff}.  All fixed\-/effects predictors were significantly different from zero, and there was no evidence of correlation of fixed effects (correlation coefficients ranged from 0 to 0.505; not shown).  The baseline condition is Talker~\ac{a}, with a value at the intercept of about 4.4 words correct.  The coefficients reveal similar patterns to those seen in Figure~\ref{fig:ExpOneBarplot}: firstly, the model supports the interpretation that Talker~\ac{b} has the most intelligible prosody.  Having the prosody of Talker~\ac{b} represents a net gain of 0.3 words correct over the prosody of Talker~\ac{a}, whereas having the prosody of Talker~\ac{c} represents a net loss of 0.6 words correct compared to Talker~\ac{a}.  The model also supports the idea that Talker~\ac{a}’s intelligibility stems in large part from non\=/prosodic factors, given that the other levels of {\inlinecode segDonor} both have strongly negative coefficients.  Finally, the estimated degradation due to resynthesis is about −0.7 keywords correct.
+
 \begin{table}
 	\caption[Experiment~1 statistical model: Fixed effects]{Summary of fixed effect predictors in the statistical model of Experiment~1.\label{tab:ExpOneFixedEff}}
 	\centering
 	\begin{tabu} spread 1em {Xrcrc}
 		\toprule
-		\multicolumn{5}{l}{Summary of fixed effects (N=1440; log-likelihood=-2554)}\\
+		\multicolumn{5}{l}{Summary of fixed effects (N=1440; log\=/likelihood=−2554)}\\
 		\rowfont\bfseries
 		\multicolumn{1}{l}{Predictor} & \multicolumn{1}{c}{Coefficient} & \textit{SE} & \multicolumn{1}{c}{\itshape t} & \textit{p}\\
 		\midrule
@@ -47,8 +47,7 @@ A summary of the model shown in Equation~\ref{eq:ExpOneMM} is given in Table~\re
 	\end{tabu}
 \end{table}
 
-A summary of the random effects in the model of Experiment~1 are shown in Table~\ref{tab:ExpOneRandomEff}.  The results are unremarkable: the variance in intercepts due to particular listeners doing systematically better or worse on the task is only about 2\% of the total residual variance.  This suggests that, by and large, all listeners were performing equally well on the task.  The variance in intercepts due to varying difficulty of particular sentences is somewhat larger (about 22\% of the total residual variance, or a standard deviation of 0.7 keywords correct),\footnotemark{} suggesting that there was indeed some value in modeling the sentences as varying in their difficulty (cf. the discussion of scoring in Section~\ref{sec:Scoring}).
-
+A summary of the random effects in the model for Experiment~1 are shown in Table~\ref{tab:ExpOneRandomEff}.  The results here are not unexpected: the variance in intercepts due to particular listeners doing systematically better or worse on the task is only about 2\% of the total residual variance.  This suggests that, by and large, all listeners were performing equally well on the task.  The variance in intercepts due to varying difficulty of particular sentences is somewhat larger (about 22\% of the total residual variance, or a standard deviation of 0.7 keywords correct),\footnotemark{} suggesting that there was indeed some value in modeling the sentences as varying in their difficulty (cf. the discussion of scoring in Section~\ref{sec:Scoring}).
 \footnotetext{The \ac{mcmc} estimate for variability due to listener is in close agreement with the fitted model.  The \ac{mcmc} estimate for variability due to sentence is slightly smaller than the value in the fitted model, at 16\% of the total variance (\vs\ 22\%), with a standard deviation for sentence of about 0.6 keywords (\vs\ 0.7).}
 
 \begin{table}
@@ -68,6 +67,11 @@ A summary of the random effects in the model of Experiment~1 are shown in Table~
 	\end{tabu}
 \end{table}
 
+\subsection{Experiment~1 post\-/hoc tests}
+Overall, the statistical model for Experiment~1 supports the view that both prosodic and non\=/prosodic factors contribute to differences in the intelligibility of talkers.  To better understand these results, a variety of acoustic measurements were performed on the stimuli, in hopes of identifying the acoustic dimensions that underlie the effects seen in the statistical model.
+ 
+% TODO: segmental dimensions: vowel space size, release bursts, vowel reduction?
+% TODO: prosodic dimensions: mean syllable duration, syllable duration variance/range, mean pitch range, pitch dynamicity, intensity dynamicity, intensity variance
 
 \section{Experiment 2}
 Experiment~2 tests the role of prosody in the familiar talker advantage, by comparing mean sentence scores for various talkers across two groups of listeners: those trained on one of the test talkers (Talker~\ac{c}), and those trained on a control talker (Talker~\ac{d}).  The first question to be addressed is whether the training phase was in fact effective for both groups of listeners.  Mean sentence scores of the training phase (grouped by quartile) are shown in Figure~\ref{fig:Quartile}, along with the mean score during the testing phase on Talker~\ac{c} for the experimental group. 
@@ -79,13 +83,13 @@ Experiment~2 tests the role of prosody in the familiar talker advantage, by comp
 	\end{centering}
 \end{figure}
 
-Both the control and experimental groups show an upward trend in mean sentence score across training quartiles, and \textit{t}-tests performed on the first and fourth quartile of each group show a statistically significant improvement in both groups of listeners (control group: \textit{t}=−2.898 on 437.2 degrees of freedom, \textit{p}<0.01; experimental group: \textit{t}=−2.816 on 438.1 degrees of freedom, \textit{p}<0.01).  However, the improvement is small (less that 0.5 keywords for both groups), and more importantly it appears the adaptation that occurred during training in the experimental group was not fully retained during the testing phase, as evidenced by the decline in performance on Talker~\ac{c} during the testing phase when compared to the last quartile of the training phase (see Figure~\ref{fig:Quartile}).\footnotemark{}
+Both the control and experimental groups show an upward trend in mean sentence score across training quartiles, and \textit{t}\=/tests performed on the first and fourth quartile of each group show a statistically significant improvement in both groups of listeners (control group: \textit{t}=−2.898 on 437.2 degrees of freedom, \textit{p}<0.01; experimental group: \textit{t}=−2.816 on 438.1 degrees of freedom, \textit{p}<0.01).  However, the improvement is small (less that 0.5 keywords for both groups), and more importantly it appears the adaptation that occurred during training in the experimental group was not fully retained during the testing phase, as evidenced by the decline in performance on Talker~\ac{c} during the testing phase when compared to the last quartile of the training phase (see Figure~\ref{fig:Quartile}).\footnotemark{}
 
 \footnotetext{This is true at least for the listeners trained on Talker~\ac{c}.  Listeners trained on Talker~\ac{d} did not hear their training talker during the testing phase, so it is unknown whether any adaptation was retained during testing.  Presumably, however, any such adaptation would have had little effect on performance when listening to Talkers~\ac{a}, \ac{b}, or \ac{c}.}
 
 One explanation for the failure to retain a perceptual advantage between the training to the testing phases is stimulus uncertainty: in the training phase, listeners heard the same talker for 90 sentences in a row, whereas the testing phase comprised a random ordering of sentences from the three unmodified talkers and the six resynthesized talkers.  It is possible that the uncertainty due to varying the talkers negated any advantage acquired from the training.  Another possible explanation is that the training was too brief, and the apparent learning seen in the quartile analysis is merely a task familiarization effect that was not tied to any particular talker.
 
-In light of the preceding discussion it is perhaps unsurprising that training on a particular talker did not confer a reliable perceptual advantage on test stimuli resynthesized to have the training talker’s prosody.  A barplot of the mean sentence scores for the testing phase of Experiment~2 are given in Figure~\ref{fig:ExpTwoBarplot}.  Even without controlling for multiple comparisons, none of the \textit{t}-tests comparing the experimental and control groups within talker are significant, suggesting that there was no familiar talker advantage enjoyed by the experimental group.  If there had been a familiar talker advantage, we would have expected the colored bars to be higher than their corresponding grey bars for Talker~\ac{c}, and perhaps for Talkers~\ac{ca}, \ac{cb}, \ac{ac} and \ac{bc} (depending on whether and how the advantage transferred to resynthesized talkers).
+In light of the preceding discussion it is perhaps unsurprising that training on a particular talker did not confer a reliable perceptual advantage on test stimuli resynthesized to have the training talker’s prosody.  A barplot of the mean sentence scores for the testing phase of Experiment~2 are given in Figure~\ref{fig:ExpTwoBarplot}.  Even without controlling for multiple comparisons, none of the \textit{t}\=/tests comparing the experimental and control groups within talker are significant, suggesting that there was no familiar talker advantage enjoyed by the experimental group.  If there had been a familiar talker advantage, we would have expected the colored bars to be higher than their corresponding grey bars for Talker~\ac{c}, and perhaps for Talkers~\ac{ca}, \ac{cb}, \ac{ac} and \ac{bc} (depending on whether and how the advantage transferred to resynthesized talkers).
 
 \begin{figure}
 	\begin{centering}
@@ -94,14 +98,14 @@ In light of the preceding discussion it is perhaps unsurprising that training on
 	\end{centering}
 \end{figure}
 
-Full results of the statistical model for Experiment~2 are shown in Table~\ref{tab:ExpTwoFixedEff}.  Predictor codes are the same as in the model for Experiment~1, with the addition of Boolean variables {\inlinecode segTrain} (indicating match between the training talker and the segmental donor of the test stimulus) and {\inlinecode proTrain} (indicating match between the training talker and the prosodic donor of the test stimulus).  Aside from the two non-significant predictors {\inlinecode segTrain} and {\inlinecode proTrain}, the model is nearly identical to the model for Experiment~1; the magnitude, direction, and significance of the other fixed-effect predictors are all unchanged from Experiment~1.  
+Full results of the statistical model for Experiment~2 are shown in Table~\ref{tab:ExpTwoFixedEff}.  Predictor codes are the same as in the model for Experiment~1, with the addition of Boolean variables {\inlinecode segTrain} (indicating match between the training talker and the segmental donor of the test stimulus) and {\inlinecode proTrain} (indicating match between the training talker and the prosodic donor of the test stimulus).  Aside from the two non\-/significant predictors {\inlinecode segTrain} and {\inlinecode proTrain}, the model is nearly identical to the model for Experiment~1; the magnitude, direction, and significance of the other fixed\-/effect predictors are all unchanged from Experiment~1.  
 
 \begin{table}
 	\caption[Experiment~2 statistical model: Fixed effects]{Summary of fixed effect predictors in the statistical model of Experiment~2.\label{tab:ExpTwoFixedEff}}
 	\centering
 	\begin{tabu} spread 1em {Xrcrc}
 		\toprule
-		\multicolumn{5}{l}{Summary of fixed effects (N=1800; log-likelihood=-3103)}\\
+		\multicolumn{5}{l}{Summary of fixed effects (N=1800; log\=/likelihood=−3103)}\\
 		\rowfont\bfseries
 		\multicolumn{1}{l}{Predictor} & \multicolumn{1}{c}{Coefficient} & \textit{SE} & \multicolumn{1}{c}{\itshape t} & \textit{p}\\
 		\midrule
