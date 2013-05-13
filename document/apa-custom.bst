@@ -1,43 +1,24 @@
-%%
-%% This is file `apa-ben.bst',
-%% generated with the docstrip utility.
+%% This is file `apa-custom.bst' by Daniel McCloy.
+%% It is a hand-edited derivative of `apa-ben.bst', which was generated with the docstrip utility.  Chief innovations are the handling of "version" information for citations of software, the omission of "series" information, the display of "url" information in the citation only in cases where a value for "doi" is missing, the italicization of "et~al.", and the spelling out of the word "and" for starred versions of natbib \cite commands.
 %%
 %% The original source files were:
-%%
 %% merlin.mbs  (with options: `ay,nat,nm-rev,jnrlst,keyxyr,dt-beg,yr-par,note-yr,vol-it,volp-com,num-xser,bkpg-par,add-pub,edparxc,bkedcap,pp,ed,abr,ednx,xedn,amper,and-com,and-com-ed,url,url-nl')
-%% ----------------------------------------
-%% *** An attempts at an APA style in Natbib ***
-%% 
 %% Copyright 1994-2000 Patrick W Daly
  % ===============================================================
  % IMPORTANT NOTICE:
- % This bibliographic style (bst) file has been generated from one or
- % more master bibliographic style (mbs) files, listed above.
- %
- % This generated file can be redistributed and/or modified under the terms
- % of the LaTeX Project Public License Distributed from CTAN
- % archives in directory macros/latex/base/lppl.txt; either
- % version 1 of the License, or any later version.
+ % This bibliographic style (bst) file has been generated from one or more master bibliographic style (mbs) files, listed above. This generated file can be redistributed and/or modified under the terms of the LaTeX Project Public License Distributed from CTAN archives in directory macros/latex/base/lppl.txt; either version 1 of the License, or any later version.
  % ===============================================================
  % Name and version information of the main mbs file:
  % \ProvidesFile{merlin.mbs}[2000/05/04 4.01 (PWD, AO, DPC)]
  %   For use with BibTeX version 0.99a or later
  %-------------------------------------------------------------------
  % This bibliography style file is intended for texts in ENGLISH
- % This is an author-year citation style bibliography. As such, it is
- % non-standard LaTeX, and requires a special package file to function properly.
+ % This is an author-year citation style bibliography. As such, it is non-standard LaTeX, and requires a special package file to function properly.
  % Such a package is    natbib.sty   by Patrick W. Daly
  % The form of the \bibitem entries is
  %   \bibitem[Jones et al.(1990)]{key}...
  %   \bibitem[Jones et al.(1990)Jones, Baker, and Smith]{key}...
- % The essential feature is that the label (the part in brackets) consists
- % of the author names, as they should appear in the citation, with the year
- % in parentheses following. There must be no space before the opening
- % parenthesis!
- % With natbib v5.3, a full list of authors may also follow the year.
- % In natbib.sty, it is possible to define the type of enclosures that is
- % really wanted (brackets or parentheses), but in either case, there must
- % be parentheses in the label.
+ % The essential feature is that the label (the part in brackets) consists of the author names, as they should appear in the citation, with the year in parentheses following. There must be no space before the opening parenthesis! With natbib v5.3, a full list of authors may also follow the year. In natbib.sty, it is possible to define the type of enclosures that is really wanted (brackets or parentheses), but in either case, there must be parentheses in the label.
  % The \cite command functions as follows:
  %   \citet{key} ==>>                Jones et al. (1990)
  %   \citet*{key} ==>>               Jones, Baker, and Smith (1990)
@@ -207,7 +188,11 @@ FUNCTION {bbl.and}
 { "and"}
 
 FUNCTION {bbl.etal}
-{ "et~al." }
+{ "\emph{et~al.}" }
+
+%% not used; would need to hack natbib.sty to get this to work?
+%%FUNCTION {bbl.etal.full}
+%%{ "and colleagues" }
 
 FUNCTION {bbl.editors}
 { "eds." }
@@ -251,7 +236,7 @@ FUNCTION {bbl.techrep}
 { "Tech. Rep." }
 
 FUNCTION {bbl.mthesis}
-{ "Master's thesis" }
+{ "Master’s thesis" }
 
 FUNCTION {bbl.phdthesis}
 { "Ph.D. thesis" }
@@ -515,7 +500,8 @@ FUNCTION {format.full.names}
                     { "," * }
                     'skip$
                   if$
-                  "\&"
+                  "and" 
+                  %%"\&"
                   space.word * t *
                 }
               if$
