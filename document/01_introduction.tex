@@ -7,7 +7,7 @@ Following is a table of acronyms and abbreviations used in this thesis.  I have 
 \end{spacing}
 \newpage
 \begin{spacing}{1}
-\begin{longtabu} to \textwidth [c]{X[c m] X[5 m]}
+\begin{longtabu} to \textwidth [c]{X[c m]<{\strut} X[5 m]<{\strut}}
 	% FIRST HEAD
 	\caption[Abbreviations and acronyms]{Abbreviations and acronyms used in the thesis\label{tab:Abbr}} \\
 	\toprule
@@ -55,9 +55,9 @@ Following is a table of acronyms and abbreviations used in this thesis.  I have 
 	\ac{ltas} & Long\-/term average spectrum.\\
 \midrule
 	\ac{mcmc} & Markov\-/chain Monte Carlo (an algorithm for sampling from probability distributions; useful for simulating the parameters of mixed models for, \eg, obtaining estimated \textit{p}\=/values).\\
-\midrule
-	\psola & Pitch synchronous overlap and add (a method for time- or frequency\-/domain resynthesis of speech; see \citealt{CharpentierMoulines1988, MoulinesCharpentier1990}).  \psola{} is a trademark of France Télécom.\\
 %\midrule
+	\psola & Pitch synchronous overlap and add (a method for time- or frequency\-/domain resynthesis of speech; see \citealt{CharpentierMoulines1988, MoulinesCharpentier1990}).  \psola{} is a trademark of France Télécom.\\
+\midrule
 	\ac{rms} & Root mean square, a measure of sound magnitude, defined as: \(\sqrt{\frac{1}{n}(x_1^2+x_2^2+\cdots+x_n^2)}\), where \(x_1 \ldots x_n\) are the samples of a digital signal.\\
 \midrule
 	\ac{snr} & Signal\-/to\-/noise ratio, usually expressed in decibels: \( \textnormal{\ac{snr}}_{\textnormal{dB}} = 20\log_{10}\frac{A_{\textnormal{signal}}}{A_{\textnormal{noise}}} \) (where \(A_{\textnormal{signal}}\) and \(A_{\textnormal{noise}}\) are \ac{rms} amplitudes).\\
