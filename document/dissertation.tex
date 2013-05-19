@@ -8,6 +8,7 @@
 \usepackage[compact]{titlesec}
 \usepackage[shortcuts]{extdash}
 \usepackage{natbib, graphicx, xcolor, url, fontspec, setspace, paralist, float, array, longtable, tabu, booktabs, multicol, multirow, titling, amsmath, etoolbox}  % ragged2e, siunitx 
+%\usepackage[CJKnormalspaces]{xeCJK}
 \usepackage[pdfpagelabels,xetex]{hyperref} % another nice package option is hidelinks
 \definecolor{ltgray}{gray}{0.7}
 \definecolor{urlGreen}{rgb}{0.1,0.5,0.1}
@@ -87,11 +88,28 @@
 \newcommand{\slsh}{/‌} % contains a zero-width non-joiner after the slash, to allow line breaking
 
 % fonts & formatting
-\setmainfont[Numbers={Lining}]{Linux Libertine O} \setmonofont{Source Sans Pro}
-%\newfontfamily\inlinecode[Numbers={Lining}]{Linux Biolinum O}
-\newfontfamily\inlinecode[Numbers={Lining}]{M+ 1m regular}
-%\setmainfont[Numbers={Lining}]{Linux Libertine O} \setmonofont{M+ 1m regular} %\setmonofont{Linux Libertine Mono O}
+\setmainfont[Numbers={Lining}]{Linux Libertine O} 
+\setmonofont{Source Sans Pro} %\setmonofont{M+ 1m regular} %\setmonofont{Linux Libertine Mono O}
+\newfontfamily\inlinecode[Numbers={Lining}]{M+ 1m regular} %\newfontfamily\inlinecode[Numbers={Lining}]{Linux Biolinum O}
 \renewcommand{\url}{\begingroup \def\UrlLeft{}\def\UrlRight{}\urlstyle{same}\Url} % set URLs in whatever font surrounding text uses
+\XeTeXinterchartokenstate=1
+\newXeTeXintercharclass\hg
+\chardef\CharNormal=0
+\chardef\CharBound=255
+\XeTeXcharclass `현 \hg
+\XeTeXcharclass `대 \hg
+\XeTeXcharclass `영 \hg
+\XeTeXcharclass `미 \hg
+\XeTeXcharclass `어 \hg
+\XeTeXcharclass `문 \hg
+\XeTeXcharclass `학 \hg
+\XeTeXcharclass `회 \hg
+\newtoks\TokSetfont
+\TokSetfont={\begingroup\fontspec{UnBatang}}
+\XeTeXinterchartoks\CharNormal\hg=\TokSetfont
+\XeTeXinterchartoks\CharBound\hg=\TokSetfont
+\XeTeXinterchartoks\hg\CharNormal={\endgroup}
+\XeTeXinterchartoks\hg\CharBound={\endgroup}
 
 % itemized lists
 \renewcommand{\labelitemi}{•} \renewcommand{\labelitemii}{◦} \renewcommand{\labelitemiii}{—} % redefine default bullets
@@ -111,7 +129,6 @@
 
 % table caption related tweaks
 \setlength{\LTcapwidth}{\textwidth} % longtables only
-%\setlength{\extrarowsep}{1em}
 \setlength{\tabulinesep}{0.5em}
 
 % hack the abstract name
@@ -132,51 +149,43 @@
 \author{Daniel~Robert~McCloy}
 \date{2013}
 \begin{document}
-%\RaggedRight
 \raggedright
 \setlength{\parindent}{15pt}
 \begin{spacing}{2}
 
-%\exclude{
-	% TITLE PAGE & ABSTRACT
-	\input{00a_tit_abs}
-	% FRONTMATTER
-	\pagenumbering{roman}
-	\tableofcontents
-	\listoffigures
-	\listoftables
-	\listoflistings
-	% ACKNOWLEDGMENTS & DEDICATION
-	\cleardoublepage
-	\addcontentsline{toc}{section}{Acknowledgments}
-	\input{00b_ackn}
-	\cleardoublepage
-	\addcontentsline{toc}{section}{Dedication}
-	\input{00c_ded}
-	\cleardoublepage
-%}
+% TITLE PAGE & ABSTRACT
+\input{00a_tit_abs}
+% FRONTMATTER
+\pagenumbering{roman}
+\tableofcontents
+\listoffigures
+\listoftables
+\listoflistings
+% ACKNOWLEDGMENTS & DEDICATION
+\cleardoublepage
+\addcontentsline{toc}{section}{Acknowledgments}
+\input{00b_ackn}
+\cleardoublepage
+\addcontentsline{toc}{section}{Dedication}
+\input{00c_ded}
+\cleardoublepage
 % MAIN CONTENT
 \pagenumbering{arabic}
 \input{01_introduction}
 \input{02_background}
-%\exclude{
-	\input{03_questions}
-	\input{04_methods}
-	\input{05_results}
-	\input{06_discussion}
-%}
+\input{03_questions}
+\input{04_methods}
+\input{05_results}
+\input{06_discussion}
 \end{spacing}
-
 % BIBLIOGRAPHY
 \bibliographystyle{apa-custom}
 \bibliography{dissertation}
-
 % APPENDICES
-%\exclude{
-	\titleformat{\chapter}{\LARGE\bfseries\doublespacing}{Appendix \thechapter.}{0.6em}{}
-	\begin{appendices}
-	\input{apx_HarvardSents}
-	\input{apx_PraatScripts}
-	\end{appendices}
-%}
+\titleformat{\chapter}{\LARGE\bfseries\doublespacing}{Appendix \thechapter.}{0.6em}{}
+\begin{appendices}
+\input{apx_HarvardSents}
+\input{apx_PraatScripts}
+\end{appendices}
+
 \end{document}
