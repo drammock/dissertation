@@ -8,7 +8,6 @@
 \usepackage[compact]{titlesec}
 \usepackage[shortcuts]{extdash}
 \usepackage{natbib, graphicx, xcolor, url, fontspec, setspace, paralist, float, array, longtable, tabu, booktabs, multicol, multirow, titling, amsmath, etoolbox}  % ragged2e, siunitx 
-%\usepackage[CJKnormalspaces]{xeCJK}
 \usepackage[pdfpagelabels,xetex]{hyperref} % another nice package option is hidelinks
 \definecolor{ltgray}{gray}{0.7}
 \definecolor{urlGreen}{rgb}{0.1,0.5,0.1}
@@ -81,6 +80,7 @@
 \newcommand{\etc}{\lat{etc}}
 \newcommand{\intal}{\lat{inter alia}}
 \newcommand{\ph}{\lat{post hoc}}
+\newcommand{\Ph}{\lat{Post hoc}}
 \newcommand{\aka}{\textsc{aka}}
 \newcommand{\vs}{\lat{vs.}}
 \newcommand{\vv}{\lat{vice versa}}
@@ -89,8 +89,8 @@
 
 % fonts & formatting
 \setmainfont[Numbers={Lining}]{Linux Libertine O} 
-\setmonofont{Source Sans Pro} %\setmonofont{M+ 1m regular} %\setmonofont{Linux Libertine Mono O}
-\newfontfamily\inlinecode[Numbers={Lining}]{M+ 1m regular} %\newfontfamily\inlinecode[Numbers={Lining}]{Linux Biolinum O}
+\setmonofont[ItalicFont={Source Sans Pro}]{Source Sans Pro} %\setmonofont{M+ 1m regular} %\setmonofont{Linux Libertine Mono O}
+\newfontfamily\inlinecode[Scale=MatchUppercase]{M+ 1m regular} %\newfontfamily\inlinecode[Numbers={Lining}]{Linux Biolinum O}
 \renewcommand{\url}{\begingroup \def\UrlLeft{}\def\UrlRight{}\urlstyle{same}\Url} % set URLs in whatever font surrounding text uses
 \XeTeXinterchartokenstate=1
 \newXeTeXintercharclass\hg
