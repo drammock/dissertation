@@ -1,0 +1,219 @@
+\documentclass[t]{beamer}
+\usetheme{Boadilla} %\usetheme{Goettingen}
+\usefonttheme{serif}
+\usefonttheme{professionalfonts}
+\usecolortheme{beaver}
+\setbeamertemplate{itemize item}{•}
+\setbeamertemplate{itemize subitem}{◦}
+\setbeamertemplate{itemize subsubitem}{—}
+\setbeamertemplate{section in toc}[default] % include section on outline slide
+\setbeamertemplate{subsection in toc}[default] % include subsection on outline slide
+\beamertemplatenavigationsymbolsempty % no bullets on outline slide
+\setbeamercovered{transparent=30} % global setting for slide builds (enabled by the <1-2> codes after \item)
+
+\usepackage{fontspec, setspace, tabu, booktabs, multirow, url, amsmath, colortbl}
+\usepackage[sort&compress,super]{natbib}
+
+% Use these with \footnotemark, \footnotetext & \bibentry if you want references to show up on each slide
+%\usepackage{bibentry} 
+%\nobibliography*
+
+% misc hacks
+\def\newblock{\hskip .11em plus .33em minus .07em}
+\definecolor{lgray}{gray}{0.7}
+\newenvironment{hl}{\usebeamercolor[fg]{frametitle}}
+
+% fonts
+\setmainfont[Numbers={Lining}]{Linux Libertine O} \setsansfont{Linux Biolinum O} \setmonofont{Linux Libertine Mono O}
+%\newfontfamily{\charis}{Charis SIL}
+%\newenvironment{ipa}{\large\charis}{}%
+\renewcommand\url{\begingroup \def\UrlLeft{}\def\UrlRight{}\urlstyle{same}\Url} % set URLs in same font as surrounding text
+
+% replacement for itemize environment
+\newenvironment{itm}{%
+	\setlength{\leftmargini}{0.5em}%
+	\setlength{\leftmarginii}{1em}%
+	\begin{itemize}}{\end{itemize}%
+}
+
+% Automatically insert overview/roadmap slide at start of each section
+\AtBeginSection[]{%
+\begin{frame}<beamer>
+    \frametitle{Overview}
+    \tableofcontents[currentsection]
+  \end{frame}
+}
+
+\title[myDissDefense]{Prosody, intelligibility and familiarity in speech perception}
+%\subtitle[short subtitle]{long subtitle}
+\author[McCloy]{Daniel~McCloy\inst{1}} 
+\institute[UW]{%
+\inst{1 } Department of Linguistics, University of Washington
+}
+\date[2013.05.31]{2013 May 31}
+\subject{Linguistics, Phonetics, Speech Perception}
+
+\begin{document}
+
+%===== TITLEPAGE =====%
+\frame{\titlepage}
+
+
+%===== TABLE OF CONTENTS =====%
+\begin{frame}{Overview}
+	\tableofcontents{}
+\end{frame}
+
+%===== MOTIVATION =====%
+\section{Motivation}
+
+\begin{frame}{Why study intelligibility?}
+	\begin{itm}
+		\item<1-3> \emph{What is the same across talkers?}
+		\begin{itm}
+			\item Auditory system (\ie, target–masker language similarity)
+		\end{itm}
+		\item<2-3> \emph{What is different across talkers?}
+		\begin{itm}
+			\item Applications to assistive hearing device design (acoustics, signal processing)
+			\item Applications to speech therapy, pedagogy (articulation)
+		\end{itm}
+		\item<3> \emph{What is different across groups?}
+			\item Cross-linguistic differences in perception
+			\begin{itm}
+				\item Insight into “active” phonological features
+			\end{itm}
+	\end{itm}
+\end{frame}
+
+\begin{frame}{Why study prosody?}
+	\begin{itm}
+		\item<1> Hearing aids: prosodic changes easier than segmental changes
+		\item<2> Natural distinction: segmental \vs\ supersegmental
+		\begin{itm}
+			\item Duration, \fo, and intensity not phonemic in English spoken here (secondary cues)
+		\end{itm}
+		\item<3> Bottom-up approach using acoustic predictors: conflicting results
+	\end{itm}
+\end{frame}
+
+%===== BACKGROUND =====%
+\section{Background}
+
+\begin{frame}{What impacts intelligibility?}
+	\begin{columns}
+		\begin{column}{0.5\textwidth}
+		\begin{itm}
+			\item User properties
+			\begin{itm}
+				\item Speech style
+				\item Listener experience with language/dialect
+				\item Intrinsic individual differences?
+				\item Gender?
+			\end{itm}
+		\end{itm}
+		\end{column}
+		\begin{column}{0.5\textwidth}
+		\begin{itm}
+			\item Signal properties
+			\begin{itm}
+				\item Speech rate
+				\item Vowel space size
+				\item Pitch range
+			\end{itm}
+		\end{itm}
+		\end{column}
+	\end{columns}
+	
+\end{frame}
+
+%===== METHODS =====%
+\section{Methodology}
+
+%===== RESULTS =====%
+\section{Results}
+
+%===== DISCUSSION =====%
+\section{Discussion}
+
+
+
+%===== BACKGROUND =====%
+\section{Background}
+
+	\begin{frame}{BackgroundIntroSlide}
+		\begin{itm}
+			\item foo
+			\begin{itm}
+				\item foo
+				\item foo
+			\end{itm}
+			\item[] % blank line
+			\item<2> foo
+			\begin{itm}
+				\item foo
+				\item foo
+			\end{itm}
+		\end{itm}
+	\end{frame}
+
+\subsection{BackgroundSubsection}
+
+	\begin{frame}{BackgroundSubsectionSlide}
+		\begin{itm}
+			\item<1-2> foo
+			\item[] % Typically you'll want a blank line before and after the table item
+			\item[]<2> % [] suppresses bullet for table item
+			{\small
+			\begin{tabu} to 0.9\textwidth {l l X}
+				\toprule
+				\arrayrulecolor{lgray}
+				foo & foo & foo\\ \midrule
+				foo & foo & foo\\ \midrule
+				foo & foo & foo\\
+				\arrayrulecolor{black}\bottomrule
+			\end{tabu}
+			}%small
+			\item[] % Typically you'll want a blank line before and after the table item
+			\item<3> foo takeaway
+		\end{itm}
+	\end{frame}
+
+%===== SECTION TWO =====%
+\section{SectionTwo}
+
+\subsection{SubsectionTwo}
+	\begin{frame}{SectionTwoSlide}
+		\begin{itm}
+			\item foo
+			\item foo
+			\begin{itm}
+				\item[] % blank line
+				\item foo 
+				\item[] % blank line
+				\item foo
+			\end{itm}
+		\end{itm}	
+	\end{frame}
+
+%===== REFERENCES =====%
+% Don't give this its own section, unless you want an auto-generated return to the outline slide just before it
+%\begin{frame}{References}
+%	\tiny
+%	\bibliography{bibFileName}
+%	\bibliographystyle{apa-good}		
+%\end{frame}
+
+
+\subsection{Acknowledgments} % include if you want on the outline / in PDF bookmarks
+\begin{frame}{Acknowledgments}
+	\begin{itm}
+		\item Many thanks to the organizers and participants of XXX!
+		\item[] % blank line
+		\item Thanks to my collaborators: XXX
+		\item[] % blank line
+		\item This project was (partially) supported by funding from XXX 
+	\end{itm}
+\end{frame}
+
+\end{document}
