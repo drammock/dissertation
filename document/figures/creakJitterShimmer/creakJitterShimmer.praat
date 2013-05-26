@@ -80,7 +80,7 @@ Select outer viewport... x1 x2 y1+0.5+offsetB y2+offsetB
 	Solid line
 	select segTG
 	Draw... segStart segEnd no no no
-	Marks bottom... 2 yes yes no
+	Marks bottom... 2 yes no no
 	Text bottom... yes Time (seconds)
 
 
@@ -91,7 +91,7 @@ Select outer viewport... x1 x2 y1pitch y2pitch
 	select seg
 	segPitch = To Pitch (cc)... 0 50 15 yes 0.03 0.45 0.01 0.35 0.14 300
 	Draw... segStart segEnd 40 140 no
-	Marks right... 2 yes yes no
+	Marks right... 2 yes no no
 	Text right... yes %f_0 (Hz)
 
 Select outer viewport... x1 x2 y1pitch+offsetB y2pitch+offsetB
@@ -99,7 +99,7 @@ Select outer viewport... x1 x2 y1pitch+offsetB y2pitch+offsetB
 	Dashed line
 	select ptch
 	Draw... segStart segEnd 40 140 no lines
-	Marks right... 2 yes yes no
+	Marks right... 2 yes no no
 	Text right... yes %f_0 (Hz)
 
 

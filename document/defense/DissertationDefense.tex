@@ -12,6 +12,7 @@
 \setbeamercovered{transparent=30} % global setting for slide builds (enabled by the <1-2> codes after \item)
 
 \usepackage{fontspec, setspace, tabu, booktabs, multirow, url, amsmath, colortbl}
+%\usepackage[shortcuts]{extdash}
 \usepackage[sort&compress,super]{natbib}
 
 % Use these with \footnotemark, \footnotetext & \bibentry if you want references to show up on each slide
@@ -63,7 +64,7 @@
   \end{frame}
 }
 
-\title[Prosody, intelligibility \& familiarity]{Prosody, intelligibility and familiarity in speech perception}
+\title[Prosody, intelligibility \& familiarity]{Prosody, intelligibility and familiarity\\in speech perception}
 %\subtitle[short subtitle]{long subtitle}
 \author[McCloy]{Daniel~McCloy} 
 \institute[UW]{Department of Linguistics, University of Washington}
@@ -89,7 +90,10 @@
 	\begin{itm}
 		\item<1-3> \emph{What is the same across talkers?}
 		\begin{itm}
-			\item Auditory system (\ie, target–masker language similarity)
+			\item Can tell us about the brain’s speech processing system
+			\begin{itm}
+				\item One example: target–masker similarity
+			\end{itm}
 		\end{itm}
 		\item[]
 		\item<2-3> \emph{What is different across talkers?}
@@ -100,7 +104,7 @@
 		\item[]
 		\item<3> \emph{What is different across groups?}
 			\begin{itm}
-				\item Cross-linguistic differences in perception
+				\item Cross-linguistic differences in speech perception
 				\begin{itm}
 					\item Insight into “active” phonological features
 				\end{itm}
@@ -168,7 +172,7 @@
 			\end{itm}
 		\end{itm}
 		\item[]
-		\item<3> \emph{Why use resynthesis?}
+		\item<3> Why use resynthesis?
 		\begin{itm}
 			\item Advantage: Less work than parametric synthesis; natural-sounding voices
 			\item Disadvantage: risk of distortion; real voices!
@@ -179,15 +183,35 @@
 \begin{frame}{Stimulus design}
 	\begin{itm}
 		\item Careful recordings of parallel sentences (head mounted mics, low noise floor, coached to standardize prosody)
+		\item[]
 		\item Five \ac{pnw} male talkers included in corpus; three selected for resynthesis
+		\item[]
 		\item Duration, intensity \& pitch swapped between all possible pairs of talkers
 	\end{itm}
 \end{frame}
 
-\begin{frame}{Resynthesis}
+\begin{frame}{Resynthesis (1 of 3)}
+	\begin{itm}
+		\item Hand-correction of pitch epoch marks (“pulses”) to ensure consistent phase with respect to waveform\\
+			\includegraphics[width=\textwidth,height=0.7\textheight,keepaspectratio]{../figures/creakJitterShimmer/creakJitterShimmer.eps}
+%			\caption[Handling of creaky voicing in resynthesis]{Illustration of method for handling creaky\-/voiced portions of speech.  (a)~Excerpt of Talker~\ac{b}’s recording of sentence 33–05, in which vowel hiatus is resolved with light creaky voicing.  The waveform (black) is overlaid with Praat’s auto\-/detected pulse marks (dotted red lines) and pitch track (dashed blue line).  Note the missed cycles on either side of the red arrow, and the phase\-/shift of all pulses right of the arrow.  (b)~The same span of speech after manual correction of pulses, and a (jittery, but continuous) pitch track generated from the corrected pulses.\label{fig:JitShim}}
+	\end{itm}
+\end{frame}
+
+\begin{frame}{Resynthesis (2 of 3)}
+	\begin{itm}
+		\item Dynamic time warping of pitch and intensity 
+		\item[] \includegraphics[width=\textwidth,height=0.75\textheight,keepaspectratio]{../figures/intensity/intensity2.eps}
+%				\caption[Intensity scaling in resynthesis]{Illustration of the method used to scale intensity.  (a)~Intensity contour is extracted from target waveform (blue).  (b)~The intensity contour of the target signal is inverted, by subtracting each intensity point from the maximum intensity.  (c)~Target intensity is \term{neutralized} or \term{flattened} by multiplying the target signal by the inverted intensity contour.  (d)~Intensity contour is extracted from the prosodic donor signal (red).  (e)~The prosodic donor intensity contour is time\-/scaled syllable\-/by\-/syllable via dynamic time warping (\ac{dtw}) to match the temporal pattern of the target signal.  (f)~The intensity\-/neutralized target signal is multiplied by the time\-/warped donor intensity contour (purple).  The signal is now ready for \psola{} resynthesis of duration and pitch.\label{fig:IntenManip}}
+	\end{itm}
+\end{frame}
+
+\begin{frame}{Resynthesis (3 of 3)}
 	\begin{itm}
 		\item \psola{} algorithm as implemented in Praat
-		\item 
+		\item[]
+		\item (Show demo)
+%		\item Graphic of how it works?  Demo?
 	\end{itm}
 \end{frame}
 
