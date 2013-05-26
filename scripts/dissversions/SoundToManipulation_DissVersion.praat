@@ -271,7 +271,7 @@ for curFile from startingFileNum to fileCount
 					plus PointProcess ppBackup
 					Replace pulses
 					minus Manipulation 'filename$'
-					To pitch tier... 1/minPitch
+					To PitchTier... 1/minPitch
 					select Manipulation 'filename$'
 					plus PitchTier ppBackup
 					Replace pitch tier

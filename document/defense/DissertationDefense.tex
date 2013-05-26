@@ -36,6 +36,25 @@
 	\begin{itemize}}{\end{itemize}%
 }
 
+% misc abbreviations
+\newcommand{\term}[1]{“#1”} % first occurrence of technical terms
+\newcommand{\ac}[1]{\textsc{#1}} % acronyms % \newcommand{\ac}[1]{\MakeUppercase{#1}}
+\newcommand{\lat}[1]{\textit{#1}} % foreign words and abbreviations
+\newcommand{\psola}{\ac{psola}™}
+\newcommand{\fo}{ƒ₀} % font problems? might work as {\(f_0\)}
+\newcommand{\eg}{\lat{e.g.}}
+\newcommand{\ie}{\lat{i.e.}}
+\newcommand{\etseq}{\lat{et seq}}
+\newcommand{\etc}{\lat{etc}}
+\newcommand{\intal}{\lat{inter alia}}
+\newcommand{\ph}{\lat{post hoc}}
+\newcommand{\Ph}{\lat{Post hoc}}
+\newcommand{\aka}{\textsc{aka}}
+\newcommand{\vs}{\lat{vs.}}
+\newcommand{\vv}{\lat{vice versa}}
+\newcommand{\perse}{\lat{per se}}
+\newcommand{\slsh}{/‌} % contains a zero-width non-joiner after the slash, to allow line breaking
+
 % Automatically insert overview/roadmap slide at start of each section
 \AtBeginSection[]{%
 \begin{frame}<beamer>
@@ -44,12 +63,10 @@
   \end{frame}
 }
 
-\title[myDissDefense]{Prosody, intelligibility and familiarity in speech perception}
+\title[Prosody, intelligibility \& familiarity]{Prosody, intelligibility and familiarity in speech perception}
 %\subtitle[short subtitle]{long subtitle}
-\author[McCloy]{Daniel~McCloy\inst{1}} 
-\institute[UW]{%
-\inst{1 } Department of Linguistics, University of Washington
-}
+\author[McCloy]{Daniel~McCloy} 
+\institute[UW]{Department of Linguistics, University of Washington}
 \date[2013.05.31]{2013 May 31}
 \subject{Linguistics, Phonetics, Speech Perception}
 
@@ -67,32 +84,40 @@
 %===== MOTIVATION =====%
 \section{Motivation}
 
+\subsection{Why study intelligibility?}
 \begin{frame}{Why study intelligibility?}
 	\begin{itm}
 		\item<1-3> \emph{What is the same across talkers?}
 		\begin{itm}
 			\item Auditory system (\ie, target–masker language similarity)
 		\end{itm}
+		\item[]
 		\item<2-3> \emph{What is different across talkers?}
 		\begin{itm}
 			\item Applications to assistive hearing device design (acoustics, signal processing)
 			\item Applications to speech therapy, pedagogy (articulation)
 		\end{itm}
+		\item[]
 		\item<3> \emph{What is different across groups?}
-			\item Cross-linguistic differences in perception
 			\begin{itm}
-				\item Insight into “active” phonological features
+				\item Cross-linguistic differences in perception
+				\begin{itm}
+					\item Insight into “active” phonological features
+				\end{itm}
 			\end{itm}
 	\end{itm}
 \end{frame}
 
+\subsection{Why study prosody?}
 \begin{frame}{Why study prosody?}
 	\begin{itm}
-		\item<1> Hearing aids: prosodic changes easier than segmental changes
-		\item<2> Natural distinction: segmental \vs\ supersegmental
+		\item<1-3> Hearing aids: prosodic changes easier than segmental changes
+		\item[]
+		\item<2-3> Natural distinction: segmental \vs\ supersegmental
 		\begin{itm}
-			\item Duration, \fo, and intensity not phonemic in English spoken here (secondary cues)
+			\item Duration, \fo, and intensity not phonemic in English as spoken here\\(secondary cues)
 		\end{itm}
+		\item[]
 		\item<3> Bottom-up approach using acoustic predictors: conflicting results
 	\end{itm}
 \end{frame}
@@ -104,7 +129,7 @@
 	\begin{columns}
 		\begin{column}{0.5\textwidth}
 		\begin{itm}
-			\item User properties
+			\item<1-2> Language user properties
 			\begin{itm}
 				\item Speech style
 				\item Listener experience with language/dialect
@@ -115,7 +140,7 @@
 		\end{column}
 		\begin{column}{0.5\textwidth}
 		\begin{itm}
-			\item Signal properties
+			\item<2> Signal properties
 			\begin{itm}
 				\item Speech rate
 				\item Vowel space size
@@ -130,71 +155,47 @@
 %===== METHODS =====%
 \section{Methodology}
 
+\begin{frame}{General approach}
+	\begin{itm}
+		\item<1-3> Top-down \vs\ bottom-up
+		\begin{itm}
+			\item<2-3> Not a perfect split:
+			\begin{itm}
+				\item Vowel reduction (formant values) affected by phrasal accent
+				\item Consonant reduction (spirantization, glottalization, flapping) affected by prosody
+				\item Duration is secondary cue to phonemic distinctions
+				\item Pitch is (subtly) affected by vocal tract constrictions (\ie, consonants)
+			\end{itm}
+		\end{itm}
+		\item[]
+		\item<3> \emph{Why use resynthesis?}
+		\begin{itm}
+			\item Advantage: Less work than parametric synthesis; natural-sounding voices
+			\item Disadvantage: risk of distortion; real voices!
+		\end{itm}
+	\end{itm}
+\end{frame}
+
+\begin{frame}{Stimulus design}
+	\begin{itm}
+		\item Careful recordings of parallel sentences (head mounted mics, low noise floor, coached to standardize prosody)
+		\item Five \ac{pnw} male talkers included in corpus; three selected for resynthesis
+		\item Duration, intensity \& pitch swapped between all possible pairs of talkers
+	\end{itm}
+\end{frame}
+
+\begin{frame}{Resynthesis}
+	\begin{itm}
+		\item \psola{} algorithm as implemented in Praat
+		\item 
+	\end{itm}
+\end{frame}
+
 %===== RESULTS =====%
 \section{Results}
 
 %===== DISCUSSION =====%
 \section{Discussion}
-
-
-
-%===== BACKGROUND =====%
-\section{Background}
-
-	\begin{frame}{BackgroundIntroSlide}
-		\begin{itm}
-			\item foo
-			\begin{itm}
-				\item foo
-				\item foo
-			\end{itm}
-			\item[] % blank line
-			\item<2> foo
-			\begin{itm}
-				\item foo
-				\item foo
-			\end{itm}
-		\end{itm}
-	\end{frame}
-
-\subsection{BackgroundSubsection}
-
-	\begin{frame}{BackgroundSubsectionSlide}
-		\begin{itm}
-			\item<1-2> foo
-			\item[] % Typically you'll want a blank line before and after the table item
-			\item[]<2> % [] suppresses bullet for table item
-			{\small
-			\begin{tabu} to 0.9\textwidth {l l X}
-				\toprule
-				\arrayrulecolor{lgray}
-				foo & foo & foo\\ \midrule
-				foo & foo & foo\\ \midrule
-				foo & foo & foo\\
-				\arrayrulecolor{black}\bottomrule
-			\end{tabu}
-			}%small
-			\item[] % Typically you'll want a blank line before and after the table item
-			\item<3> foo takeaway
-		\end{itm}
-	\end{frame}
-
-%===== SECTION TWO =====%
-\section{SectionTwo}
-
-\subsection{SubsectionTwo}
-	\begin{frame}{SectionTwoSlide}
-		\begin{itm}
-			\item foo
-			\item foo
-			\begin{itm}
-				\item[] % blank line
-				\item foo 
-				\item[] % blank line
-				\item foo
-			\end{itm}
-		\end{itm}	
-	\end{frame}
 
 %===== REFERENCES =====%
 % Don't give this its own section, unless you want an auto-generated return to the outline slide just before it
@@ -208,12 +209,38 @@
 \subsection{Acknowledgments} % include if you want on the outline / in PDF bookmarks
 \begin{frame}{Acknowledgments}
 	\begin{itm}
-		\item Many thanks to the organizers and participants of XXX!
-		\item[] % blank line
-		\item Thanks to my collaborators: XXX
-		\item[] % blank line
-		\item This project was (partially) supported by funding from XXX 
+		\centering
+		\item[] Thanks to:
+		\item[] 
+		\item[] Richard~Wright, Sharon~Hargus, Erick~Gallun, Gina-Anne~Levow, Pam~Souza
+		\item[] 
+		\item[] Jennifer~Haywood, Gus~McGrath, Steve~Moran, Darren~Tanner, members~of~the~UW~Phonetics~Lab
+		\item[] 
+		\item[] Sherry~Brown, David~Adams, Dennis~Lamb, Bill~Moody, Larry~BonJour, Bill~Talbott, David~Knechteges, Bi~Nyan-Ping, Zev~Handel, Chris~Stecker, KC~Lee
+		\item[] 
+		\item[] Sarala~Puthuval
 	\end{itm}
 \end{frame}
 
 \end{document}
+
+%\begin{frame}{TableExample}
+%	\begin{itm}
+%		\item<1-2> foo
+%		\item[] % Typically you'll want a blank line before and after the table item
+%		\item[]<2> % [] suppresses bullet for table item
+%		{\small
+%		\begin{tabu} to 0.9\textwidth {l l X}
+%			\toprule
+%			\arrayrulecolor{lgray}
+%			foo & foo & foo\\ \midrule
+%			foo & foo & foo\\ \midrule
+%			foo & foo & foo\\
+%			\arrayrulecolor{black}\bottomrule
+%		\end{tabu}
+%		}%small
+%		\item[] % Typically you'll want a blank line before and after the table item
+%		\item<3> foo takeaway
+%	\end{itm}
+%\end{frame}
+
