@@ -10,12 +10,14 @@
 \setbeamertemplate{subsection in toc}[default] % include subsection on outline slide
 \beamertemplatenavigationsymbolsempty % no bullets on outline slide
 \setbeamercovered{transparent=30} % global setting for slide builds (enabled by the <1-2> codes after \item)
+\setbeamercolor{footnote mark}{fg=frametitle.fg}
 
-\usepackage{fontspec, setspace, tabu, booktabs, multirow, url, amsmath, colortbl}
+\usepackage{fontspec, setspace, tabu, booktabs, multirow, url, amsmath, colortbl}%, etoolbox}
 %\usepackage[shortcuts]{extdash}
-\usepackage[sort&compress,super]{natbib}
-
-% Use these with \footnotemark, \footnotetext & \bibentry if you want references to show up on each slide
+%\usepackage[sort&compress,super]{natbib}
+%\usepackage{dblfnote}
+\usepackage{natbib}
+% Use these with \footnotemark, \footnotetext & \bibentry if you want full references to show up on each slide
 %\usepackage{bibentry} 
 %\nobibliography*
 
@@ -23,6 +25,7 @@
 \def\newblock{\hskip .11em plus .33em minus .07em}
 \definecolor{lgray}{gray}{0.7}
 \newenvironment{hl}{\usebeamercolor[fg]{frametitle}}
+%\renewcommand*{\footnoterule}{}
 
 % fonts
 \setmainfont[Numbers={Lining}]{Linux Libertine O} \setsansfont{Linux Biolinum O} \setmonofont{Linux Libertine Mono O}
@@ -36,6 +39,7 @@
 	\setlength{\leftmarginii}{1em}%
 	\begin{itemize}}{\end{itemize}%
 }
+\newenvironment{strong}{\bfseries\textsf}{}
 
 % misc abbreviations
 \newcommand{\term}[1]{“#1”} % first occurrence of technical terms
@@ -70,6 +74,20 @@
 \institute[UW]{Department of Linguistics, University of Washington}
 \date[2013.05.31]{2013 May 31}
 \subject{Linguistics, Phonetics, Speech Perception}
+
+\renewcommand*{\footnoterule}{}%\kern 6pt
+\makeatletter
+\renewcommand\@makefntext[1]{\leftskip=1em\hskip-1em{\tiny\@makefnmark~#1}}
+%\patchcmd{\@makefntext}{\insertfootnotetext{#1}}{\insertfootnotetext{\tiny#1}}{}{} % requires etoolbox, achieves \tiny but has ugly first-line indenting
+\makeatother
+
+%\makeatletter
+%\patchcmd{\@makefnmark}{\@textsuperscript}{\@makefnmark@aux}{}{}
+%\newcommand*{\@makefnmark@aux}[1]{[#1]}
+%makeatother
+%\setbeamertemplate{footnote}{%
+%    \leavevmode \insertfootnotemark~\insertfootnotetext
+%}
 
 \begin{document}
 
@@ -130,8 +148,8 @@
 \section{Background}
 
 \subsection{What determines intelligibility?}
-\begin{frame}{What determines intelligibility? (1 of 2)}
-Properties of the talker \& listener:
+\begin{frame}{What determines intelligibility? (1 of 2)}{}
+{\strong Properties of the talker \& listener}
 	\begin{itm}
 	\item Speech style
 		\begin{itm}
@@ -146,71 +164,107 @@ Properties of the talker \& listener:
 	\end{itm}
 \end{frame}
 
-\begin{frame}{What determines intelligibility? (2 of 2)}
-Acoustic properties of the speech:
+\begin{frame}{What determines intelligibility? (2 of 2)}{}
+{\strong Acoustic properties of the speech}
 	\begin{itm}
-	\item Speech rate
+	\item Duration \& speech rate
 		\begin{itm}
-		\item Long vowels, systematic pauses associated with intelligible speech \citep{BondMoore1994}
-		\item No correlation between intelligibility and mean sentence duration \citep{BradlowEtAl1996}
-		\item Clear speech advantage can be achieved at high speech rates \citep{KrauseBraida2002}
+		\item \emph{Long vowels, systematic pauses} associated with intelligibility\footnote[frame]{\citet*{BondMoore1994}.}
+		\item No correlation between intelligibility and \emph{mean sentence duration}\footnote[frame]{\citet*{BradlowEtAl1996}.}
+%		\item Clear speech with pauses removed doesn’t get less intelligible\footnote[frame]{Choi1987 - MIT bachelor’s project}
+		\item Clear speech advantage can be achieved without changing speech rate\footnote[frame]{\citet*{KrauseBraida2002}.} %norm:  (187 \ac{wpm}), fast: (218 \ac{wpm})
+		\item \emph{Equivocal results regarding speech rate} 
 		\end{itm}
-	\item[]
-	\item Vowel space size \citep{BondMoore1994, BradlowEtAl1996, HazanMarkham2004, Neel2008, McCloyEtAl2012}
+%	\item[]
+	\item Larger vowel space size is associated with intelligibility
 		\begin{itm}
-		\item No clear agreement on how to measure this
+		\item Greater F2 and/or F1 range\footnotemark[1] \footnotemark[2] \footnote[frame]{\citet*{HazanMarkham2004}.}
+		\item Greater area of polygon formed by vowel means\footnotemark[2] \footnote[frame]{\citet*{Neel2008}} \footnote[frame]{\citet*{McCloyEtAl2012}}
+		\item Greater area of convex polygonal hull encompassing all vowel tokens\footnote[frame]{\citet*{McCloyEtAl2013}.}
+		\item \emph{No consensus on best way to measure}
 		\end{itm}
-	\item[]
-	\item Pitch range?
+%	\item[]
 	\end{itm}
 \end{frame}
 
-%\begin{frame}{What impacts intelligibility?}
-%	\begin{columns}
-%		\begin{column}{0.5\textwidth}
-%		\begin{itm}
-%			\item<1-2> Language user properties
-%			\begin{itm}
-%				\item Speech style
-%				\item Listener experience with language/dialect
-%				\item Intrinsic individual differences?
-%				\item Gender?
-%			\end{itm}
-%		\end{itm}
-%		\end{column}
-%		\begin{column}{0.5\textwidth}
-%		\begin{itm}
-%			\item<2> Signal properties
-%			\begin{itm}
-%				\item Speech rate
-%				\item Vowel space size
-%				\item Pitch range
-%			\end{itm}
-%		\end{itm}
-%		\end{column}
-%	\end{columns}	
-%\end{frame}
+\begin{frame}{}
+	\begin{itm}
+	\item Pitch
+		\begin{itm}
+		\item Mean pitch unrelated to intelligibility
+		\item Larger pitch range associated with intelligibility\footnote[frame]{\citet*{BradlowEtAl1996}},\footnote[frame]{\citet*{McCloyEtAl2012}}
+		\end{itm}
+	\end{itm}
+\end{frame}
 
 %===== METHODS =====%
 \section{Methodology}
 
+\subsection{General approach}
 \begin{frame}{General approach}
 	\begin{itm}
-		\item<1-3> Top-down \vs\ bottom-up
-		\begin{itm}
-			\item<2-3> Not a perfect split:
+	\item The split between top-down \vs\ bottom-up modeling intelligibility is not perfect:\\ \vspace{-\baselineskip}
+	\begin{columns}[t]
+		\begin{column}{0.4\textwidth}
 			\begin{itm}
-				\item Vowel reduction (formant values) affected by phrasal accent
-				\item Consonant reduction (spirantization, glottalization, flapping) affected by prosody
-				\item Duration is secondary cue to phonemic distinctions
-				\item Pitch is (subtly) affected by vocal tract constrictions (\ie, consonants)
+			\item Vowel quality reduction affected by phrasal accent
+			\item Consonant reduction (spirantization, glottalization, flapping) affected by prosody
 			\end{itm}
-		\end{itm}
-		\item[]
-		\item<3> Why use resynthesis?
+		\end{column}
+		\begin{column}{0.4\textwidth}
+			\begin{itm}
+			\item Duration is secondary cue to phonemic distinctions
+			\item Pitch is (subtly) affected by tongue movements \& vocal tract constrictions (usually at the edges of vowels)
+			\end{itm}
+		\end{column}
+	\end{columns}
+	\item[]
+	\item<3> Nevertheless, those are relatively small perturbations compared to:\\ \vspace{-\baselineskip}
+	\begin{columns}[t]
+		\begin{column}{0.4\textwidth}
+			\begin{itm}
+			\item Lexically-motivated vowel reduction (patterns of word stress)
+			\item Phonotactically motivated consonant reduction
+			\end{itm}
+		\end{column}
+		\begin{column}{0.4\textwidth}
+			\begin{itm}
+			\item Duration changes due to phrasal stress, speech rate, final lengthening, \etc.
+			\item Sentence-level pitch changes
+			\end{itm}
+		\end{column}
+	\end{columns}
+	
+%		\begin{itm}
+%		\item Not a perfect split:
+%			\begin{itm}
+%			\item Vowel reduction (formant values) affected by phrasal accent
+%			\item Consonant reduction (spirantization, glottalization, flapping) affected by prosody
+%			\item Duration is secondary cue to phonemic distinctions
+%			\item Pitch is (subtly) affected by tongue movements \& vocal tract constrictions (usually at the edges of vowels)
+%			\end{itm}
+%		\item Nevertheless, these are relatively small perturbations compared to:
+%			\begin{itm}
+%			\item Duration changes due to phrasal stress, speech rate, final lengthening, \etc.
+%			\item Sentence-level pitch changes
+%			\item 
+%			\end{itm}
+%		\end{itm}
+	\end{itm}
+\end{frame}
+
+\begin{frame}{Why use resynthesis?}
+	\begin{itm}
+	\item Advantages: 
 		\begin{itm}
-			\item Advantage: Less work than parametric synthesis; natural-sounding voices
-			\item Disadvantage: risk of distortion; real voices!
+		\item Less work than parametric synthesis
+		\item Natural-sounding voices
+		\end{itm}
+	\item[]
+	\item Disadvantages: 
+		\begin{itm}
+		\item Risk of distortion
+		\item Real voices!
 		\end{itm}
 	\end{itm}
 \end{frame}
@@ -250,6 +304,8 @@ Acoustic properties of the speech:
 	\end{itm}
 \end{frame}
 
+\subsection{Experimental design}
+
 %===== RESULTS =====%
 \section{Results}
 
@@ -265,7 +321,7 @@ Acoustic properties of the speech:
 \end{frame}
 
 
-\subsection{Acknowledgments} % include if you want on the outline / in PDF bookmarks
+%\subsection{Acknowledgments} % include if you want on the outline / in PDF bookmarks
 \begin{frame}{Acknowledgments}
 	\begin{itm}
 		\centering
