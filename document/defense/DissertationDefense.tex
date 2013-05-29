@@ -6,13 +6,13 @@
 \setbeamertemplate{itemize item}{•}
 \setbeamertemplate{itemize subitem}{◦}
 \setbeamertemplate{itemize subsubitem}{—}
-\setbeamertemplate{section in toc}[default] % include section on outline slide
-\setbeamertemplate{subsection in toc}[default] % include subsection on outline slide
-\beamertemplatenavigationsymbolsempty % no bullets on outline slide
+\setbeamertemplate{section in toc}[default] % remove bullet from section on outline slide
+\setbeamertemplate{subsection in toc}[default] % remove bullet from subsection on outline slide
+\beamertemplatenavigationsymbolsempty % suppress navigation bar
 \setbeamercovered{transparent=30} % global setting for slide builds (enabled by the <1-2> codes after \item)
 \setbeamercolor{footnote mark}{fg=frametitle.fg}
 
-\usepackage{fontspec, setspace, tabu, booktabs, multirow, url, amsmath, colortbl}%, etoolbox}
+\usepackage{fontspec, setspace, tabu, booktabs, multirow, url, calc}%, colortbl, etoolbox}
 %\usepackage[shortcuts]{extdash}
 %\usepackage[sort&compress,super]{natbib}
 %\usepackage{dblfnote}
@@ -24,11 +24,12 @@
 % misc hacks
 \def\newblock{\hskip .11em plus .33em minus .07em}
 \definecolor{lgray}{gray}{0.7}
-\newenvironment{hl}{\usebeamercolor[fg]{frametitle}}
-%\renewcommand*{\footnoterule}{}
+\newenvironment{hl}{\usebeamercolor[fg]{frametitle}}{}
+\newenvironment{hid}{\usebeamercolor[bg]{background canvas}}{}
 
 % fonts
 \setmainfont[Numbers={Lining}]{Linux Libertine O} \setsansfont{Linux Biolinum O} \setmonofont{Linux Libertine Mono O}
+\newfontfamily{\stix}{STIXGeneral-Regular}
 %\newfontfamily{\charis}{Charis SIL}
 %\newenvironment{ipa}{\large\charis}{}%
 \renewcommand\url{\begingroup \def\UrlLeft{}\def\UrlRight{}\urlstyle{same}\Url} % set URLs in same font as surrounding text
@@ -39,14 +40,13 @@
 	\setlength{\leftmarginii}{1em}%
 	\begin{itemize}}{\end{itemize}%
 }
-\newenvironment{strong}{\bfseries\textsf}{}
 
 % misc abbreviations
 \newcommand{\term}[1]{“#1”} % first occurrence of technical terms
 \newcommand{\ac}[1]{\textsc{#1}} % acronyms % \newcommand{\ac}[1]{\MakeUppercase{#1}}
 \newcommand{\lat}[1]{\textit{#1}} % foreign words and abbreviations
 \newcommand{\psola}{\ac{psola}™}
-\newcommand{\fo}{ƒ₀} % font problems? might work as {\(f_0\)}
+\newcommand{\fo}{ƒ\kern-0.1em₀} % font problems? might work as {\(f_0\)}  
 \newcommand{\eg}{\lat{e.g.}}
 \newcommand{\ie}{\lat{i.e.}}
 \newcommand{\etseq}{\lat{et seq}}
@@ -59,12 +59,20 @@
 \newcommand{\vv}{\lat{vice versa}}
 \newcommand{\perse}{\lat{per se}}
 \newcommand{\slsh}{/‌} % contains a zero-width non-joiner after the slash, to allow line breaking
+\newcommand{\refcomma}{{\hl\(^{\hspace{-0.1em},}\)}} % negative superscript space followed by superscript comma, in the highlight color (same color as the frametitle)
+
+% formatting
+\newenvironment{str}{\large\scshape\bfseries}{}%\textsf
+\newcommand{\emp}[1]{{\hl\itshape #1}}
+\newcommand{\fnr}[1]{\footnote[frame]{\citet*{#1}.}}
+%\crefformat{footnote}{#2\footnotemark[#1]#3}
+%\creflabelformat{footnote}{#2#1#3}
 
 % Automatically insert overview/roadmap slide at start of each section
 \AtBeginSection[]{%
 \begin{frame}<beamer>
     \frametitle{Overview}
-    \tableofcontents[currentsection]
+    \tableofcontents[currentsection,subsections,hideothersubsections] %\tableofcontents[currentsection]
   \end{frame}
 }
 
@@ -97,8 +105,100 @@
 
 %===== TABLE OF CONTENTS =====%
 \begin{frame}{Overview}
-	\tableofcontents{}
+    \tableofcontents[section,hidesubsections]{}
+%	\tableofcontents{}
 \end{frame}
+
+
+%===== DEFINITIONS =====%
+\section{Definitions}
+
+\subsection{Intelligibility}
+\begin{frame}{Definition of intelligibility}
+	\begin{itm}
+	\item[] Intelligibility: degree to which speech can be understood
+		\begin{itm}
+		\item[]
+		\item Typically measured with reference to perception of words,\\not comprehension of meaning
+		\item[]
+		\item Speech-in-noise or degraded speech stimuli
+%		\item[]
+%		\item “Repeat what you hear” or “which word was it” tasks
+		\end{itm}
+	\end{itm}
+\end{frame}
+
+\subsection{Prosody}
+\begin{frame}{Definition of prosody (1 of 2)}
+	\begin{itm}
+	\item[] Prosody: phrase- or utterance-level patterns of \fo, duration \& intensity
+		\begin{itm}
+		\item[] 
+		\end{itm}
+	\item[] Contrast with:
+		\begin{itm}
+		\item Lexical stress (word level)
+			\begin{itm}
+			\item Vowels in stressed syllables longer \& louder\\(duration\slsh intensity as prominence cues)
+%			\item Stressed syllables are loci for pitch accents
+			\item[] 
+			\end{itm}
+		\item Phonemic\slsh allophonic\slsh phonotactic patterns (segmental level)
+			\begin{itm}
+			\item Vowel before [d] longer than vowel before [t]\\(duration as secondary voicing cue)
+			\item[]
+			\item Voiced consonants typically lower \fo{} of following vowel\\(\fo{} as secondary voicing cue)
+%			\item Vowel before glottal consonant may be lower or higher \fo{} (depends on how glottalization manifests)%\fnr{Kingston2005}
+%			\item[]
+			\end{itm}
+%		\item[]
+		\end{itm}
+	\end{itm}
+\end{frame}
+
+\begin{frame}{Definition of prosody (2 of 2)}
+	The prosodic\slsh non-prosodic split is not perfect...\\ \vspace{\baselineskip}
+	{\scriptsize
+	\begin{tabu} to \textwidth {>{\bfseries}X[4,m,l] X[5,m,l] X[-1,m,c] X[5,m,l]}
+		\toprule
+		\rowfont{\bfseries} & Non-prosodic & & Prosodic \\
+		\midrule
+		Duration                                                       & Phonotactics   & {\hid\stix\large{<}} & Phrasal accent, speech rate, final lengthening \\
+		\taburulecolor{lgray}\midrule
+		\fo                                                            & Consonantal effects on \fo, intrinsic vowel \fo & {\hid\stix\large{<}} & Intonation \\
+		\midrule
+		Intensity                                                      & Intrinsic segmental differences, lexical stress & {\hid\stix\large{⩻}} & Phrasal accent \\%⩻⩼
+		\midrule
+		Vowel quality reduction                                        & Lexical stress & {\hid\stix\large{⩼}} & Phrasal accent \\
+		\midrule
+		Consonant reduction (spirantization, glottalization, flapping) & Phonotactics   & {\hid\stix\large{⩼}} & Phrasal accent, speech rate \\
+		\taburulecolor{black}\bottomrule
+	\end{tabu}
+	}
+\end{frame}
+
+\begin{frame}{Definition of prosody (2 of 2)}
+	The prosodic\slsh non-prosodic split is not perfect...\\ \vspace{\baselineskip}
+	{\scriptsize
+	\begin{tabu} to \textwidth {>{\bfseries}X[4,m,l] X[5,m,l] X[-1,m,c] X[5,m,l]}
+		\toprule
+		\rowfont{\bfseries} & Non-prosodic & & Prosodic \\
+		\midrule
+		Duration                                                       & Phonotactics   & {\hl\stix\large{<}} & Phrasal accent, speech rate, final lengthening \\
+		\taburulecolor{lgray}\midrule
+		\fo                                                            & Consonantal effects on \fo, intrinsic vowel \fo & {\hl\stix\large{<}} & Intonation \\
+		\midrule
+		Intensity                                                      & Intrinsic segmental differences, lexical stress & {\hl\stix\large{⩻}} & Phrasal accent \\%⩻⩼
+		\midrule
+		Vowel quality reduction                                        & Lexical stress & {\hl\stix\large{⩼}} & Phrasal accent \\
+		\midrule
+		Consonant reduction (spirantization, glottalization, flapping) & Phonotactics   & {\hl\stix\large{⩼}} & Phrasal accent, speech rate \\
+		\taburulecolor{black}\bottomrule
+	\end{tabu}
+	}\\ \vspace{\baselineskip}
+	...but the inequalities go in the right direction (at least for English) for us to treat \fo, duration \& intensity as “prosodic”, broadly speaking.
+\end{frame}
+
 
 %===== MOTIVATION =====%
 \section{Motivation}
@@ -106,7 +206,7 @@
 \subsection{Why study intelligibility?}
 \begin{frame}{Why study intelligibility?}
 	\begin{itm}
-	\item<1-3> \emph{What is the same across talkers?}
+	\item<1-3> \emp{What is the same across talkers?}
 		\begin{itm}
 		\item Can tell us about the brain’s speech processing system
 			\begin{itm}
@@ -114,13 +214,13 @@
 			\end{itm}
 		\end{itm}
 	\item[]
-	\item<2-3> \emph{What is different across talkers?}
+	\item<2-3> \emp{What is different across talkers?}
 		\begin{itm}
 		\item Applications to assistive hearing device design (acoustics, signal processing)
 		\item Applications to speech therapy, pedagogy (articulation)
 		\end{itm}
 	\item[]
-	\item<3> \emph{What is different across groups?}
+	\item<3> \emp{What is different across groups?}
 		\begin{itm}
 		\item Cross-linguistic differences in speech perception
 			\begin{itm}
@@ -133,14 +233,17 @@
 \subsection{Why study prosody?}
 \begin{frame}{Why study prosody?}
 	\begin{itm}
-	\item<1-3> Hearing aids: signal processing for prosodic changes easier than segmental changes
-	\item[]
-	\item<2-3> Natural distinction: segmental \vs\ supersegmental
+	\item Applications to assistive hearing device design
 		\begin{itm}
-		\item Duration, \fo, and intensity are not primary cues to phonemic distinctions in English as spoken here
+		\item Signal processing for prosodic changes easier than segmental changes
+		\item[]
 		\end{itm}
-	\item[]
-	\item<3> Bottom-up approach to intelligibility using acoustic predictors has yielded conflicting results
+%	\item<2-3> “Natural” distinction: segmental \vs\ supersegmental
+%		\begin{itm}
+%		\item Duration, \fo, and intensity are not primary cues to phonemic distinctions in English as spoken here
+%		\item[]
+%		\end{itm}
+	\item<2> Bottom-up approach to modeling intelligibility yields conflicting results % using acoustic predictors
 	\end{itm}
 \end{frame}
 
@@ -148,51 +251,89 @@
 \section{Background}
 
 \subsection{What determines intelligibility?}
-\begin{frame}{What determines intelligibility? (1 of 2)}{}
-{\strong Properties of the talker \& listener}
+\begin{frame}{What determines intelligibility? (1 of 3)}{}
+{\str talker \& listener properties}
 	\begin{itm}
 	\item Speech style
 		\begin{itm}
-		\item Clear speech, Lombard speech, parentese, sociolinguistic register, \etc.
+		\item Clear speech, Lombard, child-directed, sociolinguistic register, \etc.
+		\item[]
 		\end{itm}
-	\item[]
 	\item Listener familiarity with language/dialect
-	\item[]
+		\begin{itm}
+		\item Cf. interlanguage intelligibility benefit\fnr{BentBradlow2003}
+		\item[]
+		\end{itm}
 	\item Intrinsic individual differences?
-	\item[]
-	\item Intrinsic gender differences?
+		\begin{itm}
+		\item Variation in “default” style?
+		\item[]
+		\end{itm}
+	\item Intrinsic gender differences?\fnr{BradlowEtAl1996}\refcomma\fnr{HazanMarkham2004}
 	\end{itm}
 \end{frame}
 
-\begin{frame}{What determines intelligibility? (2 of 2)}{}
-{\strong Acoustic properties of the speech}
+\begin{frame}{What determines intelligibility? (2 of 3)}{}
+{\str acoustic properties of speech}
 	\begin{itm}
-	\item Duration \& speech rate
+	\item Duration \& speech rate: equivocal results
 		\begin{itm}
-		\item \emph{Long vowels, systematic pauses} associated with intelligibility\footnote[frame]{\citet*{BondMoore1994}.}
-		\item No correlation between intelligibility and \emph{mean sentence duration}\footnote[frame]{\citet*{BradlowEtAl1996}.}
+		\item \emp{Long vowels, systematic pauses} associated with intelligibility\fnr{BondMoore1994}%\savefnOne
+		\item No correlation between \emp{mean sentence duration} and intelligibility\fnr{BradlowEtAl1996}%\savefnTwo
 %		\item Clear speech with pauses removed doesn’t get less intelligible\footnote[frame]{Choi1987 - MIT bachelor’s project}
-		\item Clear speech advantage can be achieved without changing speech rate\footnote[frame]{\citet*{KrauseBraida2002}.} %norm:  (187 \ac{wpm}), fast: (218 \ac{wpm})
-		\item \emph{Equivocal results regarding speech rate} 
+		\item Clear speech advantage can be achieved without changing rate (\emp{\ac{wpm}})\fnr{KrauseBraida2002} %norm:  (187 \ac{wpm}), fast: (218 \ac{wpm})
+		\item[]
 		\end{itm}
-%	\item[]
-	\item Larger vowel space size is associated with intelligibility
+	\item<2> Vowel space size: mixed results, inconsistent measurement methods
 		\begin{itm}
-		\item Greater F2 and/or F1 range\footnotemark[1] \footnotemark[2] \footnote[frame]{\citet*{HazanMarkham2004}.}
-		\item Greater area of polygon formed by vowel means\footnotemark[2] \footnote[frame]{\citet*{Neel2008}} \footnote[frame]{\citet*{McCloyEtAl2012}}
-		\item Greater area of convex polygonal hull encompassing all vowel tokens\footnote[frame]{\citet*{McCloyEtAl2013}.}
-		\item \emph{No consensus on best way to measure}
+		\item F2 and/or F1 range\footnotemark[4]\refcomma\footnotemark[5]\refcomma\fnr{HazanMarkham2004} % BondMoore1994, BradlowEtAl1996
+		\item Area of polygon formed by vowel means\footnotemark[5]\refcomma\fnr{Neel2008}\refcomma\fnr{McCloyEtAl2012} % BradlowEtAl1996
+		\item Area of convex polygonal hull encompassing all vowel tokens\fnr{McCloyEtAl2013}
+		% TODO: add illustrations of these
 		\end{itm}
 %	\item[]
 	\end{itm}
 \end{frame}
 
-\begin{frame}{}
+\begin{frame}{What determines intelligibility? (3 of 3)}{}
+{\str acoustic properties of speech (cont.)}
 	\begin{itm}
-	\item Pitch
+	\item Pitch: static measures
 		\begin{itm}
-		\item Mean pitch unrelated to intelligibility
-		\item Larger pitch range associated with intelligibility\footnote[frame]{\citet*{BradlowEtAl1996}},\footnote[frame]{\citet*{McCloyEtAl2012}}
+		\item Mean \fo{} unrelated to intelligibility\fnr{PichenyEtAl1986}\refcomma\fnr{BradlowEtAl1996}\refcomma\fnr{HazanMarkham2004}\refcomma\fnr{LuCooke2009}
+		\item[]
+		\end{itm}
+	\item<2> Pitch: dynamic measures
+		\begin{itm}
+		\item Larger \fo{} range associated with intelligibility\footnotemark[12]\refcomma\fnr{McCloyEtAl2012} % BradlowEtAl1996
+		\item Rate of change in \fo{}?% (velocity)
+%			\begin{itm}
+%			\item Opposite trends: mean velocity (downdrift) \vs\ mean \emp{absolute value} of velocity\fnr{McCloyEtAl2013}
+%			\item Complex interaction with creaky voicing 
+%			\end{itm}
+		\item Pitch accent alignment\slsh magnitude\slsh direction?
+		\end{itm}
+	\end{itm}
+\end{frame}
+
+\begin{frame}{Background summary}
+	\begin{itm}
+	\item Bottom-up approach to modeling intelligibility: no clear picture
+		\begin{itm}
+		\item Does gender matter?  Speech rate?  Vowel space size?
+		\item Measured dimensions do not vary independently!
+		\item[]
+		\end{itm}
+	\item<2-3> Need better understanding of what measurements actually reflect
+		\begin{itm}
+		\item Why should F2 range matter?  Or mean \fo?
+		\item[]
+		\end{itm}
+	\item<3> Need new ways of quantifying dynamic aspects of speech signal
+		\begin{itm}
+		\item Dramatic \vs\ monotone use of pitch?
+		\item Consistent intensity \vs\ “trail-off”?
+		\item[]
 		\end{itm}
 	\end{itm}
 \end{frame}
@@ -200,68 +341,17 @@
 %===== METHODS =====%
 \section{Methodology}
 
-\subsection{General approach}
-\begin{frame}{General approach}
-	\begin{itm}
-	\item The split between top-down \vs\ bottom-up modeling intelligibility is not perfect:\\ \vspace{-\baselineskip}
-	\begin{columns}[t]
-		\begin{column}{0.4\textwidth}
-			\begin{itm}
-			\item Vowel quality reduction affected by phrasal accent
-			\item Consonant reduction (spirantization, glottalization, flapping) affected by prosody
-			\end{itm}
-		\end{column}
-		\begin{column}{0.4\textwidth}
-			\begin{itm}
-			\item Duration is secondary cue to phonemic distinctions
-			\item Pitch is (subtly) affected by tongue movements \& vocal tract constrictions (usually at the edges of vowels)
-			\end{itm}
-		\end{column}
-	\end{columns}
-	\item[]
-	\item<3> Nevertheless, those are relatively small perturbations compared to:\\ \vspace{-\baselineskip}
-	\begin{columns}[t]
-		\begin{column}{0.4\textwidth}
-			\begin{itm}
-			\item Lexically-motivated vowel reduction (patterns of word stress)
-			\item Phonotactically motivated consonant reduction
-			\end{itm}
-		\end{column}
-		\begin{column}{0.4\textwidth}
-			\begin{itm}
-			\item Duration changes due to phrasal stress, speech rate, final lengthening, \etc.
-			\item Sentence-level pitch changes
-			\end{itm}
-		\end{column}
-	\end{columns}
-	
-%		\begin{itm}
-%		\item Not a perfect split:
-%			\begin{itm}
-%			\item Vowel reduction (formant values) affected by phrasal accent
-%			\item Consonant reduction (spirantization, glottalization, flapping) affected by prosody
-%			\item Duration is secondary cue to phonemic distinctions
-%			\item Pitch is (subtly) affected by tongue movements \& vocal tract constrictions (usually at the edges of vowels)
-%			\end{itm}
-%		\item Nevertheless, these are relatively small perturbations compared to:
-%			\begin{itm}
-%			\item Duration changes due to phrasal stress, speech rate, final lengthening, \etc.
-%			\item Sentence-level pitch changes
-%			\item 
-%			\end{itm}
-%		\end{itm}
-	\end{itm}
-\end{frame}
-
+\subsection{Rationale}
 \begin{frame}{Why use resynthesis?}
 	\begin{itm}
 	\item Advantages: 
 		\begin{itm}
 		\item Less work than parametric synthesis
 		\item Natural-sounding voices
+		\item Independent control over \fo, duration \& intensity
+		\item[]
 		\end{itm}
-	\item[]
-	\item Disadvantages: 
+	\item<2> Disadvantages: 
 		\begin{itm}
 		\item Risk of distortion
 		\item Real voices!
@@ -269,19 +359,25 @@
 	\end{itm}
 \end{frame}
 
-\begin{frame}{Stimulus design}
+\subsection{Stimuli}
+\begin{frame}{Source recordings: The \ac{pn/nc} corpus}
 	\begin{itm}
-		\item Careful recordings of parallel sentences (head mounted mics, low noise floor, coached to standardize prosody)
-		\item[]
-		\item Five \ac{pnw} male talkers included in corpus; three selected for resynthesis (highest, lowest, \& midpoint intelligibility)
-		\item[]
-		\item Duration, intensity \& pitch swapped between all possible pairs of talkers
+		\item Careful recordings of \ac{ieee} “Harvard” sentences from 20 talkers
+			\begin{itm}
+			\item Five each: male\slsh female × Northern Cities\slsh Pacific Northwest
+			\item Talkers coached to standardize performance\\(casual style, normal declarative prosody)
+			\item[]
+			\end{itm}
+		\item Previous experiment: \ac{pnw} male talkers had greatest variation in intrinsic intelligibility 
+			\begin{itm}
+			\item Three \ac{pnw} males chosen for resynthesis\\(highest, lowest, \& midpoint intelligibility)
+			\end{itm}
 	\end{itm}
 \end{frame}
 
 \begin{frame}{Resynthesis (1 of 3)}
 	\begin{itm}
-		\item Hand-correction of pitch epoch marks (“pulses”) to ensure consistent phase with respect to waveform\\
+		\item Hand-correction of \fo{} epoch marks (“pulses”) to ensure consistent phase with respect to waveform\\
 			\includegraphics[width=\textwidth,height=0.7\textheight,keepaspectratio]{../figures/creakJitterShimmer/creakJitterShimmer.eps}
 %			\caption[Handling of creaky voicing in resynthesis]{Illustration of method for handling creaky\-/voiced portions of speech.  (a)~Excerpt of Talker~\ac{b}’s recording of sentence 33–05, in which vowel hiatus is resolved with light creaky voicing.  The waveform (black) is overlaid with Praat’s auto\-/detected pulse marks (dotted red lines) and pitch track (dashed blue line).  Note the missed cycles on either side of the red arrow, and the phase\-/shift of all pulses right of the arrow.  (b)~The same span of speech after manual correction of pulses, and a (jittery, but continuous) pitch track generated from the corrected pulses.\label{fig:JitShim}}
 	\end{itm}
@@ -289,7 +385,7 @@
 
 \begin{frame}{Resynthesis (2 of 3)}
 	\begin{itm}
-		\item Dynamic time warping of pitch and intensity 
+		\item Dynamic time warping of \fo{} and intensity 
 		\item[] \includegraphics[width=\textwidth,height=0.75\textheight,keepaspectratio]{../figures/intensity/intensity2.eps}
 %				\caption[Intensity scaling in resynthesis]{Illustration of the method used to scale intensity.  (a)~Intensity contour is extracted from target waveform (blue).  (b)~The intensity contour of the target signal is inverted, by subtracting each intensity point from the maximum intensity.  (c)~Target intensity is \term{neutralized} or \term{flattened} by multiplying the target signal by the inverted intensity contour.  (d)~Intensity contour is extracted from the prosodic donor signal (red).  (e)~The prosodic donor intensity contour is time\-/scaled syllable\-/by\-/syllable via dynamic time warping (\ac{dtw}) to match the temporal pattern of the target signal.  (f)~The intensity\-/neutralized target signal is multiplied by the time\-/warped donor intensity contour (purple).  The signal is now ready for \psola{} resynthesis of duration and pitch.\label{fig:IntenManip}}
 	\end{itm}
@@ -299,15 +395,58 @@
 	\begin{itm}
 		\item \psola{} algorithm as implemented in Praat
 		\item[]
+		\item \fo, duration \& intensity swapped between all possible pairs of talkers
+			\begin{itm}
+			\item Nine “talkers” total: \ac{a}, \ac{b}, \ac{c}, \ac{ab}, \ac{ac}, \ac{ba}, \ac{bc}, \ac{ca}, \ac{cb}
+			\item[]
+			\end{itm}
 		\item (Show demo)
 %		\item Graphic of how it works?  Demo?
 	\end{itm}
 \end{frame}
 
 \subsection{Experimental design}
+\begin{frame}{Experimental design}
+	\begin{itm}
+	\item xxx % TODO: fill in
+	\end{itm}
+\end{frame}
 
 %===== RESULTS =====%
 \section{Results}
+
+\begin{frame}{Segregating prosodic \& non-prosodic contributions (1 of 2)}
+	\begin{itm}
+	\item[] Mean keywords correct, ±1 standard error
+	\item[] \includegraphics[width=\textwidth,height=0.75\textheight,keepaspectratio]{../figures/results/ExpOneBarplot.eps}
+%			\caption[Barplot of mean sentence scores for Experiment~1]{Barplot of mean sentence scores for Experiment~1.  Error bars are ±1 standard error; lighter colors indicate resynthesized talkers, with the second letter indicating the prosodic donor (see Section~\ref{sec:ExpDesign} for full explanation of talker codes).  Similar hues indicate shared segmental donors.\label{fig:ExpOneBarplot}}
+	\end{itm}
+\end{frame}
+
+\begin{frame}{Segregating prosodic \& non-prosodic contributions (2 of 2)}
+	Statistical model: Fixed effects\\ \vspace{\baselineskip}
+	\begin{tabu} spread 2em {Xrcrc}
+		\toprule
+		\multicolumn{5}{l}{Summary of fixed effects (N=1440; log-likelihood=−2551)}\\
+		\rowfont\bfseries
+		\multicolumn{1}{l}{Predictor} & \multicolumn{1}{c}{Coefficient} & \textit{s} & \multicolumn{1}{c}{\itshape t} & \textit{p}\\
+		\midrule
+		Intercept         &  4.132 & (0.145) &  28.44 & <10⁻¹⁶\\
+		resynth = TRUE    & −0.662 & (0.077) &  −8.63 & <10⁻¹⁶\\
+		segDonor = \ac{b} & −1.673 & (0.089) & −18.86 & <10⁻¹⁶\\
+		segDonor = \ac{c} & −1.278 & (0.089) & −14.31 & <10⁻¹⁶\\
+		proDonor = \ac{b} &  0.307 & (0.088) &   3.48 & <10⁻³\\
+		proDonor = \ac{c} & −0.646 & (0.088) &  −7.36 & <10⁻¹²\\
+		trial             &  0.006 & (0.001) &   4.02 & <10⁻⁴\\
+		\bottomrule
+	\end{tabu}
+\end{frame}
+
+\begin{frame}{\Ph{} acoustic analyses}
+	\begin{itm}
+	\item xxx % TODO: fill in
+	\end{itm}
+\end{frame}
 
 %===== DISCUSSION =====%
 \section{Discussion}
