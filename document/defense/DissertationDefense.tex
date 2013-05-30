@@ -8,7 +8,7 @@
 \setbeamertemplate{itemize subsubitem}{—}
 \setbeamercolor*{itemize item}{fg=frametitle.fg}
 \setbeamercolor*{itemize subitem}{fg=frametitle.fg}
-%\setbeamercolor*{itemize subsubitem}{fg=red}
+\setbeamercolor*{itemize subsubitem}{fg=frametitle.fg}
 \setbeamertemplate{section in toc}[default] % remove bullet from section on outline slide
 \setbeamertemplate{subsection in toc}[default] % remove bullet from subsection on outline slide
 \beamertemplatenavigationsymbolsempty % suppress navigation bar
@@ -30,6 +30,9 @@
 \definecolor{rdd}{HTML}{940013}
 \definecolor{grn}{HTML}{005D00}
 \definecolor{blu}{HTML}{004CBD}
+\newcommand{\redd}[1]{{\bfseries\color{rdd}\ac{#1}}}
+\newcommand{\grnn}[1]{{\bfseries\color{grn}\ac{#1}}}
+\newcommand{\bluu}[1]{{\bfseries\color{blu}\ac{#1}}}
 \newenvironment{hl}{\usebeamercolor[fg]{frametitle}}{}
 \newenvironment{hid}{\usebeamercolor[bg]{background canvas}}{}
 
@@ -155,7 +158,8 @@
 			\item[]
 			\end{itm}
 		\end{itm}
-	\item<3> Phrase-level modulations in \fo{} \& duration > modulations at smaller time scales
+	\item<3> Phrase-level modulations in \fo{} \& duration > modulations at smaller time scales (at least for English — no lexical tone or pitch accent, no phonemic length contrast)
+% TODO:  add a citation here (maybe rosen1992?)
 %		\begin{itm}
 %		\item<4> Can manipulate at phrasal time scale without disrupting patterns at smaller time scales 
 %		\end{itm}
@@ -368,6 +372,12 @@
 		\item Clear speech advantage can be achieved without changing rate (\emp{\ac{wpm}})\fnr{KrauseBraida2002} %norm:  (187 \ac{wpm}), fast: (218 \ac{wpm})
 		\item[]
 		\end{itm}
+
+% TODO: add an explanation of (absence of) intensity here
+% push vowel space to separate slide, add consonant reduction section
+% a big problem is that these acoustic dimensions don't vary independently
+% for example: speech style ()
+
 	\item<2> Vowel space size: mixed results, inconsistent measurement methods
 		\begin{itm}
 		\item F2 and/or F1 range\footnotemark[6]\refcomma\footnotemark[7]\refcomma\fnr{HazanMarkham2004} % BondMoore1994, BradlowEtAl1996
@@ -379,6 +389,8 @@
 %	\item[]
 	\end{itm}
 \end{frame}
+
+% TODO: remove speech style from following slide, (goes to prior)
 
 \begin{frame}{What determines intelligibility? (3 of 3)}{}
 {\str talker \& listener properties}
@@ -428,6 +440,8 @@
 \section{Methodology}
 
 \subsection{Rationale}
+
+% TODO: the next slide needs to say exactly what I did, before saying why
 
 \begin{frame}{Why use resynthesis?}
 	\begin{itm}
@@ -483,6 +497,8 @@
 	\end{itm}
 \end{frame}
 
+% TODO: next slide: add info that A > B > C
+
 \begin{frame}{Resynthesis (3 of 3)}
 	\begin{itm}
 		\item \psola{} algorithm as implemented in Praat
@@ -496,6 +512,11 @@
 %		\item Graphic of how it works?  Demo?
 	\end{itm}
 \end{frame}
+
+% TODO: next slide not clear
+% 90 sentences × (3 unmodified + 6 resynthesized “talkers”) = 810 stimuli
+% each listener heard each sentence once (90 total)
+% talker-sentence pairings were randomized for each listener
 
 \subsection{Experimental design}
 \begin{frame}{Experimental design}
@@ -513,7 +534,7 @@
 \section{Results}
 
 \subsection{Behavioral results}
-\begin{frame}{Segregating prosodic \& non-prosodic contributions (1 of 3)}
+\begin{frame}{Segregating prosodic \& non-prosodic contributions (1 of 2)}
 	\begin{itm}
 	\item[] Mean keywords correct, ±1 standard error
 	\item[] \includegraphics[width=\textwidth,height=0.75\textheight,keepaspectratio]{../figures/results/ExpOneBarplot.eps}
@@ -522,54 +543,95 @@
 \end{frame}
 
 \begin{frame}{Segregating prosodic \& non-prosodic contributions (2 of 2)}%
-%	Summary of statistical model\\ \vspace{\baselineskip}
-	\begin{itm}
-%	\item[] Summary of statistical model
-	\item[] 
-		{\small
-		\begin{tabu} spread 3em {X[1,m,l] X[1,m,l] X[-1,m,c]}
-			\toprule
-			\rowfont{\bfseries} \multicolumn{2}{l}{Predictor} & Effect (keywords) \\
-			\midrule
-				           & Talker \ac{a} & baseline \\
-			Prosodic donor & Talker \ac{b} & +0.3 \\
-				           & Talker \ac{c} & −0.6 \\
-			\taburulecolor{lgray}\midrule
-				           & Talker \ac{a} & baseline \\
-			Signal donor   & Talker \ac{b} & −1.7 \\
-				           & Talker \ac{c} & −1.3 \\
-			\midrule
-			\multicolumn{2}{l}{Resynthesis distortion}                    & −0.7 \\
-			\midrule
-			\multicolumn{2}{l}{Task familiarization (trial 1 – 90)}       & +0.5 \\
-			\midrule
-			\multicolumn{2}{l}{Listener variability (standard error)}     & ±0.2 \\
-			\midrule
-			\multicolumn{2}{l}{Sentence variability (standard error)}     & ±0.7 \\
-			\taburulecolor{black}\bottomrule
-		\end{tabu}
-		}
-	\end{itm}
+	\begin{columns}[t]
+		\begin{column}{0.6\textwidth}
+%			\begin{itm}
+%			\item[] 
+				{\scriptsize
+				\begin{tabu}{X[2,m,l] X[1,m,l] X[-1,m,c]}
+					\toprule
+					\rowfont{\bfseries} \multicolumn{2}{l}{Predictor} & Effect (keywords) \\
+					\midrule
+								   & {\color{rdd}Talker \ac{a}} & baseline \\
+					Prosodic donor & {\color{grn}Talker \ac{b}} & +0.3 \\
+								   & {\color{blu}Talker \ac{c}} & −0.6 \\
+					\taburulecolor{lgray}\midrule
+								   & {\color{rdd}Talker \ac{a}} & baseline \\
+					Signal donor   & {\color{grn}Talker \ac{b}} & −1.7 \\
+								   & {\color{blu}Talker \ac{c}} & −1.3 \\
+					\midrule
+					\multicolumn{2}{l}{Resynthesis distortion}                    & −0.7 \\
+					\midrule
+					\multicolumn{2}{l}{Task familiarization (trial 1 – 90)}       & +0.5 \\
+					\midrule
+					\multicolumn{2}{l}{Listener variability (standard error)}     & ±0.2 \\
+					\midrule
+					\multicolumn{2}{l}{Sentence variability (standard error)}     & ±0.7 \\
+					\taburulecolor{black}\bottomrule
+				\end{tabu}
+				}
+%			\end{itm}
+		\end{column}
+		\begin{column}{0.4\textwidth}
+%			\begin{itm}
+%			\item[] 
+			\includegraphics[width=\columnwidth,height=0.75\textheight,keepaspectratio]{../figures/results/ExpOneBarplot.eps}
+%			\end{itm}
+		\end{column}
+	\end{columns}
 \end{frame}
+
+%\begin{frame}{Segregating prosodic \& non-prosodic contributions (2 of 2)}%
+%	\begin{itm}
+%	\item[] 
+%		{\small
+%		\begin{tabu} spread 3em {X[1,m,l] X[1,m,l] X[-1,m,c]}
+%			\toprule
+%			\rowfont{\bfseries} \multicolumn{2}{l}{Predictor} & Effect (keywords) \\
+%			\midrule
+%				           & {\color{rdd}Talker \ac{a}} & baseline \\
+%			Prosodic donor & {\color{grn}Talker \ac{b}} & +0.3 \\
+%				           & {\color{blu}Talker \ac{c}} & −0.6 \\
+%			\taburulecolor{lgray}\midrule
+%				           & {\color{rdd}Talker \ac{a}} & baseline \\
+%			Signal donor   & {\color{grn}Talker \ac{b}} & −1.7 \\
+%				           & {\color{blu}Talker \ac{c}} & −1.3 \\
+%			\midrule
+%			\multicolumn{2}{l}{Resynthesis distortion}                    & −0.7 \\
+%			\midrule
+%			\multicolumn{2}{l}{Task familiarization (trial 1 – 90)}       & +0.5 \\
+%			\midrule
+%			\multicolumn{2}{l}{Listener variability (standard error)}     & ±0.2 \\
+%			\midrule
+%			\multicolumn{2}{l}{Sentence variability (standard error)}     & ±0.7 \\
+%			\taburulecolor{black}\bottomrule
+%		\end{tabu}
+%		}
+%	\end{itm}
+%\end{frame}
 
 \subsection{{\itshape Post hoc} acoustic analyses}
 \begin{frame}{\Ph{} acoustic analyses (overview)}
 	\begin{itm}
+	\item[]
 	\item[] %{\small
 		\begin{tabu} spread 1em {X[m,l] X[-1,m,c]}
 			\toprule
 			\rowfont{\bfseries} \multicolumn{2}{l}{Patterns seen in the statistical model} \\
 			\midrule
-			Overall intelligibility & {\color{rdd}\ac{a}} > {\color{grn}\ac{b}} > {\color{blu}\ac{c}} \\
+			Overall intelligibility & \redd{a} > \grnn{b} > \bluu{c} \\
 			\taburulecolor{lgray}\midrule
-			Non-prosodic factors    & {\color{rdd}\ac{a}} > {\color{blu}\ac{c}} > {\color{grn}\ac{b}} \\
+			Non-prosodic factors    & \redd{a} > \bluu{c} > \grnn{b} \\
 			\midrule
-			Prosody                 & {\color{grn}\ac{b}} > {\color{rdd}\ac{a}} > {\color{blu}\ac{c}} \\
+			Prosody                 & \grnn{b} > \redd{a} > \bluu{c} \\
 			\taburulecolor{black}\bottomrule
 		\end{tabu}
 %	} %small
 	\item[]
-	\item<2>[] Which acoustic predictors match those patterns?
+	\item<2->[] Which acoustic predictors match those patterns?
+		\begin{itm}
+		\item<3> Can we segregate predictors tracking \emp{prosodic} contributions to intelligibility from predictors tracking \emp{non-prosodic} contributions to intelligibility? 
+		\end{itm}
 	\end{itm}
 \end{frame}
 
@@ -578,20 +640,20 @@
 	\item[] Which acoustic predictors match those patterns?
 		\begin{itm}
 		\item[]
-		\item Overall intelligibility ({\color{rdd}\ac{a}} > {\color{grn}\ac{b}} > {\color{blu}\ac{c}})
+		\item Overall intelligibility (\redd{a} > \grnn{b} > \bluu{c})
 			\begin{itm}
 			\item Unreduced stop consonants
 			\item Vowel space size: area of polygon based on means
 			\item[]
 			\end{itm}
-		\item<2-> Non-prosodic factors ({\color{rdd}\ac{a}} > {\color{blu}\ac{c}} > {\color{grn}\ac{b}})
+		\item<2-> Non-prosodic factors (\redd{a} > \bluu{c} > \grnn{b})
 			\begin{itm}
 			\item Vowel space size: area of convex hull
 			\item Vowel space size: mean distance from center
 			\item Vowel space size: F1 range
 			\item[]
 			\end{itm}
-		\item<3> Prosody ({\color{grn}\ac{b}} > {\color{rdd}\ac{a}} > {\color{blu}\ac{c}})
+		\item<3> Prosody (\grnn{b} > \redd{a} > \bluu{c})
 			\begin{itm}
 			\item Nothing matches!
 			\end{itm}
@@ -604,6 +666,9 @@
 	\item[] Relative magnitudes of prosodic metrics
 	\item[] \includegraphics[width=\textwidth,height=0.75\textheight,keepaspectratio]{../figures/posthocs/ProsodicMeasures.eps}
 %			\caption[Barplot of prosodic metrics]{Barplot of the relative magnitudes of several prosodic metrics. Each metric has been scaled by dividing by the maximum absolute value among the three talkers.\label{fig:ProsodicMeasures}}
+% TODO: separate intensity from pitch (give it its own barplot)
+% TODO: add duration if time
+% TODO: add vowel space metric barplots?  cluster size?  repulsive force?
 	\end{itm}
 \end{frame}
 
@@ -621,7 +686,7 @@
 				\begin{itm}
 				\item[]
 				\end{itm}
-			\item<2> If we ignore {\color{blu}\ac{c}}, prosody predicts {\color{grn}\ac{b}}~>~{\color{rdd}\ac{a}}.  Matches:
+			\item<2> If we ignore \bluu{c}, prosody predicts \grnn{b}~>~\redd{a}.  Matches:
 				\begin{itm}
 				\item Mean \fo{} range
 				\item Mean \fo{} dynamicity
@@ -667,32 +732,39 @@
 %===== DISCUSSION =====%
 \section{Discussion}
 
+\begin{frame}{Discussion}
+	\begin{itm}
+	\item[] Why does area of \emp{vowel means} polygon follow overall intelligibility pattern (\redd{a} > \grnn{b} > \bluu{c}), but area of \emp{convex hull} follows non-prosodic pattern (\redd{a} > \bluu{c} > \grnn{b})? 
+		\begin{itm}
+		\item[]
+		\item<2-> Formant values are from lexically stressed vowels in keywords \emp{throughout sentence}
+		\item[]
+		\item<3-> Thus variation in F1 \& F2 reflects low-level variation (coarticulation) and variation due to prosody (phrasal accent)
+		\item[]
+		\item<4> \emp{Mean} formant values reflect this variation; convex hull indexes only \emp{extreme} values
+		\end{itm}
+	\end{itm}
+\end{frame}
+
 \begin{frame}{Things I could say a lot more about...}
 	\begin{itm}
 	\item<1,2> Why does \# of release bursts follow  overall intelligibility pattern instead of non-prosodic pattern?
 		\begin{itm}
 		\only<2>{%
-		\item Prosody affects prominence: phrasal stress, domain-initial strengthening \etc. Speech rate may also play a role.
+		\item Prosody affects prominence, and prominence (partially) determines stop articulation.  Speech rate, phrasal stress, domain-initial strengthening may all play a role.
 		}
 		\item[]
 		\end{itm}
-	\item<1,3> Why does area of vowel means polygon follow overall intelligibility pattern, but area of convex hull follows non-prosodic pattern?
+	\item<1,3> About those keywords... 
 		\begin{itm}
 		\only<3>{%
-		\item Vowel formant values came from stressed vowels in keywords throughout sentence.  Thus differences in extreme \vs\ reduced forms (and means measured from them) are likely to reflect phrasal accents as well as segment-level talker habits.  Convex hull tracks \emph{\hl extreme} values only, thus “ignores” prosodically-driven reduction.
-		}
-		\item[]
-		\end{itm}
-	\item<1,4> About those keywords... 
-		\begin{itm}
-		\only<4>{%
 		\item No good scoring method exists.  Some keywords easier than others.  We can model this to some extent, but there are still “near miss” \vs\ “totally wrong” responses; this is not captured by counting 1’s and 0’s.
 		}
 		\item[]
 		\end{itm}
-	\item<1,5> What about familiarity?
+	\item<1,4> What about familiarity?
 		\begin{itm}
-		\only<5>{%
+		\only<4>{%
 		\item I really wanted to find out what underlies the familiar talker advantage.  Unfortunately experiment 2 didn’t work.  Listeners showed differential accommodation to different training talkers, but did not retain the advantage into the testing phase (when talkers were presented randomly).  More research needed.
 		}
 		\item[]
