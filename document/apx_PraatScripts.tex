@@ -7,34 +7,34 @@
 % mix noise
 % ramp edges
 
-This appendix contains the scripts used in stimulus creation for this thesis, and together represent a more-or-less complete workflow for high-quality \psola{} resynthesis using Praat (with the possible exception of initial \ac{rms} normalization of the original recordings, which functionality is built into Praat and for which numerous scripts are available online).
+This appendix contains the scripts used in stimulus creation for this thesis, and together represent a more\-/or\-/less complete workflow for high\-/quality \psola{} resynthesis using Praat (with the possible exception of initial \ac{rms} normalization of the original recordings, which functionality is built into Praat and for which numerous scripts are available online).
 
 % SEGMENTATION
 \section{Syllabic segmentation by intensity\label{scr:SyllIntens}}
-This script takes a directory of sound files and, for each file, creates a new TextGrid and prepopulates an interval tier with boundaries at each local minimum of the sound file’s intensity contour.  It then presents the user with a TextGrid editor for the opportunity to adjust boundaries, add new ones, delete spurious ones, and add notes if desired.  The file name, notes (if any) and a sequential number are written to a log file.  Users can stop the script at any time, and resume work on the same directory of sound files by entering a “starting file number” when re-initiating the script.
+This script takes a directory of sound files and, for each file, creates a new TextGrid and prepopulates an interval tier with boundaries at each local minimum of the sound file’s intensity contour.  It then presents the user with a TextGrid editor for the opportunity to adjust boundaries, add new ones, delete spurious ones, and add notes if desired.  The file name, notes (if any) and a sequential number are written to a log file.  Users can stop the script at any time, and resume work on the same directory of sound files by entering a “starting file number” when re\=/initiating the script.
 \begin{code}
 	\inputminted[fontsize=\footnotesize, tabsize=2]{r}{../scripts/dissversions/CreateSyllableTierFromIntensity_DissVersion.praat}
-	\caption[Syllabic segmentation by intensity]{Praat script for semi-automated syllable-level segmentation by intensity\label{lst:SylInt}}
+	\caption[Syllabic segmentation by intensity]{Praat script for semi\-/automated syllable\-/level segmentation by intensity\label{lst:SylInt}}
 \end{code}
 \newpage
 
 % PITCH SETTINGS AND PULSE CORRECTION
 \section{Semi-auto pulse correction\label{scr:PulseCor}}
-This script facilitates semi-automatic creation of manipulation objects from \texttt{.wav} files.  It takes a directory of sound files and, for each file, displays the pitch contour over a narrowband spectrogram, and prompts the user to either:
-\begin{inparaenum}
+This script facilitates semi\-/automatic creation of manipulation objects from \texttt{.wav} files.  It takes a directory of sound files and, for each file, displays the pitch contour over a narrowband spectrogram, and prompts the user to either:
+\begin{inparaenum}[(a)]
 	\item accept the pitch settings, 
-	\item adjust the pitch floor/ceiling and redraw, or
+	\item adjust the pitch floor\slsh ceiling and redraw, or
 	\item mark the file as unmeasurable,
 \end{inparaenum}
-before continuing on to the next file.  An \texttt{advancedInterface} option is available for users who want full control over all pitch parameters during the process.  Filename, duration, and pitch settings are saved to a tab-delimited log file.  The option \texttt{outputType} allows users to 
-\begin{inparaenum}
+before continuing on to the next file.  An \texttt{advancedInterface} option is available for users who want full control over all pitch parameters during the process.  Filename, duration, and pitch settings are saved to a tab\-/delimited log file.  The option \texttt{outputType} allows users to 
+\begin{inparaenum}[(a)]
 	\item continue to next file after finalizing pitch settings,
 	\item silently create and save manipulation objects using final pitch settings before continuing, or
-	\item create manipulation objects and open them for hand-correction before continuing to the next file.
+	\item create manipulation objects and open them for hand\-/correction before continuing to the next file.
 \end{inparaenum}  
 \begin{code}
 	\inputminted[fontsize=\footnotesize, tabsize=2]{r}{../scripts/dissversions/SoundToManipulation_DissVersion.praat}
-	\caption[Semi-auto pulse correction]{Praat script for semi-automated correction of glottal pulses within a manipulation object.\label{lst:PulseCor}}
+	\caption[Semi-auto pulse correction]{Praat script for semi\-/automated correction of glottal pulses within a manipulation object.\label{lst:PulseCor}}
 \end{code}
 \newpage
 
@@ -49,12 +49,12 @@ This script takes as input two manipulation objects and two {TextGrids} and maps
 
 % CREATE LTAS NOISE
 \section[Create speech-shaped noise]{Create noise spectrally shaped to the \ac{ltas} of the corpus}
-This script takes a directory of sound files and creates a Gaussian noise file that is spectrally shaped to match the long-term average spectrum (\ac{ltas}) of the stimuli.  The noise file is created to match the duration of the longest stimulus (plus any noise padding specified in the arguments to the script), and scaled to match the average intensity of the stimuli.  Two methods of spectral averaging are available: either
-\begin{inparaenum}
+This script takes a directory of sound files and creates a Gaussian noise file that is spectrally shaped to match the long\-/term average spectrum (\ac{ltas}) of the stimuli.  The noise file is created to match the duration of the longest stimulus (plus any noise padding specified in the arguments to the script), and scaled to match the average intensity of the stimuli.  Two methods of spectral averaging are available: either
+\begin{inparaenum}[(a)]
 \item calculating the \ac{ltas} of each file and averaging them, or \label{list:methodOne} 
 \item concatenating the stimuli and breaking into equal-sized chunks and averaging the spectra of the chunks.  
 \end{inparaenum}
-The methods are expected to differ substantially only when the stimuli vary dramatically in length (in which case method \ref{list:methodOne}, by treating all file-level \ac{ltas} objects equally, effectively weights the final spectrum in favor of shorter files).  The script also saves the \ac{ltas} object into the output directory (along with the noise file).
+The methods are expected to differ substantially only when the stimuli vary dramatically in length (in which case method \ref{list:methodOne}, by treating all file\-/level \ac{ltas} objects equally, effectively weights the final spectrum in favor of shorter files).  The script also saves the \ac{ltas} object into the output directory (along with the noise file).
  \begin{code}
 	\inputminted[fontsize=\footnotesize, tabsize=2]{r}{../scripts/dissversions/LTASNoise_DissVersion.praat}
 	\caption[Create speech-shaped noise]{Praat script for creating speech-shaped noise.\label{lst:LTASNoise}}
@@ -63,7 +63,7 @@ The methods are expected to differ substantially only when the stimuli vary dram
 
 % MIX NOISE
 \section{Mix signal and noise}
-This script takes a noise file and a directory of sound files, and mixes the stimuli with the noise at a specified \ac{snr}, writing the files to the specified directory.  The mixed signal-plus-noise files can optionally be scaled to match the original intensity of the stimulus files. 
+This script takes a noise file and a directory of sound files, and mixes the stimuli with the noise at a specified \ac{snr}, writing the files to the specified directory.  The mixed signal\-/plus\-/noise files can optionally be scaled to match the original intensity of the stimulus files. 
 \begin{code}
 	\inputminted[fontsize=\footnotesize, tabsize=2]{r}{../scripts/dissversions/MixSpeechNoise_DissVersion.praat}
 	\caption[Mix signal and noise]{Praat script for mixing speech and noise at a specified \ac{snr}.\label{lst:MixNoise}}
@@ -82,7 +82,7 @@ This script takes a directory of sound files and applies linear onset and offset
 \exclude{
 % VACUOUS RESYNTH
 \section{Vacuous resynthesis}
-This script takes a directory of manipulation objects and monotonizes the pitch using \psola, then reapplies the original pitch contour (also using \psola).  The purpose of this is to intentionally introduce processing artifacts into what would otherwise be clean, unmanipulated recordings, to provide a more equivalent comparison point for prosody-swapped stimuli. 
+This script takes a directory of manipulation objects and monotonizes the pitch using \psola, then reapplies the original pitch contour (also using \psola).  The purpose of this is to intentionally introduce processing artifacts into what would otherwise be clean, unmanipulated recordings, to provide a more equivalent comparison point for prosody-swapped stimuli.  Note that this script was developed for, but not used in, the experiments described in this thesis.  The reason it was not used is that the amount of distortion introduced by vacuous resynthesis was negligible, most likely due to the high\-/quality pitch tracks derived from hand\-/corrected pulse epoch marks.  Thus it was judged that treating the vacuously resynthesized stimuli to be as equally distorted as the stimuli resynthesized with prosodic replacement was inadvisable, and a choice was made to model the difference statistically instead. 
 \begin{code}
 	\inputminted[fontsize=\footnotesize, tabsize=2]{r}{../scripts/dissversions/VacuousResynthesis_DissVersion.praat}
 	\caption[Vacuous resynthesis]{Praat script for introducing processing artifacts without altering prosody, via monotonization and demonotonization.\label{lst:VacResynth}}
