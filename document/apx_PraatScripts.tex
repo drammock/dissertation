@@ -79,13 +79,13 @@ This script takes a directory of sound files and applies linear onset and offset
 \end{code}
 \newpage
 
-\exclude{
+%\exclude{
 % VACUOUS RESYNTH
 \section{Vacuous resynthesis}
-This script takes a directory of manipulation objects and monotonizes the pitch using \psola, then reapplies the original pitch contour (also using \psola).  The purpose of this is to intentionally introduce processing artifacts into what would otherwise be clean, unmanipulated recordings, to provide a more equivalent comparison point for prosody-swapped stimuli.  Note that this script was developed for, but not used in, the experiments described in this thesis.  The reason it was not used is that the amount of distortion introduced by vacuous resynthesis was negligible, most likely due to the high\-/quality pitch tracks derived from hand\-/corrected pulse epoch marks.  Thus it was judged that treating the vacuously resynthesized stimuli to be as equally distorted as the stimuli resynthesized with prosodic replacement was inadvisable, and a choice was made to model the difference statistically instead. 
+This script takes a directory of manipulation objects and monotonizes the pitch using \psola, then reapplies the original pitch contour (also using \psola).  The purpose of this is to intentionally introduce processing artifacts into what would otherwise be clean, unmanipulated recordings, to provide a more equivalent comparison to prosody\-/swapped stimuli.  Note that this script was developed for, but not used in, the experiments described in this thesis.  The reason it was not used is that the amount of distortion introduced by this method of vacuous resynthesis was negligible, most likely due to the high\-/quality pitch tracks derived from hand\-/corrected pulse epoch marks.  Thus it was judged that treating the vacuously resynthesized stimuli to be as equally distorted as the stimuli resynthesized with prosodic replacement was inadvisable, and a choice was made to model the difference statistically instead.  
 \begin{code}
 	\inputminted[fontsize=\footnotesize, tabsize=2]{r}{../scripts/dissversions/VacuousResynthesis_DissVersion.praat}
 	\caption[Vacuous resynthesis]{Praat script for introducing processing artifacts without altering prosody, via monotonization and demonotonization.\label{lst:VacResynth}}
 \end{code}
-}
+%}
 %\newpage

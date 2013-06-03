@@ -37,7 +37,7 @@ In this model, the dependent variable {\inlinecode sentScore} is the number of k
 %A summary of the model shown in Equation~\ref{eq:ExpOneMM} 
 A summary of fixed\-/effects predictors for this model is given in Table~\ref{tab:ExpOneFixedEff}.  All fixed\-/effects predictors were significantly different from zero, and there was no evidence of correlation of fixed effects (correlation coefficients all less than 0.1; not shown).  The baseline condition is Talker~\ac{a}, with a value at the intercept of about 4.1 words correct.  The coefficients reveal similar patterns to those seen in Figure~\ref{fig:ExpOneBarplot}: firstly, the model supports the interpretation that Talker~\ac{b} has the most intelligible prosody.  Having the prosody of Talker~\ac{b} represents a net gain of 0.3 words correct over the prosody of Talker~\ac{a}, whereas having the prosody of Talker~\ac{c} represents a net loss of more than 0.6 words correct compared to Talker~\ac{a}.  The model also supports the idea that Talker~\ac{a}’s intelligibility stems in large part from non\=/prosodic factors, given that the other levels of {\inlinecode segDonor} both have strongly negative coefficients.  The estimated degradation due to resynthesis is about −0.7 keywords correct.  Because trial was a continuous variable ranging from 1–90, the coefficient for the effect of trial is misleadingly small; the predicted difference between the first and the last trial due to listener adaptation to the task is actually 90×0.005549, or 0.5 keywords.
 
-\begin{table}
+\begin{table}[tbp]
 	\caption[Experiment~1 statistical model: Fixed effects]{Summary of fixed effect predictors in the statistical model of Experiment~1.  \textit{s}: standard error of the coefficient estimate; \textit{t}: \textit{t}\=/value of coefficient estimate; \textit{p}: \textit{p}\=/value of coefficient estimate (calculated via \ac{mcmc}).\label{tab:ExpOneFixedEff}}
 	\centering
 	\begin{tabu} spread 1em {Xrcrc}
@@ -60,7 +60,7 @@ A summary of fixed\-/effects predictors for this model is given in Table~\ref{ta
 A summary of the random effects in the model for Experiment~1 are shown in Table~\ref{tab:ExpOneRandomEff}.  The results here are not unexpected: the variance in intercepts due to particular listeners doing systematically better or worse on the task is only about 2\% of the total residual variance.  This suggests that, by and large, all listeners were performing equally well on the task.  The variance in intercepts due to varying difficulty of particular sentences is somewhat larger (about 22\% of the total residual variance, or a standard deviation of 0.7 keywords correct),\footnotemark{} suggesting that there was indeed some value in modeling the sentences as varying in their difficulty (cf. the discussion of scoring in Section~\ref{sec:Scoring}).
 \footnotetext{The \ac{mcmc} estimate for variability due to listener is in close agreement with the fitted model.  The \ac{mcmc} estimate for variability due to sentence is slightly smaller than the value in the fitted model, at 16\% of the total variance (\vs\ 22\%), with a standard deviation for sentence of about 0.6 keywords (\vs\ 0.7).}
 
-\begin{table}
+\begin{table}[tbp]
 	\caption[Experiment~1 statistical model: Random effects]{Summary of random effects in the statistical model of Experiment~1.  \textit{s}²: estimated variance; \textit{s}: standard error; \ac{hpd}: highest posterior density interval.\label{tab:ExpOneRandomEff}}
 	\centering
 	\begin{tabu} spread 1em {Xcccc}
@@ -94,7 +94,7 @@ Considering the control and experimental listener groups separately, both show a
 \begin{figure}[bt]
 	\begin{centering}
 	\includegraphics{figures/results/QuartileBarplot.eps}
-	\caption[Quartile analysis of training phase in Experiment~2]{Quartile analysis of training phase in Experiment~2.  Improvement is seen during training for both the control group (trained on Talker~\ac{d}) and the experimental group (trained on Talker~\ac{c}).  The adaptation in the experimental group appears not to have persisted through the testing phase.\label{fig:Quartile}}
+	\caption[Quartile analysis of Experiment~2 training phase by group]{Quartile analysis of training phase in Experiment~2.  Improvement is seen during training for both the control group (trained on Talker~\ac{d}) and the experimental group (trained on Talker~\ac{c}).  The adaptation in the experimental group appears not to have persisted through the testing phase.\label{fig:Quartile}}
 	\end{centering}
 \end{figure}
 
@@ -112,7 +112,7 @@ In light of this, it is perhaps unsurprising that training did not confer a reli
 \subsection{Experiment~2 statistical model}
 Full results of the statistical model for Experiment~2 are shown in Table~\ref{tab:ExpTwoFixedEff}.  Predictor codes are the same as in the model for Experiment~1, with the addition of Boolean variables {\inlinecode segTrain} (indicating match between the training talker and the segmental donor of the test stimulus) and {\inlinecode proTrain} (indicating match between the training talker and the prosodic donor of the test stimulus).  Unlike the model for Experiment~1, there is no significant effect for {\inlinecode trial} (unsurprising given Figure~\ref{fig:ExpTwoOctileBarplot}).  Aside from the lack of effect for {\inlinecode trial} and the two additional non\=/significant predictors {\inlinecode segTrain} and {\inlinecode proTrain}, the model is nearly identical to the model for Experiment~1; the magnitude, direction, and significance of the other fixed\-/effect predictors are all unchanged from Experiment~1.
 
-\begin{table}
+\begin{table}[tbp]
 	\caption[Experiment~2 statistical model: Fixed effects]{Summary of fixed effect predictors in the statistical model of Experiment~2.  \textit{s}: standard error of the coefficient estimate; \textit{t}: \textit{t}\=/value of coefficient estimate; \textit{p}: \textit{p}\=/value of coefficient estimate (calculated via \ac{mcmc}).\label{tab:ExpTwoFixedEff}}
 	\centering
 	\begin{tabu} spread 1em {Xrcrc}
@@ -138,7 +138,7 @@ A summary of the random effects in the model of Experiment~2 are shown in Table~
 
 \footnotetext{Again, \ac{mcmc} estimates for the effect of sentence were slightly smaller than the fitted model (18\% \vs\ 24\%), and there was close agreement between the two for the effect of listener.}
 
-\begin{table}
+\begin{table}[tbp]
 	\caption[Experiment~2 statistical model: Random effects]{Summary of random effects in the statistical model of Experiment~2.  \textit{s}²: estimated variance; \textit{s}: standard error; \ac{hpd}: highest posterior density interval.\label{tab:ExpTwoRandomEff}}
 	\centering
 	\begin{tabu} spread 1em {Xcccc}
