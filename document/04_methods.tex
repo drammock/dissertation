@@ -127,7 +127,7 @@ For Experiment~2 (testing the role of prosody in the familiar talker advantage),
 \section{\Ph{} acoustic analyses}
 To better understand the experimental results, a variety of acoustic measurements were performed on the stimuli, in hopes of identifying the acoustic dimensions that underlie the effects seen in the statistical models.  The measures are broadly divided into segmental measures (presence of stop release bursts, properties of the vowel space) and prosodic measures (mean pitch range, pitch velocity, intensity velocity, and speech rate).
 
-\subsection{Segmental measures}
+\subsection{Segmental measures\label{sec:SegmentalMethods}}
 The number of reduced stop consonants and affricates was measured in the unmodified recordings of Talkers~\ac{a}, \ac{b} and \ac{c}, as one estimate of the degree of segmental reduction \citep[cf.]{PichenyEtAl1986, LiLoizou2008}.  The presence of an unreduced stop consonant was quantified as either 
 \begin{inparaenum}[(a)]
 	\item greater than 20 ms silence in the waveform, or 
@@ -138,13 +138,13 @@ The number of reduced stop consonants and affricates was measured in the unmodif
 
 In order to remain agnostic about which measurements best characterize overall vowel space size, several different metrics were calculated, based on hand\-/measurements of 5 tokens per vowel per talker for the ten vowels /i ɪ e ɛ æ ɑ o ʊ u ʌ/.  Measured vowels were drawn from keywords in positions throughout the sentence, with a preference for vowels with obstruent flanking consonants to avoid coloring by adjacent nasals, rhotics, or laterals.  These hand\-/measured formant values were converted using the bark transform \citep{bark} prior to further analysis.
 
-Five measures of vowel space size were calculated from the formant data: F1 and F2 ranges, mean Euclidean distance from the center of the vowel space \citep[cf.][]{BradlowEtAl1996}, area of the vowel polygon based on phonemic means \citep[cf.][]{BradlowEtAl1996, Neel2008}, and area of the convex hull encompassing all vowel tokens.  In addition, two measures related to the composition of the vowel space were also calculated: total repulsive force of the vowel system \citep[cf.][]{LiljencrantsLindblom1972, Wright2004a} and mean vowel cluster size (area of the ellipse along a bivariate normal density contour, encompassing 68.27\% of the data points — equivalent to ±1 standard deviation from the bivariate mean).  
-
+Five measures of vowel space size were calculated from the formant data: F1 and F2 ranges, mean Euclidean distance from the center of the vowel space \citep[cf.][]{BradlowEtAl1996}, area of the vowel polygon based on phonemic means \citep[cf.][]{BradlowEtAl1996, Neel2008}, and area of the convex hull encompassing all vowel tokens.  In addition, two measures related to the composition of the vowel space were also calculated: total repulsive force of the vowel system \citep[cf.][]{LiljencrantsLindblom1972, Wright2004a} and mean vowel cluster size.  Repulsive force (sometimes called “total energy”) was calculated as the sum of inverse squared distances between all pairs of vowel tokens not belonging to the same phoneme, as in Equation~\ref{eq:force} (where /i/ and /j/ represent the phonemic categories of the vowel tokens being compared, and \textit{r} is the Euclidean distance formula).  
+%
 \begin{equation}\label{eq:force}
 	\sum_{i=1}^{n-1} \sum_{j=i+1}^{n} \frac{1}{r_{ij}^2} \text{, /i/ ≠ /j/}
 \end{equation}
-
-Repulsive force (sometimes called “total energy”) was calculated as the sum of inverse squared distances between all pairs of vowel tokens not belonging to the same phoneme, as in Equation~\ref{eq:force} (where /i/ and /j/ represent the phonemic categories of the vowel tokens being compared, and \textit{r} is the Euclidean distance formula).  This measures the degree to which neighboring vowel phonemes in a system encroach on one another, with higher values of repulsive force corresponding to greater degrees of phoneme overlap or encroachment.  The calculation seen here differs from both \citealt{LiljencrantsLindblom1972} and \citealt{Wright2004a} in calculating force based on individual vowel tokens rather than mean values for each vowel.
+%
+This measures the degree to which neighboring vowel phonemes in a system encroach on one another, with higher values of repulsive force corresponding to greater degrees of phoneme overlap or encroachment.  The calculation seen here differs from both \citealt{LiljencrantsLindblom1972} and \citealt{Wright2004a} in calculating force based on individual vowel tokens rather than mean values for each vowel.  Vowel cluster size was calculated as the area of the ellipse encompassing 68.27\% of the data points along a bivariate normal density contour (equivalent to ±1 standard deviation from the bivariate mean for each vowel), and the mean of all vowel cluster sizes was calculated for each talker.
 
 \subsection{Prosodic measures}
 To quantify variation in talkers’ use of duration, mean and variance of syllable duration was calculated.  %, as well as speech rate (measured in syllables/second).  
@@ -160,6 +160,6 @@ Additionally, the mean \emph{absolute value} of the rate of change in intensity 
 	\sum_{k=1}^{n-1} \frac{\lvert I_{k+1} - I_k \rvert}{(t_{k+1} - t_k) \times (n-1)}
 \end{equation}
 %
-Stimulus\-/level means for intensity velocity were then averaged within talkers, in hopes of capturing a talker’s tendency to “trail off” at the ends of utterances, or conversely to maintain a more consistent level across all the keywords in the sentence.  Likewise, stimulus\-/level means for intensity dynamicity were averaged within talkers in hopes of capturing differences in envelope modulations between talkers.
+Stimulus\-/level means for intensity velocity were then averaged within talkers, in hopes of capturing a talker’s tendency to “trail off” at the ends of utterances, or conversely to maintain a more consistent level across all the keywords in the sentence.  Likewise, stimulus\-/level means for intensity dynamicity were averaged within talkers in hopes of capturing differences in the magnitude of envelope modulations between talkers.
 
-To quantify pitch, the hand\-/corrected pitch tracks for the 90 test sentences were used to calculate average \fo{} range magnitude, as well as the mean rate of change of \fo{} (“pitch velocity”) and the mean absolute value of rate of change in \fo{} (“pitch dynamicity”).  Calculations for these values were identical to those used for intensity velocity and intensity dynamicity, respectively.
+To quantify pitch, the hand\-/corrected pitch tracks for the 90 test sentences were used to calculate average \fo{} range magnitude, as well as the mean rate of change of \fo{} (“pitch velocity”) and the mean absolute value of rate of change in \fo{} (“pitch dynamicity”).  Calculations for these values were identical to those used for intensity velocity and intensity dynamicity, respectively.  As with the intensity values, mean velocity is meant to capture overall trend in \fo, while mean dynamicity is meant to capture differences in the magnitude of \fo{} modulations.

@@ -1,5 +1,5 @@
 \chapter{Results\label{chap:Results}}
-This chapter describes the results of the two experiments conducted for this thesis.  Post\-/hoc analyses that help to clarify and explain the results are described in Chapter~\ref{chap:Discussion}. 
+This chapter describes the results of the two experiments conducted for this thesis.  Statistical models and post\-/hoc acoustic analyses that help to clarify and explain the results are also presented.
 
 \section{Experiment 1}
 Experiment~1 tests the role of prosody in intelligibility, by comparing mean sentence scores for unmodified talkers against resynthesized stimuli with prosodic replacement.  A quartile analysis indicated a significant improvement in performance between the first and last quartiles (\textit{t}=−3.016 on 709.3 degrees of freedom, \textit{p}<0.01; see Figure~\ref{fig:ExpOneQuartile}).  The magnitude of the difference between the first and fourth quartiles is approximately 0.4 keywords.
@@ -22,7 +22,7 @@ With regard to Research Question~1 — \emph{how does prosody relate to intellig
 	\end{centering}
 \end{figure}
 
-With regard to the question of whether low\-/intelligibility talkers can be made more intelligible through prosody alone, it would appear that the answer is “yes”: Talker~\ac{cb} appears to have higher scores than Talker~\ac{c}, despite the likelihood that Talker~\ac{cb}’s recordings suffer some amount of distortion from the resynthesis process, however small.  In other words, any degradation due to resynthesis seems to have been more than overcome by the benefit of having Talker~\ac{b}’s prosody mapped onto Talker~\ac{c}’s signal.
+With regard to the question of whether low\-/intelligibility talkers can be made more intelligible through prosody alone, it would appear that the answer is “yes”: Talker~\ac{cb} appears to have higher scores than Talker~\ac{c}, despite the likelihood that Talker~\ac{cb}’s recordings suffer some amount of distortion from the resynthesis process, however small.  In other words, any degradation due to resynthesis seems to have been more than overcome by the benefit of having Talker~\ac{b}’s prosody mapped onto Talker~\ac{c}’s signal.  However, it is noteworthy that the greatest improvement to Talker~\ac{c}’s intelligibility does not come from Talker~\ac{a}’s prosody, even though Talker~\ac{a} has the highest overall intelligibility.  This suggests that hihg\-/intelligibility talkers do not necessarily use prosody that enhances their intelligibility.
 
 \subsection{Experiment~1 statistical model}
 To further probe these results, the scores were submitted to a mixed\-/effects linear regression model, shown here:%in Equation~\ref{eq:ExpOneMM}:
@@ -110,7 +110,7 @@ In light of this, it is perhaps unsurprising that training did not confer a reli
 \end{figure}
 
 \subsection{Experiment~2 statistical model}
-Full results of the statistical model for Experiment~2 are shown in Table~\ref{tab:ExpTwoFixedEff}.  Predictor codes are the same as in the model for Experiment~1, with the addition of Boolean variables {\inlinecode segTrain} (indicating match between the training talker and the segmental donor of the test stimulus) and {\inlinecode proTrain} (indicating match between the training talker and the prosodic donor of the test stimulus).  Unlike the model for Experiment~1, there is no significant effect for {\inlinecode trial} (unsurprising given Figure~\ref{fig:ExpTwoOctileBarplot}).  Aside from the lack of effect for {\inlinecode trial} and the two additional non\=/significant predictors {\inlinecode segTrain} and {\inlinecode proTrain}, the model is nearly identical to the model for Experiment~1; the magnitude, direction, and significance of the other fixed\-/effect predictors are all unchanged from Experiment~1.
+Full results of the statistical model for Experiment~2 are shown in Table~\ref{tab:ExpTwoFixedEff}.  Predictor codes are the same as in the model for Experiment~1, with the addition of Boolean variables {\inlinecode segTrain} (indicating match between the training talker and the segmental donor of the test stimulus) and {\inlinecode proTrain} (indicating match between the training talker and the prosodic donor of the test stimulus).  
 
 \begin{table}[tbp]
 	\caption[Experiment~2 statistical model: Fixed effects]{Summary of fixed effect predictors in the statistical model of Experiment~2.  \textit{s}: standard error of the coefficient estimate; \textit{t}: \textit{t}\=/value of coefficient estimate; \textit{p}: \textit{p}\=/value of coefficient estimate (calculated via \ac{mcmc}).\label{tab:ExpTwoFixedEff}}
@@ -121,18 +121,20 @@ Full results of the statistical model for Experiment~2 are shown in Table~\ref{t
 		\rowfont\bfseries
 		\multicolumn{1}{l}{Predictor} & \multicolumn{1}{c}{Coefficient} & \textit{s} & \multicolumn{1}{c}{\itshape t} & \textit{p}\\
 		\midrule
-		Intercept	      &  4.366 & (0.139) &  31.50 & <10⁻¹⁶\\
-		resynth = TRUE    & −0.603 & (0.066) &  −9.15 & <10⁻¹⁶\\
-		segDonor = \ac{b} & −1.466 & (0.075) & −19.42 & <10⁻¹⁶\\
-		segDonor = \ac{c} & −1.159 & (0.098) & −11.80 & <10⁻¹⁶\\
-		proDonor = \ac{b} &  0.270 & (0.075) &   3.60 & <10⁻³\\
-		proDonor = \ac{c} & −0.584 & (0.098) &  −5.95 & <10⁻⁸\\
-		segTrain = TRUE   &  0.008 & (0.125) &   0.06 & 0.95\\
-		proTrain = TRUE   & −0.117 & (0.125) &  −0.94 & 0.35\\
-		trial             & −0.001 & (0.001) &  −0.64 & 0.53\\
+		Intercept	         &  4.366 & (0.139) &  31.50 & <10⁻¹⁶\\
+		resynth = \ac{true}  & −0.603 & (0.066) &  −9.15 & <10⁻¹⁶\\
+		segDonor = \ac{b}    & −1.466 & (0.075) & −19.42 & <10⁻¹⁶\\
+		segDonor = \ac{c}    & −1.159 & (0.098) & −11.80 & <10⁻¹⁶\\
+		proDonor = \ac{b}    &  0.270 & (0.075) &   3.60 & <10⁻³\\
+		proDonor = \ac{c}    & −0.584 & (0.098) &  −5.95 & <10⁻⁸\\
+		segTrain = \ac{true} &  0.008 & (0.125) &   0.06 & 0.95\\
+		proTrain = \ac{true} & −0.117 & (0.125) &  −0.94 & 0.35\\
+		trial                & −0.001 & (0.001) &  −0.64 & 0.53\\
 		\bottomrule
 	\end{tabu}
 \end{table}
+
+Unlike the model for Experiment~1, there is no significant effect for {\inlinecode trial} (unsurprising given Figure~\ref{fig:ExpTwoOctileBarplot}), most likely because listeners had already undergone a training phase and were already familiarized to the task.  Niether of the two new predictors {\inlinecode segTrain} and {\inlinecode proTrain} were significant, suggesting that listeners were not realizing a familiarity advantage due to training.  Aside from the lack of effect for {\inlinecode trial} and the two additional non\=/significant predictors {\inlinecode segTrain} and {\inlinecode proTrain}, the model is nearly identical to the model for Experiment~1; the magnitude, direction, and significance of the other fixed\-/effect predictors are all unchanged from Experiment~1.
 
 A summary of the random effects in the model of Experiment~2 are shown in Table~\ref{tab:ExpTwoRandomEff}.  The results are also very similar to Experiment~1, with estimates of listener accounting for about 4\% of the total unexplained variability (with a standard deviation of 0.3 keywords) and sentence accounting for about 24\% of total unexplained variability (with a standard deviation of about 0.7 keywords).\footnotemark{}
 
@@ -159,9 +161,7 @@ A summary of the random effects in the model of Experiment~2 are shown in Table~
 Overall, the statistical models for Experiments~1 and~2 support the view that both prosodic and non\=/prosodic factors contribute to differences in the intelligibility of talkers.  To better understand these results, a variety of acoustic measurements were performed on the stimuli, in hopes of identifying the acoustic dimensions that underlie the effects seen in the statistical models.  The measures are broadly divided into segmental measures (presence of stop release bursts, properties of the vowel space) and prosodic measures (mean pitch range, pitch velocity, pitch dynamicity, intensity velocity, intensity dynamicity, and syllable duration).
 
 \subsection{Segmental measures}
-The results of the stop consonant reduction analysis are shown in Figure~\ref{fig:ReleaseBursts}.  The percentages given are calculated as the total number of stops and affricates counted (across the 45 sentences measured) divided by the total number of expected stop consonants based on citation\-/form phonemic transcriptions; there was little difference between this method and the method of calculating the mean of unreduced stop percentage calculated on a per-stimulus basis.  The relative ordering of the talkers accords with their relative intelligibility (\ie, Talker~\ac{a} > Talker~\ac{b} > Talker~\ac{c}), but does not correspond to the expected ordering based on coefficients for segmental donor (\ac{a}~>~\ac{c}~>~\ac{b}).  
-
-A possible explanation for the ordering of talkers is that stop reduction may index both segmental and prosodic information, for two reasons: first, stop consonants often occur at word edges, which are loci for word\-/level prosodic marking, and second, stop consonants are often strengthened in prosodically prominent syllables at higher levels of phrasal structure (cf., \eg, \citealt{deJong1995, FougeronKeating1997, ChoEtAl2007, ColeEtAl2007}; see \citealt{Keating2006} for review).  In other words, because stop consonant reduction was measured across all words in the sentence, it may reflect a combination of each talker’s prosodic habits (\ie, tendency toward more \vs\ fewer intonational phrases) as well as purely segmental pronunciation habits (which might have been more easily observed from words lists).  Unfortunately, the \ac{pn/nc} corpus does not include recordings of word lists, so this explanation — however plausible — must remain speculative.
+The results of the stop consonant reduction analysis are shown in Figure~\ref{fig:ReleaseBursts}.  The percentages given are calculated as the total number of stops and affricates counted (across the 45 sentences measured) divided by the total number of expected stop consonants based on citation\-/form phonemic transcriptions; there was little difference between this method and the method of calculating the mean of unreduced stop percentage calculated on a per-stimulus basis.  The relative ordering of the talkers accords with their relative intelligibility (\ie, Talker~\ac{a}~> Talker~\ac{b}~> Talker~\ac{c}), but does not correspond to the expected ordering based on coefficients for segmental donor (\ac{a}~> \ac{c}~> \ac{b}).  
 
 \begin{figure}[bt]
 	\begin{centering}
@@ -170,12 +170,9 @@ A possible explanation for the ordering of talkers is that stop reduction may in
 	\end{centering}
 \end{figure}
 
-Results of the \ph{} analysis of vowel space size is shown in Figure~\ref{fig:VowelSpace}.  Here the expected pattern of \ac{a}~>~\ac{c}~>~\ac{b} (based on coefficients for segmental donor from Experiments~1 and~2) is seen in three of the five measures: mean distance from center, area of the convex hull, and F1 range.  F2 range does not correlate with any expected intelligibility-related pattern, while area of the polygon based on vowel means seems to correlate with overall intelligibility scores for each talker (\ie, \ac{a}~>~\ac{b}~>~\ac{c}).  
+A possible explanation for the ordering of talkers is that stop reduction may index both segmental and prosodic information, for two reasons: first, stop consonants often occur at word edges, which are loci for word\-/level prosodic marking, and second, stop consonants are often strengthened in prosodically prominent syllables at higher levels of phrasal structure (cf., \eg, \citealt{deJong1995, FougeronKeating1997, ChoEtAl2007, ColeEtAl2007}; see \citealt{Keating2006} for review).  In other words, because stop consonant reduction was measured across all words in the sentence, it may reflect a combination of each talker’s prosodic habits (\ie, tendency toward more \vs\ fewer intonational phrases) as well as purely segmental pronunciation habits (which might have been more easily observed from words lists).  Unfortunately, the \ac{pn/nc} corpus does not include recordings of word lists, so this explanation must remain speculative.
 
-The difference between area of the convex hull and area of the vowel means polygon is especially interesting.  One explanation for the difference is that the convex hull effectively ignores vowel tokens that are reduced (for whatever reason), and thus indexes a talker’s most extreme vowel productions.  On the other hand, area of the vowel means polygon includes information from multiple vowel tokens, and the mean of those tokens may include variability due to prosodic differences between talkers (because the tokens came from various positions within the sentence).  This point is made stronger by the fact that all the vowel tokens measured in this study came from lexically stressed syllables in content words, so to the extent that reduction is present in those tokens, it is \emph{not} reduction due to lack of lexical stress.  In this way, area of the vowel means polygon can be said to contain information about both segmental and prosodic dimensions of speech (much like stop consonant reduction discussed above), and may explain why it corresponds to the ordering of talkers based on general intelligibility scores, rather than the ordering of talkers based on segmental donor coefficients in the statistical models.  In contrast, area of the convex hull is a better index of purely segmental properties of speech, since it ignores within-category variation of vowels (at least some of which is prosodically\-/motivated); this explains why area of the convex hull correlates with the ordering of talkers based on prosodic donor coefficients.
-%(on average, how reduced are vowels that should have been accented?)
-
-%One question that remains is why mean dist from center & F1 range work well.
+Results of the \ph{} analysis of vowel space size is shown in Figure~\ref{fig:VowelSpace}.  Here the expected pattern of \ac{a}~> \ac{c}~> \ac{b} (based on coefficients for segmental donor from Experiments~1 and~2) is seen in three of the five measures: mean distance from center, area of the convex hull, and F1 range.  F2 range does not correlate with any expected intelligibility-related pattern, while area of the polygon based on vowel means seems to correlate with overall intelligibility scores for each talker (\ie, \ac{a}~> \ac{b}~> \ac{c}).  
 
 \begin{figure}[bt]
 	\begin{centering}
@@ -184,7 +181,33 @@ The difference between area of the convex hull and area of the vowel means polyg
 	\end{centering}
 \end{figure}
 
-% TODO: force and cluster size
+The difference between area of the convex hull and area of the vowel means polygon is especially interesting.  Figure~\ref{fig:ConvexHull} plots both the convex hull and vowel means polygons on data from Talker~\ac{a}.  This figure illustrates one possible explanation for the difference in patterning between these two measures of vowel space size: the convex hull effectively ignores vowel tokens that are reduced (for any reason) — and thus indexes a talker’s most extreme vowel productions — whereas the area of the vowel means polygon includes information from multiple vowel tokens, which may show reduction due to prosodic differences between talkers (because the tokens came from various positions within the sentence).  Considering that all the vowel tokens measured came from lexically stressed syllables in content words, any vowel quality reduction present in these tokens is \emph{not} reduction due to lack of \emph{lexical} stress; thus it is quite likely that the reduction seen is prosodic in origin.
+
+\begin{figure}[bt]
+	\begin{centering}
+	\includegraphics{figures/posthocs/ConvexHull.eps}
+	\caption[Vowel space metrics]{Illustration of two vowel space area metrics (data from Talker~\ac{a}).  The area of the polygon described by vowel means (dashed red line) is contrasted with the convex polygonal hull (solid blue line).  Note the difference between the polygons in the high\-/back and low\-/front regions due to /u/-fronting and /æ/-raising (respectively), as well as differences due to reduction (particularly in the /o/, /ʊ/ and /ɛ/ regions).\label{fig:ConvexHull}}
+	\end{centering}
+\end{figure}
+
+The distribution of vowel tokens in Figure~\ref{fig:ConvexHull} raises another issue regarding vowel space size, which is that information about vowel category overlap and within\-/category variation — both potentially relevant factors to intelligibility — are not reflected in measures of convex hull area, but are somewhat conflated with the area of the vowel means polygon.  For example, the large variation in F2 of the high back vowel /u/ drastically reduces the area of the vowel means polygon when compared to the convex hull, but the variation in /u/ is likely not due to reduction, but rather is an example of the widespread change\-/in\-/progress known as /u/-fronting \citep[chap.\ 12]{LabovEtAl2006}.  Similar variation is seen in F1 for /æ/ (cf. reports of /æ/-raising before velars and the merger of /ɛ/ with /e/ in the Pacific Northwest: \citealt{Reed1952, WassinkEtAl2009}).  In this way, area of the vowel means polygon could be said to contain information about both segmental and prosodic dimensions of speech (much like stop consonant reduction discussed above), and may explain why it corresponds to the ordering of talkers based on general intelligibility scores, rather than the ordering of talkers based on segmental donor coefficients in the statistical models.  In contrast, area of the convex hull may be a better index of purely segmental properties of speech, since it ignores within-category variation of vowels (at least some of which is prosodically\-/motivated); this would explain why area of the convex hull correlates with the ordering of talkers based on signal donor coefficients.
+
+These examples suggest a need to disentangle overall vowel space expansion from individual vowel category size, and to include measures of category overlap or encroachment.  Measures of mean cluster size and repulsive force of each talker’s vowel system are shown in Figure~\ref{fig:ForceCluster} (see Section~\ref{sec:SegmentalMethods} for definition of these measures).
+
+\begin{figure}[bt]
+	\begin{centering}
+	\includegraphics{figures/posthocs/ForceCluster.eps}
+	\caption[Barplot of vowel overlap and encroachment metrics]{Barplot of the relative magnitudes of mean vowel cluster size and repulsive force.  Each metric has been scaled by dividing by the maximum value among the three talkers.\label{fig:ForceCluster}}
+	\end{centering}
+\end{figure}
+
+The expected pattern of \ac{a}~> \ac{c}~> \ac{b} based on the statistical model coefficients for segmental donor is seen in the relative magnitudes of repulsive force, but not in the magnitudes of mean cluster size.  % TODO: plot of cluster size, explain why it doesn't track segDonor
+
+% % % % % % % % %
+% % % % % % % % %
+% PROGRESS MARKER
+% % % % % % % % %
+% % % % % % % % %
 
 \subsection{Prosodic measures}
 \begin{figure}[bt]
@@ -194,7 +217,7 @@ The difference between area of the convex hull and area of the vowel means polyg
 	\end{centering}
 \end{figure}
 
-\Ph{} analyses of the prosodic measures related to \fo{} are shown in Figure~\ref{fig:ProsodicMeasuresPitch}.  The expected pattern based on statistical model coefficients for prosodic donor is Talker~\ac{b}~> Talker~\ac{a}~> Talker~\ac{c}.  None of the three measures match this pattern exactly; the closest is mean \fo{} dynamicity, which shows a pattern of \ac{b}~≈~\ac{c}~>~\ac{a}.  Mean \fo{} range shows a pattern of \ac{c}~>~\ac{b}~>~\ac{a}, as does mean \fo{} velocity (in the case of velocity, “>” meaning “more negative”).\footnotemark{}  One explanation that ties these three measures together is the fact that Talker~\ac{c} exhibits a lot of creaky voicing in his speech, especially utterance\-/finally, which accounts for his highly negative value of \fo{} velocity (nearly twice the magnitude of Talker~\ac{a}).  The relatively frequent occurrence of creaky voicing in Talker~\ac{c}’s stimulus sentences can be seen in Figure~\ref{fig:PitchTracks}, by the high number of “tails” protruding downward from the main mass of pitch tracks at the ends of several sentences.
+\Ph{} analyses of the prosodic measures related to \fo{} are shown in Figure~\ref{fig:ProsodicMeasuresPitch}.  The expected pattern based on statistical model coefficients for prosodic donor is Talker~\ac{b}~> Talker~\ac{a}~> Talker~\ac{c}.  None of the three measures match this pattern exactly; the closest is mean \fo{} dynamicity, which shows a pattern of \ac{b}~≈ \ac{c}~> \ac{a}.  Mean \fo{} range shows a pattern of \ac{c}~> \ac{b}~> \ac{a}, as does mean \fo{} velocity (in the case of velocity, “>” meaning “more negative”).\footnotemark{}  One explanation that ties these three measures together is the fact that Talker~\ac{c} exhibits a lot of creaky voicing in his speech, especially utterance\-/finally, which accounts for his highly negative value of \fo{} velocity (nearly twice the magnitude of Talker~\ac{a}).  The relatively frequent occurrence of creaky voicing in Talker~\ac{c}’s stimulus sentences can be seen in Figure~\ref{fig:PitchTracks}, by the high number of “tails” protruding downward from the main mass of pitch tracks at the ends of several sentences.
 \footnotetext{Recall that dynamicity is a measure of the mean of the \emph{absolute value} in rate of change of \fo, whereas velocity is the mean of the signed rate of change.  As such, velocity reflects overall trends in pitch across the utterance, whereas dynamicity better indexes the magnitude of pitch movements throughout the utterance.}
 
 \begin{figure}[pbt]
@@ -213,7 +236,7 @@ The consistent use of creaky voicing also inflates Talker~\ac{c}’s values for 
 	\end{centering}
 \end{figure}
 
-\Ph{} analyses of the prosodic measures related to intensity are seen in Figure~\ref{fig:ProsodicMeasuresIntensity}.  The values for mean intensity dynamicity follow the predicted pattern of \ac{b}~>~\ac{a}~>~\ac{c}, but only the difference between Talkers~\ac{b} and~\ac{c} is significant.  The small differences between talkers is probably due to the fact that intensity dynamicity mostly tracks something like obstruent\slsh sonorant alternation rate, since the largest\-/magnitude intensity modulations in speech (at all but the shortest time scales) are the inherent differences between segment types — voiceless stop closures at one extreme, and open vowels at the other (cf. the well\-/known linguistic notion of \term{sonority}).  Because all talkers read the same set of sentences, the patterns of obstruent\-/sonorant alternation were by and large identical across talkers (modulo variation due to segmental reduction) and therefore any variation due to inter\-/talker differences in prosody are likely to be relatively small in comparison (and thus hard to detect statistically).
+\Ph{} analyses of the prosodic measures related to intensity are seen in Figure~\ref{fig:ProsodicMeasuresIntensity}.  The values for mean intensity dynamicity follow the predicted pattern of \ac{b}~> \ac{a}~> \ac{c}, but only the difference between Talkers~\ac{b} and~\ac{c} is significant.  The small differences between talkers is probably due to the fact that intensity dynamicity mostly tracks something like obstruent\slsh sonorant alternation rate, since the largest\-/magnitude intensity modulations in speech (at all but the shortest time scales) are the inherent differences between segment types — voiceless stop closures at one extreme, and open vowels at the other (cf. the well\-/known linguistic notion of \term{sonority}).  Because all talkers read the same set of sentences, the patterns of obstruent\-/sonorant alternation were by and large identical across talkers (modulo variation due to segmental reduction) and therefore any variation due to inter\-/talker differences in prosody are likely to be relatively small in comparison (and thus hard to detect statistically).
 
 \begin{figure}[pbt]
 	\begin{centering}
@@ -231,6 +254,6 @@ Values for mean intensity velocity show an unusual pattern in which Talker~\ac{a
 	\end{centering}
 \end{figure}
 
-\Ph{} analyses of syllable duration are seen in Figure~\ref{fig:SyllableDuration}.  Mean syllable duration for Talkers~\ac{b} and~\ac{c} is nearly identical, and thus cannot explain the difference in intelligibility between them.  This is consistent with findings in the literature suggesting that within\-/talker changes in intelligibility are not necessarily accompanied by a change in speech rate \citep{KrauseBraida2002}; further interpretation of mean speech rate values is limited by the small number of talkers investigated here.  Interestingly, \emph{variability} in syllable duration appears to follow the pattern of non\=/prosodic coefficients (\ie, \ac{a}~>~\ac{c}~>~\ac{b}).  This is unexpected, since large variability in syllable duration is expected to index more extreme duration contrasts between prominent and reduced syllables (more a prosodic phenomenon than a segmental or lexical one).  This result also merits further investigation with a larger sample of talkers.
+\Ph{} analyses of syllable duration are seen in Figure~\ref{fig:SyllableDuration}.  Mean syllable duration for Talkers~\ac{b} and~\ac{c} is nearly identical, and thus cannot explain the difference in intelligibility between them.  This is consistent with findings in the literature suggesting that within\-/talker changes in intelligibility are not necessarily accompanied by a change in speech rate \citep{KrauseBraida2002}; further interpretation of mean speech rate values is limited by the small number of talkers investigated here.  Interestingly, \emph{variability} in syllable duration appears to follow the pattern of non\=/prosodic coefficients (\ie, \ac{a}~> \ac{c}~> \ac{b}).  This is unexpected, since large variability in syllable duration is expected to index more extreme duration contrasts between prominent and reduced syllables (more a prosodic phenomenon than a segmental or lexical one).  This result also merits further investigation with a larger sample of talkers.
 
 % \subsection{\Ph{} statistical analysis}
