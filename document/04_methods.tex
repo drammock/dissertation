@@ -3,14 +3,14 @@
 This chapter describes the methods used for stimulus creation, data collection, and data analysis.  Scripts used for stimulus creation are referenced in the text, and are collected in Appendix~\ref{apx:PraatScripts}.%  Analysis code is included in Appendix~\ref{apx:StatCode}.
 
 \section{The \ac{pn/nc} corpus\label{sec:pnnc}}
-Stimuli for the experiments described here were recordings of the \ac{ieee} “Harvard” sentences \citep{HarvardSents} drawn from the \ac{pn/nc} corpus \citep{xxx}.  The 180 sentences in the \ac{pn/nc} corpus were selected from among the 720 \ac{ieee} sentences based on absence of alliteration or rhyming, avoidance of focus/contrast readings, and lack of marked locutions.  The full list of sentences used is given in Appendix~\ref{apx:HarvardSents}.  
+Stimuli for the experiments described here were recordings of the \ac{ieee} “Harvard” sentences \citep{HarvardSents} drawn from the \ac{pn/nc} corpus \citep{pnnc}.  The 180 sentences in the \ac{pn/nc} corpus were selected from among the 720 \ac{ieee} sentences based on absence of alliteration or rhyming, avoidance of focus/contrast readings, and lack of marked locutions.  The full list of sentences used is given in Appendix~\ref{apx:HarvardSents}.  
 
 Based on within\-/dialect intelligibility scores from \citet{McCloyEtAl2013}, three talkers were chosen for the present experiments, herein referred to as talkers \ac{a}, \ac{b}, and \ac{c}.  These talkers were selected from among the Pacific Northwest male talkers because, as a group, the Pacific Northwest male talkers exhibited the largest spread in intelligibility in the corpus, and those three talkers formed the endpoints and midpoint of that group, with talker \ac{a} being the most intelligible and talker \ac{c} the least intelligible (cf. Figure~\ref{fig:dotchart}).
 
 \begin{figure}
 	\begin{centering}
 	\includegraphics{figures/intelDotchart/intelDotchart.eps}
-	\caption[Intelligibility of talkers used to make the stimuli]{By\-/talker mean keywords correct (across 15 dialect\-/matched listeners) in speech\-/shaped noise at +2 dB \ac{snr} (data from \citealt{McCloyEtAl2013}).  The three talkers selected as test talkers for use in the present experiments are indicated by red arrows; the talker used as control (Talker~\ac{d}) is indicated by a blue arrow.\label{fig:dotchart}}
+	\caption[Intelligibility of talkers used to make the stimuli]{By\-/talker mean keywords correct (across 15 dialect\-/matched listeners) in speech\-/shaped noise at +2 dB \ac{snr} (data from \citealt{McCloyEtAl2013}).  The three talkers selected for resynthesis are indicated by red arrows; the talker used as control (Talker~\ac{d}) in the familiarity experiment is indicated by a blue arrow.\label{fig:dotchart}}
 	\end{centering}
 \end{figure}
 
@@ -31,14 +31,30 @@ Fundamental frequency (\fo) information was measured with Praat using a semi\-/a
 
 Hand\-/correction of the pulse points was often necessary in recordings involving creaky voicing, either because the frequency dropped below the algorithm’s pitch floor, or because the amount of jitter\slsh shimmer present in the creaky voicing exceeded the level at which the algorithm was willing to mark periodicity (see Figure~\ref{fig:JitShim}a).  In a few such cases, better resynthesis results (as judged auditorily) were achieved by marking each cycle — despite cycle\-/to\-/cycle irregularities — rather than omitting alternating pulses in pursuit of a smoother, lower\-/frequency pitch track (see Figure~\ref{fig:JitShim} for illustration).  The hand\-/correction process was aided by Script~\ref{scr:PulseCor}.%It is speculated that the better resynthesis results arise due to more natural waveform period shapes, allowing the simulation of creaky voicing through \term{pitch wobble}, and the partial undoing of creaky voicing through period regularization.
 
-Prior to being mapped onto the target signal, the locations of donor \fo{} points were shifted via dynamic time warping, with the temporal ratios determined by the relative durations of corresponding syllables in the target and donor files (see Script~\ref{scr:Psola}).  Pitch points were also shifted in frequency so as to equate the mean pitch of the stimulus before and after resynthesis.  This was done to minimize absolute magnitudes of pitch shifts (in hopes of minimizing distortion due to pitch manipulations), on the assumption that mean \fo{} is irrelevant to the intelligibility of speech (on this point see Section~\ref{sec:IntelPitch}).
-
 \begin{figure}
 	\begin{centering}
 	\includegraphics{figures/creakJitterShimmer/creakJitterShimmer.eps}
 	\caption[Handling of creaky voicing in resynthesis]{Illustration of method for handling creaky\-/voiced portions of speech.  (a)~Excerpt of Talker~\ac{b}’s recording of sentence 33–05, in which vowel hiatus is resolved with light creaky voicing.  The waveform (black) is overlaid with Praat’s auto\-/detected pulse marks (dotted red lines) and pitch track (dashed blue line).  Note the missed cycles on either side of the red arrow, and the phase\-/shift of all pulses right of the arrow.  (b)~The same span of speech after manual correction of pulses, and a (jittery, but continuous) pitch track generated from the corrected pulses.\label{fig:JitShim}}
 	\end{centering}
 \end{figure}
+
+Prior to being mapped onto the target signal, the locations of donor \fo{} points were shifted via dynamic time warping, with the temporal ratios determined by the relative durations of corresponding syllables in the target and donor files (see Script~\ref{scr:Psola}).  Pitch points were also shifted in frequency so as to equate the mean pitch of the stimulus before and after resynthesis.  This was done to minimize absolute magnitudes of pitch shifts (in hopes of minimizing distortion due to pitch manipulations), on the assumption that mean \fo{} is irrelevant to the intelligibility of speech (on this point see Section~\ref{sec:IntelPitch}).  
+
+To compare the magnitude of \fo{} contour differences among the talkers, the root mean squared error (\ac{rmse}) was calculated between the original \fo{} values and the time\-/warped \fo{} values of the prosodic donor (after mean\-/shifting) for each stimulus.  The mean and standard deviation of these \ac{rmse} values across sentences is shown in Table~\ref{tab:rmse}.  As expected, the \ac{rmse} values were symmetrical (\ie, the \ac{rmse} values comparing Talker~\ac{a} unmodified with Talker~\ac{b} time\-/warped were nearly identical to the \ac{rmse} values comparing Talker~\ac{b} unmodified with Talker~\ac{a} time\-/warped).  Consequently, only one value is reported for each pair of talkers.
+
+\begin{table}[tb]
+	\caption[Mean \ac{rmse} across sentences for each pair of talkers]{Mean and standard deviation of root mean squared error (\ac{rmse}) across sentences for each pair of talkers.\label{tab:rmse}}
+	\centering
+	\begin{tabu}{XXX}
+		\toprule
+		\rowfont[c]{\bfseries} Talkers & Mean \ac{rmse} (Hz) & St. dev. \ac{rmse}\\
+		\midrule
+		Talkers \ac{a} \& \ac{b} & 12.4 & 3.9 \\
+		Talkers \ac{a} \& \ac{c} & 15.4 & 6.1 \\
+		Talkers \ac{b} \& \ac{c} & 16.6 & 5.9 \\
+		\bottomrule
+	\end{tabu}
+\end{table}
 
 %\subsection{Intensity}
 Intensity was altered by first multiplying the signal by the difference of the maximum intensity and the inverted intensity contour (see Figure~\ref{fig:IntenManip}), then multiplying the resulting signal by the intensity contour of the replacement prosody and scaling as needed to achieve the desired \ac{rms} amplitude.  To do this, the donor intensity contour first underwent dynamic time warping to match the durational patterns of the target signal (see Script~\ref{scr:Psola}).
@@ -95,7 +111,7 @@ Listeners were all native English speakers who lived in the Pacific Northwest (W
 \begin{table}
 	\caption[Listener demographics]{Listener demographics for Experiments~1 and~2.  Experiment~2a represents the experimental group trained on Talker~\ac{c}; Experiment~2b represents the control group trained on Talker~\ac{d} (who was not among the test talkers).\label{tab:ListDemo}}
 	\centering
-	\begin{tabu} to 0.6\textwidth {llX[2]XXX}
+	\begin{tabu} to 0.6\textwidth {l l X[2] X X X}
 		\toprule
 		\rowfont{\bfseries} & & & \multicolumn{3}{c}{Experiment}\\
 		\rowfont{\bfseries} & & & 1 & 2a & 2b\\
