@@ -52,17 +52,17 @@
 	\listof{listing}{\listoflistingscaption}%
 }
 
-% TOC stuff: hack the other lists to appear in the TOC as sections (even though they're formatted as chapters in the document)
+% TOC stuff: hack the other lists to appear in the TOC as *sections* (even though they're formatted as chapters in the document)
 \renewcommand{\contentsname}{\bfseries\LARGE{Table of Contents}}
 \renewcommand{\listoftables}{%
 	\cleardoublepage
-	\addcontentsline{toc}{section}{\listtablename}%
 	\listof{table}{\listtablename}%
+	\addcontentsline{toc}{section}{\listtablename}%
 }
 \renewcommand{\listoffigures}{%
 	\cleardoublepage
-	\addcontentsline{toc}{section}{\listfigurename}%
 	\listof{figure}{\listfigurename}%
+	\addcontentsline{toc}{section}{\listfigurename}%
 }
 
 % comments, common abbreviations, etc
@@ -155,20 +155,28 @@
 \begin{spacing}{2}
 
 % TITLE PAGE & ABSTRACT
+\pagenumbering{gobble}
+\addcontentsline{toc}{chapter}{Frontmatter}
 \input{00a_tit_abs}
+
 % FRONTMATTER
 \pagenumbering{roman}
+\pdfbookmark[1]{Table of Contents}{table}
 \tableofcontents
+\cleardoublepage
 \listoffigures
+\cleardoublepage
 \listoftables
-\listoflistings
+\cleardoublepage
+%\cleardoublepage
+%\listoflistings
+
 % ACKNOWLEDGMENTS & DEDICATION
-\cleardoublepage
-\addcontentsline{toc}{section}{Acknowledgments}
 \input{00b_ackn}
+\addcontentsline{toc}{section}{Acknowledgments}
 \cleardoublepage
-\addcontentsline{toc}{section}{Dedication}
 \input{00c_ded}
+\addcontentsline{toc}{section}{Dedication}
 \cleardoublepage
 % MAIN CONTENT
 \pagenumbering{arabic}
