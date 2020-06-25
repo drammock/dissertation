@@ -1,5 +1,5 @@
-unmodDir$ = "/home/dan/Documents/academics/research/dissertation/stimuli/manipulationObjects/"
-resynthDir$ = "/home/dan/Documents/academics/research/dissertation/stimuli/resynthesizedManip/"
+unmodDir$ = "/home/drmccloy/Documents/academics/research/dissertation/stimuli/manipulationObjects/"
+resynthDir$ = "/home/drmccloy/Documents/academics/research/dissertation/stimuli/resynthesizedManip/"
 for i to 3
 	letters$[i] = mid$("ABC",i)
 endfor
