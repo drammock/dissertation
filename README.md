@@ -12,7 +12,7 @@ my dissertation. Abstract:
   possible pairs of talkers.  An additional 90 sentences were reserved for use
   as training stimuli.
 
-  Findings from speech-in-noise tasks suggest that the contribution of prosody
+> Findings from speech-in-noise tasks suggest that the contribution of prosody
   to intelligibility varies considerably across talkers, evidenced by
   differences in sentence intelligibility after prosodic replacement from
   different prosodic donors. In particular, high-intelligibility talkers need
@@ -21,7 +21,7 @@ my dissertation. Abstract:
   talkers with relatively good prosody may nonetheless have low intelligibility
   (due to non-prosodic factors).
 
-  Post hoc acoustic analyses of the stimuli (interpreted in light of the
+> Post hoc acoustic analyses of the stimuli (interpreted in light of the
   behavioral results) suggest that many acoustic measures index both prosodic
   and non-prosodic aspects of the speech signal, whereas acoustic measures that
   reflect only the prosodic component of intelligibility are harder to find.
@@ -29,7 +29,7 @@ my dissertation. Abstract:
   in this regard, but utterance-final creaky voicing presents a challenge to
   interpretation due to its exaggeration of ƒ₀-related measures.
 
-  Results of the familiarization experiments were inconclusive; listeners
+> Results of the familiarization experiments were inconclusive; listeners
   trained on different talkers showed different degrees of task adaptation
   during familiarization/training, but were unable to generalize to a testing
   phase involving multiple talkers presented in random order.  Thus the
